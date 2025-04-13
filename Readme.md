@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Vladislav Kazmin](https://up.htmlacademy.ru/react-individual/3/user/1779445).
-* Наставник: `Неизвестно`.
+* Наставник: [Олег Глущенко](https://htmlacademy.ru/profile/id305355).
 
 ---
 
