@@ -7,9 +7,9 @@ export default function NonFoundScreen(): JSX.Element{
       <Helmet>
         <title>Not Found 404</title>
       </Helmet>
-      <section className="game__screen">
-        <h1>404. Page not found</h1>
-        <Link to="/">Вернуться на главную</Link>
+      <section className="game__screen" style={{textAlign: 'center', paddingTop: '200px'}}>
+        <h1 style={{fontSize: 50}}>404. Page not found</h1>
+        <Link to="/" style={{fontSize:  30, color: '#4481c3' }}>Go to main page</Link>
       </section>
     </div>
   );
