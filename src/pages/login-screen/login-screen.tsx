@@ -1,3 +1,6 @@
+import MainLogo from '../../components/main-logo/main-logo.tsx';
+
+
 export default function LoginScreen() {
   return (
     <div className="page page--gray page--login">
@@ -5,9 +8,7 @@ export default function LoginScreen() {
         <div className="container">
           <div className="header__wrapper">
             <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <MainLogo />
             </div>
           </div>
         </div>

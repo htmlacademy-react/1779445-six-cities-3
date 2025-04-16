@@ -1,4 +1,5 @@
 import PlaceCard from '../../components/place-card';
+import MainLogo from '../../components/main-logo/main-logo.tsx';
 
 type MainScreeProps = {
   placeCardCount: number;
@@ -11,9 +12,7 @@ export default function MainScreen({placeCardCount} : MainScreeProps): JSX.Eleme
         <div className="container">
           <div className="header__wrapper">
             <div className="header__lef">
-              <a className="header__logo-link header__logo-link--active">
-                <img className="header__logo" src="../../markup/img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
+              <MainLogo />
             </div>
             <nav className="header__nav">
               <ul className="header__nav-list">
