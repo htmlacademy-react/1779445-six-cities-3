@@ -1,8 +1,8 @@
-import {Link, Outlet, useLocation} from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const.ts';
-import {getLayoutState} from './utils.ts';
-import {getAuthorizationStatus} from '../../authorization.ts';
-import {Fragment} from 'react';
+import { Link, Outlet, useLocation } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
+import { getLayoutState } from './utils.ts';
+import { getAuthorizationStatus } from '../../authorization.ts';
+import { Fragment } from 'react';
 
 export default function Layout(){
   const {pathname} = useLocation();
@@ -32,7 +32,7 @@ export default function Layout(){
                             <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                             <span className="header__favorite-count">3</span>
                           </Fragment>
-                        ) : <span className="header__signout">Sign out</span>}
+                        ) : <span className="header__signout">Sign in</span>}
                       </Link>
                     </li>
                     {isAuthorized === AuthorizationStatus.Auth ? (

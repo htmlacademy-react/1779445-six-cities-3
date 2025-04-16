@@ -2,13 +2,13 @@ import { Route, BrowserRouter, Routes } from 'react-router-dom';
 import { getAuthorizationStatus } from '../../authorization.ts';
 import { AppRoute } from '../../const.ts';
 import { HelmetProvider } from 'react-helmet-async';
-import MainScreen from '../../pages/main-screen/main-screen.tsx';
-import LoginScreen from '../../pages/login-screen/login-screen.tsx';
-import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
-import OffersScreen from '../../pages/offer-screen/offers-screen.tsx';
-import NonFoundScreen from '../../pages/non-found-screen/non-found-screen.tsx';
-import PrivateRoute from '../private-route/private-route.tsx';
-import Layout from '../Layout/Layout.tsx';
+import MainScreen from '../../pages/main-screen';
+import LoginScreen from '../../pages/login-screen';
+import FavoritesScreen from '../../pages/favorites-screen';
+import OffersScreen from '../../pages/offer-screen';
+import NonFoundScreen from '../../pages/non-found-screen';
+import PrivateRoute from '../private-route';
+import Layout from '../layout';
 
 
 type AppPlaceCArdCount = {
@@ -37,7 +37,7 @@ function App({placeCardCount}: AppPlaceCArdCount): JSX.Element {
             <Route
               path = {AppRoute.Login}
               element = {
-                <PrivateRoute authorizationStatus={ authorizationStatus } isLoggin>
+                <PrivateRoute authorizationStatus={ authorizationStatus } isLogging>
                   <LoginScreen />
                 </PrivateRoute>
               }

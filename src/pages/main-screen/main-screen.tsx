@@ -1,5 +1,5 @@
-import PlaceCard from '../../components/place-card';
-import {Helmet} from 'react-helmet-async';
+import { Helmet } from 'react-helmet-async';
+import PlaceCard from '../../components/place-card/place-card.tsx';
 
 type MainScreeProps = {
   placeCardCount: number;

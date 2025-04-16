@@ -1,6 +1,7 @@
-import {Helmet} from 'react-helmet-async';
-import {getAuthorizationStatus} from "../../authorization.ts";
-import {AuthorizationStatus} from "../../const.ts";
+import { getAuthorizationStatus } from '../../authorization.ts';
+import { AuthorizationStatus } from '../../const.ts';
+import { Helmet } from 'react-helmet-async';
+
 
 export default function OffersScreen() {
   return (

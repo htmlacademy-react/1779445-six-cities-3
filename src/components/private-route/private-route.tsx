@@ -3,14 +3,14 @@ import { Navigate } from 'react-router-dom';
 
 type PrivateRouteProps = {
   authorizationStatus: AuthorizationStatus;
-  isLoggin?: boolean;
+  isLogging?: boolean;
   children: JSX.Element;
 }
 
-export default function PrivateRoute({authorizationStatus, isLoggin, children}: PrivateRouteProps) : JSX.Element{
+export default function PrivateRoute({authorizationStatus, isLogging, children}: PrivateRouteProps) : JSX.Element{
   return (
-    authorizationStatus === (isLoggin ? AuthorizationStatus.NoAuth : AuthorizationStatus.Auth)
+    authorizationStatus === (isLogging ? AuthorizationStatus.NoAuth : AuthorizationStatus.Auth)
       ? children
-      : <Navigate to={ isLoggin ? AppRoute.Root : AppRoute.Login } />
+      : <Navigate to={ isLogging ? AppRoute.Root : AppRoute.Login } />
   );
 }
