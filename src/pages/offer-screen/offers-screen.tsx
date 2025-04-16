@@ -1,9 +1,13 @@
 import MainLogo from '../../components/main-logo/main-logo.tsx';
 import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 
 export default function OffersScreen() {
   return (
     <div className="page">
+      <Helmet>
+        <title>Offers</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

@@ -1,6 +1,7 @@
 import PlaceCard from '../../components/place-card';
 import MainLogo from '../../components/main-logo/main-logo.tsx';
 import {Link} from 'react-router-dom';
+import {Helmet} from 'react-helmet-async';
 
 type MainScreeProps = {
   placeCardCount: number;
@@ -9,6 +10,9 @@ type MainScreeProps = {
 export default function MainScreen({placeCardCount} : MainScreeProps): JSX.Element{
   return (
     <div className="page page--gray page--main">
+      <Helmet>
+        <title>Main page</title>
+      </Helmet>
       <header className="header">
         <div className="container">
           <div className="header__wrapper">

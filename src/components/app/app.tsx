@@ -1,5 +1,6 @@
 import {Route, BrowserRouter, Routes} from 'react-router-dom';
 import {AppRoute, AuthorizationStatus} from '../../const.ts';
+import {HelmetProvider} from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen/main-screen.tsx';
 import LoginScreen from '../../pages/login-screen/login-screen.tsx';
 import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
@@ -14,37 +15,38 @@ type AppPlaceCArdCount = {
 
 function App({placeCardCount}: AppPlaceCArdCount): JSX.Element {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route
-          path = {AppRoute.Root}
-          element = {<MainScreen placeCardCount={placeCardCount}/>}
-        />
-        <Route
-          path = {AppRoute.Offer}
-          element = {<OffersScreen />}
-        />
-        <Route
-          path = {AppRoute.Login}
-          element = {<LoginScreen />}
-        />
-        <Route
-          path = {AppRoute.Favorites}
-          element = {
-            <PrivateRoute
-              authorizationStatus={ AuthorizationStatus.NoAuth}
-            >
-              <FavoritesScreen/>
-            </PrivateRoute>
-          }
-        />
-        <Route
-          path = "*"
-          element = {<NonFoundScreen />}
-        />
-      </Routes>
-    </BrowserRouter>
-
+    <HelmetProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route
+            path = {AppRoute.Root}
+            element = {<MainScreen placeCardCount={placeCardCount}/>}
+          />
+          <Route
+            path = {AppRoute.Offer}
+            element = {<OffersScreen />}
+          />
+          <Route
+            path = {AppRoute.Login}
+            element = {<LoginScreen />}
+          />
+          <Route
+            path = {AppRoute.Favorites}
+            element = {
+              <PrivateRoute
+                authorizationStatus={ AuthorizationStatus.NoAuth}
+              >
+                <FavoritesScreen/>
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path = "*"
+            element = {<NonFoundScreen />}
+          />
+        </Routes>
+      </BrowserRouter>
+    </HelmetProvider>
   );
 }
 
