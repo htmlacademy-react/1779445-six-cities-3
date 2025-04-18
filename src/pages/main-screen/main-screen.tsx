@@ -1,11 +1,13 @@
 import { Helmet } from 'react-helmet-async';
-import PlaceCard from '../../components/place-card/place-card.tsx';
+import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
+import {MockOffersTypes} from '../../types/offer.ts';
 
-type MainScreeProps = {
+type MainScreenProps = {
   placeCardCount: number;
+  offers: MockOffersTypes;
 }
 
-export default function MainScreen({placeCardCount} : MainScreeProps): JSX.Element{
+export default function MainScreen({placeCardCount, offers} : MainScreenProps): JSX.Element{
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -70,7 +72,7 @@ export default function MainScreen({placeCardCount} : MainScreeProps): JSX.Eleme
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCard />
+                <PlaceCardList offers={offers}/>
               </div>
             </section>
             <div className="cities__right-section">

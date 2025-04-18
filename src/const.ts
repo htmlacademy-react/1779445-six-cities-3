@@ -14,3 +14,11 @@ export enum AuthorizationStatus {
   NoAuth = 'NO_AUTH',
   Unknown = 'UNKNOWN',
 }
+
+export enum StarsRating {
+  OneStars = '20%',
+  TwoStars = '40%',
+  ThreeStars = '60%',
+  FourStars = '80%',
+  FiveStars = '100%'
+}

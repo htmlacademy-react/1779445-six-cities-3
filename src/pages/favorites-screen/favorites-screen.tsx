@@ -1,6 +1,12 @@
 import { Helmet } from 'react-helmet-async';
+import {MockOffersTypes} from '../../types/offer.ts';
 
-export default function FavoritesScreen() {
+type PropsFavorite = {
+  offers: MockOffersTypes;
+}
+
+export default function FavoritesScreen(offers: PropsFavorite) {
+  console.log(offers);
   return (
     <div className="page">
       <Helmet>
