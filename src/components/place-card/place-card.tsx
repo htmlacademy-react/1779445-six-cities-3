@@ -3,24 +3,24 @@ import getStarsRating from '../place-card-list/utils.ts';
 
 type PlaceCardProps = {
   offer: OfferType;
+  isFavoritePageOffer?: boolean;
 };
 
-export default function PlaceCard({offer}: PlaceCardProps) {
-  console.log(offer);
+export default function PlaceCard({offer,isFavoritePageOffer}: PlaceCardProps) {
   return (
-    <article className="cities__card place-card">
+    <article className={`${isFavoritePageOffer ? 'favorites__card' : 'cities__card'} place-card`}>
       {offer.isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       ) : null}
 
-      <div className="cities__image-wrapper place-card__image-wrapper">
+      <div className={`${isFavoritePageOffer ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
         <a href="#">
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
-      <div className="place-card__info">
+      <div className={`${isFavoritePageOffer ? 'favorites__card-info' : ''} place-card__info`}>
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>

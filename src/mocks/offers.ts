@@ -158,9 +158,55 @@ const mocksOffers: MockOffersTypes = [
       'longitude': 6.784314,
       'zoom': 16
     },
-    'isFavorite': true,
+    'isFavorite': false,
     'isPremium': true,
     'rating': 3.6
+  },
+  {
+    'id': '978a44fb-134e-4c8f-8776-8ae3dd2c85dc',
+    'title': 'The house among olive ',
+    'type': PropertyType.Room,
+    'price': 255,
+    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/19.jpg',
+    'city': {
+      'name': 'Brussels',
+      'location': {
+        'latitude': 50.846557,
+        'longitude': 4.351697,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 50.828556999999996,
+      'longitude': 4.362697,
+      'zoom': 16
+    },
+    'isFavorite': true,
+    'isPremium': true,
+    'rating': 5
+  },
+  {
+    'id': 'e0452043-a66c-43c4-b98a-a4f9b2d77911',
+    'title': 'Loft Studio in the Central Area',
+    'type': PropertyType.House,
+    'price': 457,
+    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/14.jpg',
+    'city': {
+      'name': 'Cologne',
+      'location': {
+        'latitude': 50.938361,
+        'longitude': 6.959974,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 50.917361,
+      'longitude': 6.977974,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': false,
+    'rating': 2
   },
 ];
 
