@@ -2,9 +2,22 @@ import { getAuthorizationStatus } from '../../authorization.ts';
 import { AuthorizationStatus } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
 import NewCommentForm from '../../components/new-comment-form';
+import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
+import {useParams} from 'react-router-dom';
+import NonFoundScreen from '../non-found-screen';
+import getStarsRating from '../../components/place-card/utils.ts';
 
+type OffersScreenProps = {
+  offers: MockOffersTypes;
+};
 
-export default function OffersScreen() {
+export default function OffersScreen({offers}: OffersScreenProps) {
+  const { id } = useParams();
+  const currentOffer = offers.find((offer) => offer.id === id);
+  if (!currentOffer) {
+    return <NonFoundScreen/>;
+  }
+
   return (
     <div className="page">
       <Helmet>
@@ -37,14 +50,16 @@ export default function OffersScreen() {
           </div>
           <div className="offer__container container">
             <div className="offer__wrapper">
-              <div className="offer__mark">
-                <span>Premium</span>
-              </div>
+              {currentOffer.isPremium ? (
+                <div className="offer__mark">
+                  <span>Premium</span>
+                </div>
+              ) : null}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">
-                  Beautiful &amp; luxurious studio at great location
+                  {currentOffer.title}
                 </h1>
-                <button className="offer__bookmark-button button" type="button">
+                <button className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : '' } button`} type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
                   </svg>
@@ -53,14 +68,14 @@ export default function OffersScreen() {
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: getStarsRating(currentOffer.rating) }}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
-                <span className="offer__rating-value rating__value">4.8</span>
+                <span className="offer__rating-value rating__value">{currentOffer.rating}</span>
               </div>
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  Apartment
+                  {currentOffer.type.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase())}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   3 Bedrooms
@@ -70,7 +85,7 @@ export default function OffersScreen() {
                 </li>
               </ul>
               <div className="offer__price">
-                <b className="offer__price-value">&euro;120</b>
+                <b className="offer__price-value">&euro;{currentOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
               <div className="offer__inside">

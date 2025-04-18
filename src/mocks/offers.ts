@@ -1,4 +1,4 @@
-import {MockOffersTypes, PropertyType} from '../types/offer.ts';
+import {MockOffersTypes, PropertyType} from '../components/place-card/place-card-offer-types.ts';
 
 const mocksOffers: MockOffersTypes = [
   {

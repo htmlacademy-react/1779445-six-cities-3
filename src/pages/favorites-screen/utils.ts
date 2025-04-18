@@ -1,4 +1,4 @@
-import {MockOffersTypes} from '../../types/offer.ts';
+import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
 
 // Функция для сортировки офферов по городам
 function groupOffersByCity (offers: MockOffersTypes){

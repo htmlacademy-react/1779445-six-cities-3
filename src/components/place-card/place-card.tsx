@@ -1,5 +1,5 @@
-import {OfferType} from '../../types/offer.ts';
-import getStarsRating from '../place-card-list/utils.ts';
+import {OfferType} from './place-card-offer-types.ts';
+import getStarsRating from './utils.ts';
 
 type PlaceCardProps = {
   offer: OfferType;
@@ -16,7 +16,7 @@ export default function PlaceCard({offer,isFavoritePageOffer}: PlaceCardProps) {
       ) : null}
 
       <div className={`${isFavoritePageOffer ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
-        <a href="#">
+        <a href={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
@@ -40,7 +40,7 @@ export default function PlaceCard({offer,isFavoritePageOffer}: PlaceCardProps) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <a href="#">{offer.title}</a>
+          <a href={`/offer/${offer.id}`}>{offer.title}</a>
         </h2>
         <p className="place-card__type">{offer.type.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase())}</p>
       </div>

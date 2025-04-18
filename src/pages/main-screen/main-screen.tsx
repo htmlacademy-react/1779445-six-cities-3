@@ -1,6 +1,6 @@
 import { Helmet } from 'react-helmet-async';
 import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
-import {MockOffersTypes} from '../../types/offer.ts';
+import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
 
 type MainScreenProps = {
   placeCardCount: number;

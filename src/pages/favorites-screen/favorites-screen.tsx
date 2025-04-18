@@ -1,5 +1,5 @@
 import { Helmet } from 'react-helmet-async';
-import {MockOffersTypes} from '../../types/offer.ts';
+import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
 import PlaceCard from '../../components/place-card';
 import {groupOffersByCity, getFavoriteOffer} from './utils.ts';
 

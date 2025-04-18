@@ -9,7 +9,7 @@ import OffersScreen from '../../pages/offer-screen';
 import NonFoundScreen from '../../pages/non-found-screen';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
-import {MockOffersTypes} from '../../types/offer.ts';
+import {MockOffersTypes} from '../place-card/place-card-offer-types.ts';
 
 type AppPlaceCArdCount = {
   placeCardCount: number;
@@ -37,8 +37,8 @@ function App({placeCardCount, offers}: AppPlaceCArdCount): JSX.Element {
               }
             />
             <Route
-              path = {AppRoute.Offer}
-              element = {<OffersScreen />}
+              path = {`${AppRoute.Offer}/:id`}
+              element = {<OffersScreen offers={offers}/>}
             />
             <Route
               path = {AppRoute.Login}

@@ -1,5 +1,5 @@
 import { ChangeEvent, useState } from 'react';
-import { validateForm, generateRatingStars } from '../../pages/offer-screen/utils.tsx';
+import { validateForm, generateRatingStars } from './utils.tsx';
 
 export default function NewCommentForm() {
   const [userComment, setUserComment] = useState('');

@@ -30,6 +30,3 @@ export type OfferType = {
 }
 
 export type MockOffersTypes = OfferType[];
-
-
-
