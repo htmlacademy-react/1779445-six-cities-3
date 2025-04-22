@@ -4,6 +4,7 @@ import {MockOffersTypes} from '../../components/place-card/place-card-offer-type
 import LocationsList from '../../components/locations-list/locations-list.tsx';
 import {useState} from 'react';
 import {CityName, DEFAULT_CITY} from '../../const.ts';
+import Map from '../../components/map/index.ts';
 
 
 type MainScreenProps = {
@@ -12,10 +13,16 @@ type MainScreenProps = {
 
 export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
   const [selectedCity, setSelectedCity] = useState<CityName>(DEFAULT_CITY);
+  const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
+
   const filteredOffers = offers.filter((offer) => (offer.city.name === String(selectedCity)));
 
   const handleCityChange = (listItemName: CityName) => {
     setSelectedCity(listItemName);
+  };
+
+  const handlePlaceItemHover = (listItemName: string | null) => {
+    setSelectedPlace(listItemName);
   };
 
   return (
@@ -49,12 +56,10 @@ export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCardList offers={filteredOffers}/>
+                <PlaceCardList offers={filteredOffers} onPlaceItemHover={handlePlaceItemHover} />
               </div>
             </section>
-            <div className="cities__right-section">
-              <section className="cities__map map"></section>
-            </div>
+            <Map filteredOffers={filteredOffers} selectedPlace={selectedPlace} />
           </div>
         </div>
       </main>
