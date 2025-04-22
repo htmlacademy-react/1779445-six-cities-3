@@ -4,7 +4,7 @@ import cn from 'classnames';
 
 type cityProps = {
   city: CityName;
-  onCityChange: (city: CityName) => void;
+  onCityChange: (listItemName: CityName) => void;
 }
 
 export default function LocationsList({city, onCityChange}: cityProps): JSX.Element {
@@ -17,7 +17,7 @@ export default function LocationsList({city, onCityChange}: cityProps): JSX.Elem
   return (
     <section className="locations container">
       <ul className="locations__list tabs__list">
-        {Object.entries(CityName).map(([key, value]) => (
+        {Object.entries(CityName).map(([key, value]: [string, CityName]) => (
           <li className="locations__item" key={key} onClick={handleCityChange}>
             <a className={cn(
               'locations__item-link tabs__item',

@@ -11,8 +11,8 @@ type MainScreenProps = {
 }
 
 export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
-  const [selectedCity, setSelectedCity] = useState(DEFAULT_CITY);
-  const filteredOffers = offers.filter((offer) => (offer.city.name === selectedCity));
+  const [selectedCity, setSelectedCity] = useState<CityName>(DEFAULT_CITY);
+  const filteredOffers = offers.filter((offer) => (offer.city.name === String(selectedCity)));
 
   const handleCityChange = (listItemName: CityName) => {
     setSelectedCity(listItemName);
