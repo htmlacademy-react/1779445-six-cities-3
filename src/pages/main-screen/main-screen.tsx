@@ -1,13 +1,23 @@
 import { Helmet } from 'react-helmet-async';
 import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
 import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
+import LocationsList from '../../components/locations-list/locations-list.tsx';
+import {useState} from 'react';
+import {CityName, DEFAULT_CITY} from '../../const.ts';
+
 
 type MainScreenProps = {
-  placeCardCount: number;
   offers: MockOffersTypes;
 }
 
-export default function MainScreen({placeCardCount, offers} : MainScreenProps): JSX.Element{
+export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
+  const [selectedCity, setSelectedCity] = useState(DEFAULT_CITY);
+  const filteredOffers = offers.filter((offer) => (offer.city.name === selectedCity));
+
+  const handleCityChange = (listItemName: CityName) => {
+    setSelectedCity(listItemName);
+  };
+
   return (
     <div className="page page--gray page--main">
       <Helmet>
@@ -16,55 +26,22 @@ export default function MainScreen({placeCardCount, offers} : MainScreenProps): 
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <section className="locations container">
-            <ul className="locations__list tabs__list">
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Paris</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Cologne</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Brussels</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item tabs__item--active">
-                  <span>Amsterdam</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Hamburg</span>
-                </a>
-              </li>
-              <li className="locations__item">
-                <a className="locations__item-link tabs__item" href="#">
-                  <span>Dusseldorf</span>
-                </a>
-              </li>
-            </ul>
-          </section>
+          <LocationsList city={selectedCity} onCityChange={handleCityChange} />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{placeCardCount} places to stay in Amsterdam</b>
+              <b className="places__found">{filteredOffers.length} places to stay in {selectedCity}</b>
               <form className="places__sorting" action="#" method="get">
-                <span className="places__sorting-caption">Sort by</span>
+                <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0}>
                   Popular
                   <svg className="places__sorting-arrow" width="7" height="4">
                     <use xlinkHref="#icon-arrow-select"></use>
                   </svg>
                 </span>
-                <ul className="places__options places__options--custom places__options--opened">
+                <ul className="places__options places__options--custom {places__options--opened}">
                   <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                   <li className="places__option" tabIndex={0}>Price: low to high</li>
                   <li className="places__option" tabIndex={0}>Price: high to low</li>
@@ -72,7 +49,7 @@ export default function MainScreen({placeCardCount, offers} : MainScreenProps): 
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCardList offers={offers}/>
+                <PlaceCardList offers={filteredOffers}/>
               </div>
             </section>
             <div className="cities__right-section">

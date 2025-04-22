@@ -31,3 +31,5 @@ export enum CityName {
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf',
 }
+
+export const DEFAULT_CITY = CityName.Paris;
