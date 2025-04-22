@@ -50,6 +50,9 @@ function Map({ filteredOffers, selectedPlace}: MapProps): JSX.Element {
   useEffect(() => {
     if(map){
       const markerLayer = layerGroup().addTo(map);
+
+      markerLayer.clearLayers();
+
       filteredOffers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
@@ -60,7 +63,7 @@ function Map({ filteredOffers, selectedPlace}: MapProps): JSX.Element {
           .setIcon(
             offer.id === selectedPlace ? currentCustomIcon : defaultCustomIcon,
           )
-          .addTo(map);
+          .addTo(markerLayer);
       });
 
       return () => {
@@ -77,5 +80,4 @@ function Map({ filteredOffers, selectedPlace}: MapProps): JSX.Element {
 }
 
 export default Map;
-//
-//
+
