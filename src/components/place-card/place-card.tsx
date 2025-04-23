@@ -1,34 +1,55 @@
 import {OfferType} from './place-card-offer-types.ts';
 import getStarsRating from './utils.ts';
 import {MouseEvent} from 'react';
+import cn from 'classnames';
 
 type PlaceCardProps = {
   offer: OfferType;
   isFavoritePageOffer?: boolean;
-  onPlaceItemHover: (listItemName: string | null) => void;
+  isOffersPage?: boolean;
+  onPlaceItemHover?: (listItemName: string | null) => void;
 };
 
-export default function PlaceCard({offer,isFavoritePageOffer, onPlaceItemHover}: PlaceCardProps) {
+export default function PlaceCard({offer,isFavoritePageOffer, isOffersPage, onPlaceItemHover}: PlaceCardProps) {
 
   const handleListItemHover = (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
-    onPlaceItemHover(evt.currentTarget.id);
+    if (onPlaceItemHover) {
+      onPlaceItemHover(evt.currentTarget.id);
+    }
   };
 
   return (
-    <article className={`${isFavoritePageOffer ? 'favorites__card' : 'cities__card'} place-card`} onMouseEnter={handleListItemHover} id={offer.id}>
+    <article className={cn(
+      'place-card',
+      {'favorites__card': isFavoritePageOffer},
+      {'near-places__card': isOffersPage},
+      {'cities__card': !isFavoritePageOffer && !isOffersPage}
+    )}
+    onMouseEnter={handleListItemHover} id={offer.id}
+    >
       {offer.isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
         </div>
       ) : null}
 
-      <div className={`${isFavoritePageOffer ? 'favorites__image-wrapper' : 'cities__image-wrapper'} place-card__image-wrapper`}>
+      <div className={cn(
+        'place-card__image-wrapper',
+        {'favorites__image-wrapper' : isFavoritePageOffer},
+        {'near-places__image-wrapper': isOffersPage},
+        {'cities__image-wrapper': !isFavoritePageOffer && !isOffersPage}
+      )}
+      >
         <a href={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
         </a>
       </div>
-      <div className={`${isFavoritePageOffer ? 'favorites__card-info' : ''} place-card__info`}>
+      <div className={cn(
+        'place-card__info',
+        {'favorites__card-info': isFavoritePageOffer},
+      )}
+      >
         <div className="place-card__price-wrapper">
           <div className="place-card__price">
             <b className="place-card__price-value">&euro;{offer.price}</b>
@@ -55,3 +76,5 @@ export default function PlaceCard({offer,isFavoritePageOffer, onPlaceItemHover}:
     </article>
   );
 }
+
+

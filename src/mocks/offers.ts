@@ -208,6 +208,29 @@ const mocksOffers: MockOffersTypes = [
     'isPremium': false,
     'rating': 2
   },
+  {
+    'id': '450bb76c-6192-480a-a9f0-eb1141f29c2e',
+    'title': 'Waterfront with extraordinary view',
+    'type': PropertyType.House,
+    'price': 697,
+    'previewImage': 'https://15.design.htmlacademy.pro/static/hotel/20.jpg',
+    'city': {
+      'name': 'Paris',
+      'location': {
+        'latitude': 48.85661,
+        'longitude': 2.351499,
+        'zoom': 13
+      }
+    },
+    'location': {
+      'latitude': 48.861610000000006,
+      'longitude': 2.340499,
+      'zoom': 16
+    },
+    'isFavorite': false,
+    'isPremium': true,
+    'rating': 1.5
+  },
 ];
 
 export default mocksOffers;

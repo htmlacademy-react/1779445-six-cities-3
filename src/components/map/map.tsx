@@ -25,6 +25,7 @@ type Offer = {
 type MapProps = {
   filteredOffers: Offer[];
   selectedPlace?: string | null;
+  isOfferMap?: boolean;
 };
 
 
@@ -40,17 +41,14 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40],
 });
 
-
-function Map({ filteredOffers, selectedPlace}: MapProps): JSX.Element {
-  const centerCity = filteredOffers[0].city;
-
+function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Element {
   const mapRef = useRef(null);
+  const centerCity = filteredOffers[0]?.city;
   const map = useMap(mapRef, centerCity);
 
   useEffect(() => {
-    if(map){
+    if (map && centerCity) {
       const markerLayer = layerGroup().addTo(map);
-
       markerLayer.clearLayers();
 
       filteredOffers.forEach((offer) => {
@@ -58,10 +56,9 @@ function Map({ filteredOffers, selectedPlace}: MapProps): JSX.Element {
           lat: offer.location.latitude,
           lng: offer.location.longitude,
         });
-
         marker
           .setIcon(
-            offer.id === selectedPlace ? currentCustomIcon : defaultCustomIcon,
+            offer.id === selectedPlace ? currentCustomIcon : defaultCustomIcon
           )
           .addTo(markerLayer);
       });
@@ -70,12 +67,22 @@ function Map({ filteredOffers, selectedPlace}: MapProps): JSX.Element {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, filteredOffers, selectedPlace]);
+  }, [map, filteredOffers, selectedPlace, centerCity]);
+
+  if (filteredOffers.length === 0 || !centerCity) {
+    return <section />;
+  }
 
   return (
-    <div className="cities__right-section" ref={mapRef} style={{height: '100%'}}>
-
-    </div>
+    <section
+      className={`${isOfferMap ? 'offer__map map' : 'cities__map map'}`}
+      ref={mapRef}
+      style={
+        isOfferMap
+          ? { height: 579, width: 1144, marginLeft: 'auto', marginRight: 'auto' }
+          : { height: '100%', width: 500}
+      }
+    />
   );
 }
 
