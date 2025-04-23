@@ -8,6 +8,7 @@ import NonFoundScreen from '../non-found-screen';
 import getStarsRating from '../../components/place-card/utils.ts';
 import CommentsList from '../../components/comments-list';
 import {CommentsType} from '../../components/comment/comment-type.ts';
+import Map from '../../components/map';
 
 type OffersScreenProps = {
   offers: MockOffersTypes;
@@ -20,6 +21,10 @@ export default function OffersScreen({offers, comments}: OffersScreenProps) {
   if (!currentOffer) {
     return <NonFoundScreen/>;
   }
+
+  const paramsValue = offers.find((offer) => offer.id === id);
+
+  const filteredOffers = offers.filter((offer) => offer.city.name === paramsValue?.city.name && currentOffer.id !== offer.id);
 
   return (
     <div className="page">
@@ -162,8 +167,9 @@ export default function OffersScreen({offers, comments}: OffersScreenProps) {
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <Map filteredOffers={filteredOffers} isOfferMap/>
         </section>
+
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>

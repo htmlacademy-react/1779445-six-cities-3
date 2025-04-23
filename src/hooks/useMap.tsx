@@ -49,7 +49,6 @@ function useMap(mapRef: RefObject<HTMLElement>, centerCity: City) { // 1. Дел
       map.setView(newCenter, centerCity.location.zoom);
     }
   }, [centerCity, map]);
-
   return map;
 }
 
