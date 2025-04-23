@@ -7,12 +7,14 @@ import {useParams} from 'react-router-dom';
 import NonFoundScreen from '../non-found-screen';
 import getStarsRating from '../../components/place-card/utils.ts';
 import CommentsList from '../../components/comments-list';
+import {CommentsType} from '../../components/comment/comment-type.ts';
 
 type OffersScreenProps = {
   offers: MockOffersTypes;
+  comments: CommentsType[];
 };
 
-export default function OffersScreen({offers}: OffersScreenProps) {
+export default function OffersScreen({offers, comments}: OffersScreenProps) {
   const { id } = useParams();
   const currentOffer = offers.find((offer) => offer.id === id);
   if (!currentOffer) {
@@ -149,8 +151,8 @@ export default function OffersScreen({offers}: OffersScreenProps) {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <CommentsList />
+                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
+                <CommentsList comments={comments}/>
                 {
                   getAuthorizationStatus() === AuthorizationStatus.Auth ?
                     (
