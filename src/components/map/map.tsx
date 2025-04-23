@@ -42,13 +42,12 @@ const currentCustomIcon = new Icon({
 });
 
 function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Element {
-
-  const centerCity = filteredOffers[0].city;
   const mapRef = useRef(null);
+  const centerCity = filteredOffers[0]?.city;
   const map = useMap(mapRef, centerCity);
 
   useEffect(() => {
-    if (map) {
+    if (map && centerCity) {
       const markerLayer = layerGroup().addTo(map);
       markerLayer.clearLayers();
 
@@ -68,7 +67,11 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, filteredOffers, selectedPlace]);
+  }, [map, filteredOffers, selectedPlace, centerCity]);
+
+  if (filteredOffers.length === 0 || !centerCity) {
+    return <section />;
+  }
 
   return (
     <section
@@ -79,8 +82,7 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
           ? { height: 579, width: 1144, marginLeft: 'auto', marginRight: 'auto' }
           : { height: '100%', width: 500}
       }
-    >
-    </section>
+    />
   );
 }
 
