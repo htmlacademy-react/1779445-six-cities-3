@@ -1,7 +1,3 @@
-export const Settings = {
-  placeCardCount: 10,
-};
-
 export enum AppRoute {
   Root = '/',
   Login = '/login',
@@ -31,3 +27,8 @@ export enum CityName {
   Hamburg = 'Hamburg',
   Dusseldorf = 'Dusseldorf',
 }
+
+export const DEFAULT_CITY = CityName.Paris;
+
+export const URL_MARKER_DEFAULT = 'public/img/pin.svg';
+export const URL_MARKER_CURRENT = 'public/img/pin-active.svg';

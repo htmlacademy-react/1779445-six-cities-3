@@ -12,12 +12,11 @@ import Layout from '../layout';
 import {MockOffersTypes} from '../place-card/place-card-offer-types.ts';
 
 type AppPlaceCArdCount = {
-  placeCardCount: number;
   offers: MockOffersTypes;
 }
 
 
-function App({placeCardCount, offers}: AppPlaceCArdCount): JSX.Element {
+function App({offers}: AppPlaceCArdCount): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
   return (
     <HelmetProvider>
@@ -31,7 +30,6 @@ function App({placeCardCount, offers}: AppPlaceCArdCount): JSX.Element {
               index
               element = {
                 <MainScreen
-                  placeCardCount={placeCardCount}
                   offers={offers}
                 />
               }

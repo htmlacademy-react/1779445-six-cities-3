@@ -1,14 +1,22 @@
 import {OfferType} from './place-card-offer-types.ts';
 import getStarsRating from './utils.ts';
+import {MouseEvent} from 'react';
 
 type PlaceCardProps = {
   offer: OfferType;
   isFavoritePageOffer?: boolean;
+  onPlaceItemHover: (listItemName: string | null) => void;
 };
 
-export default function PlaceCard({offer,isFavoritePageOffer}: PlaceCardProps) {
+export default function PlaceCard({offer,isFavoritePageOffer, onPlaceItemHover}: PlaceCardProps) {
+
+  const handleListItemHover = (evt: MouseEvent<HTMLLIElement>) => {
+    evt.preventDefault();
+    onPlaceItemHover(evt.currentTarget.id);
+  };
+
   return (
-    <article className={`${isFavoritePageOffer ? 'favorites__card' : 'cities__card'} place-card`}>
+    <article className={`${isFavoritePageOffer ? 'favorites__card' : 'cities__card'} place-card`} onMouseEnter={handleListItemHover} id={offer.id}>
       {offer.isPremium ? (
         <div className="place-card__mark">
           <span>Premium</span>
