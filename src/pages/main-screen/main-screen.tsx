@@ -1,11 +1,11 @@
-import { Helmet } from 'react-helmet-async';
+import Map from '../../components/map/index.ts';
 import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
 import LocationsList from '../../components/locations-list/locations-list.tsx';
-import { useState } from 'react';
-import {CityName} from '../../const.ts';
-import Map from '../../components/map/index.ts';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import { Helmet } from 'react-helmet-async';
 import { setCity } from '../../store/action.ts';
+import { useState } from 'react';
+import { CityName } from '../../const.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
 export default function MainScreen(): JSX.Element{
   const city = useAppSelector((state) => state.city);
@@ -73,5 +73,5 @@ export default function MainScreen(): JSX.Element{
         </div>
       </main>
     </>
-);
+  );
 }
