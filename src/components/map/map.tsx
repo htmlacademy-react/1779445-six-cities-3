@@ -1,9 +1,8 @@
-import {Icon, Marker, layerGroup} from 'leaflet';
-import 'leaflet/dist/leaflet.css';
 import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
+import {Icon, Marker, layerGroup} from 'leaflet';
 import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/useMap.tsx';
-
+import 'leaflet/dist/leaflet.css';
 
 type City = {
   location: {
@@ -28,23 +27,27 @@ type MapProps = {
   isOfferMap?: boolean;
 };
 
-
-const defaultCustomIcon = new Icon({
-  iconUrl: URL_MARKER_DEFAULT,
+const createIcon = (iconUrl: string) => new Icon({
+  iconUrl,
   iconSize: [40, 40],
-  iconAnchor: [20, 40],
+  iconAnchor: [20, 40]
 });
 
-const currentCustomIcon = new Icon({
-  iconUrl: URL_MARKER_CURRENT,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40],
-});
+const defaultCustomIcon = createIcon(URL_MARKER_DEFAULT);
+const currentCustomIcon = createIcon(URL_MARKER_CURRENT);
+
 
 function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Element {
   const mapRef = useRef(null);
   const centerCity = filteredOffers[0]?.city;
   const map = useMap(mapRef, centerCity);
+
+  const getIcon = (id: string) => {
+    if (isOfferMap) {
+      return id !== selectedPlace ? defaultCustomIcon : currentCustomIcon;
+    }
+    return id === selectedPlace ? currentCustomIcon : defaultCustomIcon;
+  };
 
   useEffect(() => {
     if (map && centerCity) {
@@ -57,9 +60,7 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
           lng: offer.location.longitude,
         });
         marker
-          .setIcon(
-            offer.id === selectedPlace ? currentCustomIcon : defaultCustomIcon
-          )
+          .setIcon(getIcon(offer.id))
           .addTo(markerLayer);
       });
 

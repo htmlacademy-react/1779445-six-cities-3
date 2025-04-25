@@ -1,14 +1,14 @@
-import { getAuthorizationStatus } from '../../authorization.ts';
-import { AuthorizationStatus } from '../../const.ts';
-import { Helmet } from 'react-helmet-async';
-import NewCommentForm from '../../components/new-comment-form';
-import {useParams} from 'react-router-dom';
+import Map from '../../components/map';
+import CommentsList from '../../components/comments-list';
 import NonFoundScreen from '../non-found-screen';
 import getStarsRating from '../../components/place-card/utils.ts';
-import CommentsList from '../../components/comments-list';
-import Map from '../../components/map';
 import OffersListNearby from '../../components/offers-list-nearby';
-import {useAppSelector} from '../../hooks';
+import NewCommentForm from '../../components/new-comment-form';
+import { Helmet } from 'react-helmet-async';
+import { useParams } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { AuthorizationStatus } from '../../const.ts';
+import { getAuthorizationStatus } from '../../authorization.ts';
 
 
 export default function OffersScreen() {
@@ -16,6 +16,7 @@ export default function OffersScreen() {
   const offers = useAppSelector((state) => state.offers);
   const comments = useAppSelector((state) => state.comments);
   const currentOffer = offers.find((offer) => offer.id === id);
+
   if (!currentOffer) {
     return <NonFoundScreen/>;
   }
@@ -165,7 +166,7 @@ export default function OffersScreen() {
               </section>
             </div>
           </div>
-          <Map filteredOffers={filteredOffers} isOfferMap/>
+          <Map filteredOffers={[...filteredOffers, currentOffer]} selectedPlace={currentOffer.id} isOfferMap/>
         </section>
 
         <div className="container">

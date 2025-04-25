@@ -10,3 +10,5 @@ export const setCity = createAction<CityName>('cityOffers/setCity');
 export const setOffers = createAction<OfferType[]>('cityOffers/setOffers');
 
 export const setComments = createAction<CommentsType[]>('cityOffers/setComments');
+
+export const setSort = createAction<string>('cityOffers/setSort');
