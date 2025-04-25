@@ -1,12 +1,9 @@
 import {createAction} from '@reduxjs/toolkit';
 import {OfferType} from '../components/place-card/place-card-offer-types.ts';
+import {CityName} from '../const.ts';
 
-export const setCity = (city: string) => ({
-  type: 'cityOffers/setCity',
-  payload: city,
-});
+// Для изменения города
+export const setCity = createAction<CityName>('cityOffers/setCity');
 
-export const setOffers = (offers: OfferType[]) => ({
-  type: 'cityOffers/setOffers',
-  payload: offers,
-});
+// Для установки списка предложений
+export const setOffers = createAction<OfferType[]>('cityOffers/setOffers');
