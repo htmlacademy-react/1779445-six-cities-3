@@ -15,7 +15,7 @@ const initialState: AppState = {
   city: DEFAULT_CITY,
   offers: [],
   comments: [],
-  sort: SortType.LowPrice,
+  sort: SortType.Popular,
 };
 
 const reducer = createReducer(initialState, (builder) => {

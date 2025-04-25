@@ -1,21 +1,26 @@
-import Map from '../../components/map/index.ts';
-import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
-import LocationsList from '../../components/locations-list/locations-list.tsx';
-import { Helmet } from 'react-helmet-async';
-import {setCity, setSort} from '../../store/action.ts';
-import { useState } from 'react';
-import { CityName } from '../../const.ts';
-import {useAppDispatch, useAppSelector} from '../../hooks';
+import Map from '../../components/map';
+import PlaceCardList from '../../components/place-card-list';
+import LocationsList from '../../components/locations-list';
 import SortingOptions from '../../components/sorting-options';
+import getSortedOffers from '../../utils/utils-sort.ts';
+import { useState } from 'react';
+import {setCity, setSort} from '../../store/action.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import { Helmet } from 'react-helmet-async';
+import { CityName } from '../../const.ts';
+import {SortType} from '../../const.ts';
 
 export default function MainScreen(): JSX.Element{
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-
   const dispatch = useAppDispatch();
 
+  const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const sortType = useAppSelector((state) => state.sort);
+
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
+
   const filteredOffers = offers.filter((offer) => offer.city.name === String(city));
+  const sortedOffers = getSortedOffers(filteredOffers, sortType);
 
   const handleCityChange = (listItemName: CityName) => {
     dispatch(setCity(listItemName));
@@ -25,8 +30,8 @@ export default function MainScreen(): JSX.Element{
     setSelectedPlace(listItemName);
   };
 
-  const handleSortTypeChange = (sortType: string) => {
-    dispatch(setSort(sortType));
+  const handleSortTypeChange = (sortItemName: SortType) => {
+    dispatch(setSort(sortItemName));
   };
 
   return (
@@ -50,14 +55,14 @@ export default function MainScreen(): JSX.Element{
               <SortingOptions onSortChange={handleSortTypeChange}/>
               <div className="cities__places-list places__list tabs__content">
                 <PlaceCardList
-                  offers={filteredOffers}
+                  offers={sortedOffers}
                   onPlaceItemHover={handlePlaceItemHover}
                 />
               </div>
             </section>
             <div className="cities__right-section">
               <Map
-                filteredOffers={filteredOffers}
+                filteredOffers={sortedOffers}
                 selectedPlace={selectedPlace}
               />
             </div>
