@@ -1,6 +1,5 @@
 import { Helmet } from 'react-helmet-async';
 import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
-import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
 import LocationsList from '../../components/locations-list/locations-list.tsx';
 import { useState } from 'react';
 import {CityName} from '../../const.ts';
@@ -8,16 +7,12 @@ import Map from '../../components/map/index.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { setCity } from '../../store/action.ts';
 
-type MainScreenProps = {
-  offers: MockOffersTypes;
-}
-
-export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
+export default function MainScreen(): JSX.Element{
   const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
   const dispatch = useAppDispatch();
 
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
-
   const filteredOffers = offers.filter((offer) => offer.city.name === String(city));
 
   const handleCityChange = (listItemName: CityName) => {
