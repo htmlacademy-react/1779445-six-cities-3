@@ -12,11 +12,9 @@ type PlaceCardProps = {
 
 export default function PlaceCard({offer,isFavoritePageOffer, isOffersPage, onPlaceItemHover}: PlaceCardProps) {
 
-  const handleListItemHover = (evt: MouseEvent<HTMLLIElement>) => {
+  const createHoverHandler = (isEnter: boolean) => (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
-    if (onPlaceItemHover) {
-      onPlaceItemHover(evt.currentTarget.id);
-    }
+    onPlaceItemHover?.(isEnter ? offer.id : null);
   };
 
   return (
@@ -26,7 +24,8 @@ export default function PlaceCard({offer,isFavoritePageOffer, isOffersPage, onPl
       {'near-places__card': isOffersPage},
       {'cities__card': !isFavoritePageOffer && !isOffersPage}
     )}
-    onMouseEnter={handleListItemHover} id={offer.id}
+    onMouseEnter={createHoverHandler(true)} id={offer.id}
+    onMouseLeave={createHoverHandler(false)}
     >
       {offer.isPremium ? (
         <div className="place-card__mark">
