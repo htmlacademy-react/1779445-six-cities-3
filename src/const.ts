@@ -19,6 +19,13 @@ export enum StarsRating {
   FiveStars = '100%'
 }
 
+export enum SortType {
+  Popular = 'Popular',
+  LowPrice = 'Price: low to high',
+  HighPrice = 'Price: high to low',
+  TopRated = 'Top rated first',
+}
+
 export enum CityName {
   Paris = 'Paris',
   Cologne = 'Cologne',
