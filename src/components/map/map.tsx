@@ -77,11 +77,6 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
     <section
       className={`${isOfferMap ? 'offer__map map' : 'cities__map map'}`}
       ref={mapRef}
-      style={
-        isOfferMap
-          ? { height: 579, width: 1144, marginLeft: 'auto', marginRight: 'auto' }
-          : { height: '100%', width: 500}
-      }
     />
   );
 }

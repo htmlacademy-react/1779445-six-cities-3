@@ -1,24 +1,22 @@
-import { Helmet } from 'react-helmet-async';
-import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
-import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
-import LocationsList from '../../components/locations-list/locations-list.tsx';
-import {useState} from 'react';
-import {CityName, DEFAULT_CITY} from '../../const.ts';
 import Map from '../../components/map/index.ts';
+import PlaceCardList from '../../components/place-card-list/place-card-list.tsx';
+import LocationsList from '../../components/locations-list/locations-list.tsx';
+import { Helmet } from 'react-helmet-async';
+import { setCity } from '../../store/action.ts';
+import { useState } from 'react';
+import { CityName } from '../../const.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 
+export default function MainScreen(): JSX.Element{
+  const city = useAppSelector((state) => state.city);
+  const offers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
 
-type MainScreenProps = {
-  offers: MockOffersTypes;
-}
-
-export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
-  const [selectedCity, setSelectedCity] = useState<CityName>(DEFAULT_CITY);
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
-
-  const filteredOffers = offers.filter((offer) => (offer.city.name === String(selectedCity)));
+  const filteredOffers = offers.filter((offer) => offer.city.name === String(city));
 
   const handleCityChange = (listItemName: CityName) => {
-    setSelectedCity(listItemName);
+    dispatch(setCity(listItemName));
   };
 
   const handlePlaceItemHover = (listItemName: string | null) => {
@@ -26,20 +24,23 @@ export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
   };
 
   return (
-    <div className="page page--gray page--main">
+    <>
       <Helmet>
         <title>Main page</title>
       </Helmet>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
-          <LocationsList city={selectedCity} onCityChange={handleCityChange} />
+          <LocationsList
+            city={city}
+            onCityChange={handleCityChange}
+          />
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.length} places to stay in {selectedCity}</b>
+              <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by </span>
                 <span className="places__sorting-type" tabIndex={0}>
@@ -56,13 +57,21 @@ export default function MainScreen({ offers } : MainScreenProps): JSX.Element{
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                <PlaceCardList offers={filteredOffers} onPlaceItemHover={handlePlaceItemHover} />
+                <PlaceCardList
+                  offers={filteredOffers}
+                  onPlaceItemHover={handlePlaceItemHover}
+                />
               </div>
             </section>
-            <Map filteredOffers={filteredOffers} selectedPlace={selectedPlace} />
+            <div className="cities__right-section">
+              <Map
+                filteredOffers={filteredOffers}
+                selectedPlace={selectedPlace}
+              />
+            </div>
           </div>
         </div>
       </main>
-    </div>
+    </>
   );
 }

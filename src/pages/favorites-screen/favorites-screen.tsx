@@ -1,13 +1,10 @@
 import { Helmet } from 'react-helmet-async';
-import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
 import PlaceCard from '../../components/place-card';
 import {groupOffersByCity, getFavoriteOffer} from './utils.ts';
+import {useAppSelector} from '../../hooks';
 
-type PlaceCardListProps = {
-  offers: MockOffersTypes;
-}
-
-export default function FavoritesScreen({offers}: PlaceCardListProps) {
+export default function FavoritesScreen() {
+  const offers = useAppSelector((state) => state.offers);
   const isFavoritePageOffer = true;
   const groupedOffers = groupOffersByCity(getFavoriteOffer(offers));
   const cities = Object.keys(groupedOffers);

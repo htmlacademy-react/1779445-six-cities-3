@@ -2,22 +2,19 @@ import { getAuthorizationStatus } from '../../authorization.ts';
 import { AuthorizationStatus } from '../../const.ts';
 import { Helmet } from 'react-helmet-async';
 import NewCommentForm from '../../components/new-comment-form';
-import {MockOffersTypes} from '../../components/place-card/place-card-offer-types.ts';
 import {useParams} from 'react-router-dom';
 import NonFoundScreen from '../non-found-screen';
 import getStarsRating from '../../components/place-card/utils.ts';
 import CommentsList from '../../components/comments-list';
-import {CommentsType} from '../../components/comment/comment-type.ts';
 import Map from '../../components/map';
-import OffersListNearby from "../../components/offers-list-nearby";
+import OffersListNearby from '../../components/offers-list-nearby';
+import {useAppSelector} from '../../hooks';
 
-type OffersScreenProps = {
-  offers: MockOffersTypes;
-  comments: CommentsType[];
-};
 
-export default function OffersScreen({offers, comments}: OffersScreenProps) {
+export default function OffersScreen() {
   const { id } = useParams();
+  const offers = useAppSelector((state) => state.offers);
+  const comments = useAppSelector((state) => state.comments);
   const currentOffer = offers.find((offer) => offer.id === id);
   if (!currentOffer) {
     return <NonFoundScreen/>;

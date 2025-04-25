@@ -9,16 +9,8 @@ import OffersScreen from '../../pages/offer-screen';
 import NonFoundScreen from '../../pages/non-found-screen';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
-import {MockOffersTypes} from '../place-card/place-card-offer-types.ts';
-import {CommentsType} from '../comment/comment-type.ts';
 
-type AppPlaceCArdCount = {
-  offers: MockOffersTypes;
-  comments: CommentsType[];
-}
-
-
-function App({offers, comments}: AppPlaceCArdCount): JSX.Element {
+function App(): JSX.Element {
   const authorizationStatus = getAuthorizationStatus();
   return (
     <HelmetProvider>
@@ -30,15 +22,11 @@ function App({offers, comments}: AppPlaceCArdCount): JSX.Element {
           >
             <Route
               index
-              element = {
-                <MainScreen
-                  offers={offers}
-                />
-              }
+              element = {<MainScreen/>}
             />
             <Route
               path = {`${AppRoute.Offer}/:id`}
-              element = {<OffersScreen offers={offers} comments={comments}/>}
+              element = {<OffersScreen/>}
             />
             <Route
               path = {AppRoute.Login}
@@ -52,7 +40,7 @@ function App({offers, comments}: AppPlaceCArdCount): JSX.Element {
               path = {AppRoute.Favorites}
               element = {
                 <PrivateRoute authorizationStatus={ authorizationStatus }>
-                  <FavoritesScreen offers={offers}/>
+                  <FavoritesScreen/>
                 </PrivateRoute>
               }
             />
