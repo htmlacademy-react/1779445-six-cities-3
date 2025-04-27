@@ -1,13 +1,20 @@
-import { Link, Outlet, useLocation } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { getLayoutState } from './utils.ts';
-import { Fragment } from 'react';
+import {Link, Outlet, useLocation} from 'react-router-dom';
+import {AppRoute, AuthorizationStatus} from '../../const.ts';
+import {getLayoutState} from './utils.ts';
+import {Fragment} from 'react';
 import {store} from '../../store';
+import {logoutAction} from '../../store/api-actions.ts';
+import {useAppDispatch} from '../../hooks';
 
 export default function Layout(){
   const {pathname} = useLocation();
   const {rootClassName, linkClassName, shouldRenderLoggedUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
   const isAuthorized = store.getState().authorizationStatus;
+  const dispatch = useAppDispatch();
+
+  const logOut = () => {
+    dispatch(logoutAction());
+  };
 
   return (
     <div className={`page ${rootClassName}`}>
@@ -37,8 +44,8 @@ export default function Layout(){
                     </li>
                     {isAuthorized === AuthorizationStatus.Auth as string ? (
                       <li className="header__nav-item">
-                        <Link className="header__nav-link" to="/login">
-                          <span className="header__signout">Sign out</span>
+                        <Link className="header__nav-link" to="/login" onClick={logOut}>
+                          <span className="header__signout" >Sign out</span>
                         </Link>
                       </li>
                     ) : null}

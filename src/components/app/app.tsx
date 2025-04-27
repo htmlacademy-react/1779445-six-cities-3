@@ -6,7 +6,7 @@ import LoginScreen from '../../pages/login-screen';
 import FavoritesScreen from '../../pages/favorites-screen';
 import OffersScreen from '../../pages/offer-screen';
 import NonFoundScreen from '../../pages/non-found-screen';
-import {PrivateRoute} from '../private-route';
+import PrivateRoute from '../private-route';
 import Layout from '../layout';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen';
@@ -40,9 +40,7 @@ function App(): JSX.Element {
             <Route
               path = {AppRoute.Login}
               element = {
-                // <PublicRoute>
-                  <LoginScreen/>
-                // </PublicRoute>
+                <LoginScreen/>
               }
             />
             <Route
