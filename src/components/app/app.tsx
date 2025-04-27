@@ -1,6 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { getAuthorizationStatus } from '../../authorization.ts';
-import { AppRoute } from '../../const.ts';
+import {AppRoute, AuthorizationStatus} from '../../const.ts';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen';
 import LoginScreen from '../../pages/login-screen';
@@ -9,9 +8,18 @@ import OffersScreen from '../../pages/offer-screen';
 import NonFoundScreen from '../../pages/non-found-screen';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
+import {useAppSelector} from '../../hooks';
+import LoadingScreen from '../../pages/loading-screen';
 
 function App(): JSX.Element {
-  const authorizationStatus = getAuthorizationStatus();
+  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+
+  if(authorizationStatus === String(AuthorizationStatus.Unknown) || isOffersDataLoading){
+    return (
+      <LoadingScreen />
+    );
+  }
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -31,7 +39,7 @@ function App(): JSX.Element {
             <Route
               path = {AppRoute.Login}
               element = {
-                <PrivateRoute authorizationStatus={ authorizationStatus } isLogging>
+                <PrivateRoute authorizationStatus={ authorizationStatus }>
                   <LoginScreen />
                 </PrivateRoute>
               }

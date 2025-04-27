@@ -14,7 +14,7 @@ export default function OffersListNearby({filteredOffers}: OfferNearbyProps) {
     <section className="near-places places">
       <h2 className="near-places__title">Other places in the neighbourhood</h2>
       <div className="near-places__list places__list">
-        {filteredOffers.map((offer: OfferType) => (
+        {filteredOffers.slice(0, 3).map((offer: OfferType) => (
           <PlaceCard key={offer.id} offer={offer} isOffersPage/>
         ))}
       </div>

@@ -9,6 +9,8 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import { Helmet } from 'react-helmet-async';
 import { CityName } from '../../const.ts';
 import {SortType} from '../../const.ts';
+import EmptyListOffersPage from '../../components/empty-list-offers/empty-list-offers.tsx';
+import cn from 'classnames';
 
 export default function MainScreen(): JSX.Element{
   const dispatch = useAppDispatch();
@@ -39,7 +41,11 @@ export default function MainScreen(): JSX.Element{
       <Helmet>
         <title>Main page</title>
       </Helmet>
-      <main className="page__main page__main--index">
+      <main className={cn(
+        'page__main page__main--index',
+        {'page__main--index-empty': filteredOffers.length === 0}
+      )}
+      >
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <LocationsList
@@ -48,25 +54,29 @@ export default function MainScreen(): JSX.Element{
           />
         </div>
         <div className="cities">
-          <div className="cities__places-container container">
-            <section className="cities__places places">
-              <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
-              <SortingOptions onSortChange={handleSortTypeChange}/>
-              <div className="cities__places-list places__list tabs__content">
-                <PlaceCardList
-                  offers={sortedOffers}
-                  onPlaceItemHover={handlePlaceItemHover}
+          {filteredOffers.length === 0 ? (
+            <EmptyListOffersPage />
+          ) : (
+            <div className="cities__places-container container">
+              <section className="cities__places places">
+                <h2 className="visually-hidden">Places</h2>
+                <b className="places__found">{filteredOffers.length} places to stay in {city}</b>
+                <SortingOptions onSortChange={handleSortTypeChange} />
+                <div className="cities__places-list places__list tabs__content">
+                  <PlaceCardList
+                    offers={sortedOffers}
+                    onPlaceItemHover={handlePlaceItemHover}
+                  />
+                </div>
+              </section>
+              <div className="cities__right-section">
+                <Map
+                  filteredOffers={sortedOffers}
+                  selectedPlace={selectedPlace}
                 />
               </div>
-            </section>
-            <div className="cities__right-section">
-              <Map
-                filteredOffers={sortedOffers}
-                selectedPlace={selectedPlace}
-              />
             </div>
-          </div>
+          )}
         </div>
       </main>
     </>
