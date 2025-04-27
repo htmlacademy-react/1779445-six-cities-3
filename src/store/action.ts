@@ -1,14 +1,20 @@
 import {createAction} from '@reduxjs/toolkit';
 import {OfferType} from '../components/place-card/place-card-offer-types.ts';
-import {CityName} from '../const.ts';
+import {AuthorizationStatus, CityName} from '../const.ts';
 import {CommentsType} from '../components/comment/comment-type.ts';
 
-// Для изменения города
-export const setCity = createAction<CityName>('cityOffers/setCity');
+export const setSort = createAction<string>('sort/setSort');
 
-// Для установки списка предложений
-export const setOffers = createAction<OfferType[]>('cityOffers/setOffers');
+export const setCity = createAction<CityName>('city/setCity');
 
-export const setComments = createAction<CommentsType[]>('cityOffers/setComments');
+export const setComments = createAction<CommentsType[]>('comments/setComments');
 
-export const setSort = createAction<string>('cityOffers/setSort');
+export const setOffers = createAction<OfferType[]>('offers/setOffers');
+
+export const loadOffers = createAction<OfferType[]>('data/loadOffers');
+
+export const requireAuthorization = createAction<AuthorizationStatus>('auth/requireAuthorization');
+
+export const setError = createAction<string | null>('error/setError');
+
+export const setOffersDataLoadingStatus = createAction<boolean>('offers/setOffersDataLoadingStatus');
