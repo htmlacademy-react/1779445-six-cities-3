@@ -43,8 +43,8 @@ export default function LoginScreen() {
                   name="password"
                   placeholder="Password"
                   required
-                  pattern="[A-Za-z0-9]+"
-                  title="Пароль может содержать только латинские буквы и цифры"
+                  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$"
+                  title="Пароль должен содержать хотя бы одну латинскую букву и одну цифру"
                   onChange={(evt) => setPassword(evt.target.value)}
                 />
               </div>
