@@ -6,7 +6,7 @@ import LoginScreen from '../../pages/login-screen';
 import FavoritesScreen from '../../pages/favorites-screen';
 import OffersScreen from '../../pages/offer-screen';
 import NonFoundScreen from '../../pages/non-found-screen';
-import PrivateRoute from '../private-route';
+import {PrivateRoute} from '../private-route';
 import Layout from '../layout';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen';
@@ -20,6 +20,7 @@ function App(): JSX.Element {
       <LoadingScreen />
     );
   }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -39,15 +40,15 @@ function App(): JSX.Element {
             <Route
               path = {AppRoute.Login}
               element = {
-                <PrivateRoute authorizationStatus={ authorizationStatus }>
-                  <LoginScreen />
-                </PrivateRoute>
+                // <PublicRoute>
+                  <LoginScreen/>
+                // </PublicRoute>
               }
             />
             <Route
               path = {AppRoute.Favorites}
               element = {
-                <PrivateRoute authorizationStatus={ authorizationStatus }>
+                <PrivateRoute>
                   <FavoritesScreen/>
                 </PrivateRoute>
               }
