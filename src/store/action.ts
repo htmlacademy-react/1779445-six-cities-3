@@ -1,15 +1,10 @@
 import {createAction} from '@reduxjs/toolkit';
 import {OfferType} from '../components/place-card/place-card-offer-types.ts';
 import {AuthorizationStatus, CityName} from '../const.ts';
-import {CommentsType} from '../components/comment/comment-type.ts';
 
 export const setSort = createAction<string>('sort/setSort');
 
 export const setCity = createAction<CityName>('city/setCity');
-
-export const setComments = createAction<CommentsType[]>('comments/setComments');
-
-export const setOffers = createAction<OfferType[]>('offers/setOffers');
 
 export const loadOffers = createAction<OfferType[]>('data/loadOffers');
 

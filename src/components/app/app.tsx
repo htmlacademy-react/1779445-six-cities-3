@@ -20,6 +20,7 @@ function App(): JSX.Element {
       <LoadingScreen />
     );
   }
+
   return (
     <HelmetProvider>
       <BrowserRouter>
@@ -39,15 +40,13 @@ function App(): JSX.Element {
             <Route
               path = {AppRoute.Login}
               element = {
-                <PrivateRoute authorizationStatus={ authorizationStatus }>
-                  <LoginScreen />
-                </PrivateRoute>
+                <LoginScreen/>
               }
             />
             <Route
               path = {AppRoute.Favorites}
               element = {
-                <PrivateRoute authorizationStatus={ authorizationStatus }>
+                <PrivateRoute>
                   <FavoritesScreen/>
                 </PrivateRoute>
               }

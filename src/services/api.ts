@@ -1,4 +1,4 @@
-import axios, { AxiosRequestConfig, AxiosInstance,AxiosResponse, AxiosError } from 'axios';
+import axios, {AxiosInstance, AxiosResponse, AxiosError, InternalAxiosRequestConfig} from 'axios';
 import { getToken } from './token.ts';
 import {StatusCodes} from 'http-status-codes';
 import {processErrorHandle} from './process-error-handle';
@@ -17,7 +17,7 @@ const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.NOT_FOUND]: true
 };
 
-const shouldDisplayError = (response: AxiosResponse) => !!StatusCodeMapping[response.status];
+const shouldDisplayError = (response: AxiosResponse) => StatusCodeMapping[response.status];
 
 export const createAPI = (): AxiosInstance => {
   const api = axios.create({
@@ -26,7 +26,7 @@ export const createAPI = (): AxiosInstance => {
   });
 
   api.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
+    (config: InternalAxiosRequestConfig) => {
       const token = getToken();
 
       if(token && config.headers){

@@ -8,7 +8,7 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import { useAppSelector } from '../../hooks';
 import { AuthorizationStatus } from '../../const.ts';
-import { getAuthorizationStatus } from '../../authorization.ts';
+import {store} from '../../store';
 
 
 export default function OffersScreen() {
@@ -16,6 +16,7 @@ export default function OffersScreen() {
   const offers = useAppSelector((state) => state.offers);
   const comments = useAppSelector((state) => state.comments);
   const currentOffer = offers.find((offer) => offer.id === id);
+  const isAuthorized = store.getState().authorizationStatus;
 
   if (!currentOffer) {
     return <NonFoundScreen/>;
@@ -158,7 +159,7 @@ export default function OffersScreen() {
                 <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">{comments.length}</span></h2>
                 <CommentsList comments={comments}/>
                 {
-                  getAuthorizationStatus() === AuthorizationStatus.Auth ?
+                  isAuthorized === AuthorizationStatus.Auth as string ?
                     (
                       <NewCommentForm />
                     ) : null
