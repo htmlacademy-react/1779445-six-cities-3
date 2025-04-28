@@ -3,6 +3,7 @@ import {Icon, Marker, layerGroup} from 'leaflet';
 import {useEffect, useRef} from 'react';
 import useMap from '../../hooks/useMap.tsx';
 import 'leaflet/dist/leaflet.css';
+import {useNavigate} from 'react-router-dom';
 
 type City = {
   location: {
@@ -29,8 +30,8 @@ type MapProps = {
 
 const createIcon = (iconUrl: string) => new Icon({
   iconUrl,
-  iconSize: [40, 40],
-  iconAnchor: [20, 40]
+  iconSize: [27, 39],
+  iconAnchor: [27, 39]
 });
 
 const defaultCustomIcon = createIcon(URL_MARKER_DEFAULT);
@@ -41,6 +42,7 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
   const mapRef = useRef(null);
   const centerCity = filteredOffers[0]?.city;
   const map = useMap(mapRef, centerCity);
+  const navigate = useNavigate();
 
   const getIcon = (id: string) => {
     if (isOfferMap) {
@@ -61,7 +63,18 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
         });
         marker
           .setIcon(getIcon(offer.id))
-          .addTo(markerLayer);
+          .addTo(markerLayer)
+          .on('mouseover', function(this: Marker) {
+            if(!isOfferMap){
+              this.setIcon(currentCustomIcon);
+            }
+          })
+          .on('mouseout', function(this: Marker) {
+            if(!isOfferMap) {
+              this.setIcon(defaultCustomIcon);
+            }
+          })
+          .on('click', () => navigate(`/offer/${offer.id}`));
       });
 
       return () => {

@@ -2,6 +2,7 @@ import {OfferType} from './place-card-offer-types.ts';
 import getStarsRating from './utils.ts';
 import {MouseEvent} from 'react';
 import cn from 'classnames';
+import {Link} from 'react-router-dom';
 
 type PlaceCardProps = {
   offer: OfferType;
@@ -40,9 +41,9 @@ export default function PlaceCard({offer,isFavoritePageOffer, isOffersPage, onPl
         {'cities__image-wrapper': !isFavoritePageOffer && !isOffersPage}
       )}
       >
-        <a href={`/offer/${offer.id}`}>
+        <Link to={`/offer/${offer.id}`}>
           <img className="place-card__image" src={offer.previewImage} width="260" height="200" alt="Place image"/>
-        </a>
+        </Link>
       </div>
       <div className={cn(
         'place-card__info',
