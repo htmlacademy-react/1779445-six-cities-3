@@ -10,6 +10,7 @@ import PrivateRoute from '../private-route';
 import Layout from '../layout';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen';
+import ScrollToTop from '../scroll-to-top';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
@@ -24,6 +25,7 @@ function App(): JSX.Element {
   return (
     <HelmetProvider>
       <BrowserRouter>
+        <ScrollToTop />
         <Routes>
           <Route
             path = {AppRoute.Root}
