@@ -3,11 +3,20 @@ import {AppDispatch, State} from '../types/state.ts';
 import {AxiosInstance} from 'axios';
 import {OfferType} from '../components/place-card/place-card-offer-types.ts';
 import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR} from '../const.ts';
-import {loadOffers, requireAuthorization, setError, setOffersDataLoadingStatus} from './action.ts';
+import {
+  loadOfferID,
+  loadOfferIDComments,
+  loadOfferIDNearby,
+  loadOffers,
+  requireAuthorization,
+  setError,
+  setOffersDataLoadingStatus
+} from './action.ts';
 import {dropToken, saveToken} from '../services/token.ts';
 import {AuthData} from '../types/auth-data.ts';
 import {UserData} from '../types/user-data.ts';
 import {store} from './';
+import {CommentsType} from '../components/comment/comment-type.ts';
 
 export const clearErrorAction = createAsyncThunk(
   'game/clearError',
@@ -30,6 +39,70 @@ export const fetchOffersAction = createAsyncThunk<void, undefined, {
     const {data} = await api.get<OfferType[]>(APIRoute.Offers);
     dispatch(setOffersDataLoadingStatus(false));
     dispatch(loadOffers(data));
+  },
+);
+
+export const fetchOfferIDAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/loadOfferID',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
+    dispatch(loadOfferID(data));
+  },
+);
+
+export const fetchOfferIDCommentsAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/loadOfferIDComments',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<CommentsType[]>(`${APIRoute.Comments}/${id}`);
+    dispatch(loadOfferIDComments(data));
+  },
+);
+
+export const fetchOfferIDNearbyAction = createAsyncThunk<void, string, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/loadOfferIDNearby',
+  async (id, {dispatch, extra: api}) => {
+    const {data} = await api.get<OfferType[]>(`${APIRoute.Offers}/${id}/nearby`);
+    dispatch(loadOfferIDNearby(data));
+  },
+);
+
+export const postComment = createAsyncThunk<void, {
+  id: string;
+  commentData: {
+    comment: string;
+    rating: number;
+  }
+}, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}>(
+  'data/postComment',
+  async ({id, commentData}, {dispatch, extra: api}) => {
+    const response = await api.post(
+      `${APIRoute.Comments}/${id}`,
+      commentData,
+      {
+        headers: {
+          'X-Token': localStorage.getItem('token') || '',
+          'Content-Type': 'application/json'
+        }
+      }
+    );
+    dispatch(fetchOfferIDCommentsAction(id));
+    return response.data;
   },
 );
 
@@ -67,7 +140,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'user/login',
+  'user/logout',
   async (_arg, {dispatch, extra: api}) => {
     await api.delete(APIRoute.Logout);
     dropToken();

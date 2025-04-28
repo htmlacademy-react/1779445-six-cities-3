@@ -4,6 +4,7 @@ import {AppRoute} from '../../const.ts';
 import {loginAction} from '../../store/api-actions.ts';
 import {useAppDispatch} from '../../hooks';
 import {useState} from 'react';
+import {store} from '../../store';
 
 export default function LoginScreen() {
   const navigate = useNavigate(); // Используем хук для навигации
@@ -56,7 +57,7 @@ export default function LoginScreen() {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to="/">
-                <span>Amsterdam</span>
+                <span>{store.getState().city}</span>
               </Link>
             </div>
           </section>

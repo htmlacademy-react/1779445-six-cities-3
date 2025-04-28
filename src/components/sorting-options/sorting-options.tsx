@@ -1,5 +1,5 @@
 import {SortType} from '../../const.ts';
-import {useState} from 'react';
+import { useState } from 'react';
 import { useAppSelector} from '../../hooks';
 
 type SortingOptionsProps = {

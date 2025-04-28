@@ -1,30 +1,38 @@
 import Map from '../../components/map';
 import CommentsList from '../../components/comments-list';
-import NonFoundScreen from '../non-found-screen';
 import getStarsRating from '../../components/place-card/utils.ts';
 import OffersListNearby from '../../components/offers-list-nearby';
 import NewCommentForm from '../../components/new-comment-form';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { useAppSelector } from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import { AuthorizationStatus } from '../../const.ts';
 import {store} from '../../store';
-
+import {fetchOfferIDAction, fetchOfferIDCommentsAction, fetchOfferIDNearbyAction} from '../../store/api-actions.ts';
+import {useEffect} from 'react';
+import LoadingScreen from '../loading-screen';
 
 export default function OffersScreen() {
   const { id } = useParams();
-  const offers = useAppSelector((state) => state.offers);
+  const dispatch = useAppDispatch();
   const comments = useAppSelector((state) => state.comments);
-  const currentOffer = offers.find((offer) => offer.id === id);
+  const nearby = useAppSelector((state) => state.nearby);
+
   const isAuthorized = store.getState().authorizationStatus;
 
+  useEffect(() => {
+    if (id) {
+      dispatch(fetchOfferIDAction(id));
+      dispatch(fetchOfferIDCommentsAction(id));
+      dispatch(fetchOfferIDNearbyAction(id));
+    }
+  }, [dispatch, id]);
+
+  const currentOffer = useAppSelector((state) => state.offer);
+
   if (!currentOffer) {
-    return <NonFoundScreen/>;
+    return <LoadingScreen />;
   }
-
-  const paramsValue = offers.find((offer) => offer.id === id);
-
-  const filteredOffers = offers.filter((offer) => offer.city.name === paramsValue?.city.name && currentOffer.id !== offer.id);
 
   return (
     <div className="page">
@@ -36,24 +44,13 @@ export default function OffersScreen() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="../../markup/img/room.jpg" alt="Photo studio"/>
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="../../markup/img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="../../markup/img/apartment-02.jpg" alt="Photo studio"/>
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="../../markup/img/apartment-03.jpg" alt="Photo studio"/>
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="../../markup/img/studio-01.jpg" alt="Photo studio"/>
-              </div>
-              <div className="offer__image-wrapper">
-                <img className="offer__image" src="../../markup/img/apartment-01.jpg" alt="Photo studio"/>
-              </div>
+              {
+                currentOffer.images.map((image: string) => (
+                  <div key={image} className="offer__image-wrapper">
+                    <img className="offer__image" src={image} alt="Photo studio"/>
+                  </div>
+                ))
+              }
             </div>
           </div>
           <div className="offer__container container">
@@ -86,10 +83,10 @@ export default function OffersScreen() {
                   {currentOffer.type.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase())}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  3 Bedrooms
+                  {currentOffer.bedrooms} Bedrooms
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max 4 adults
+                  Max {currentOffer.maxAdults} adults
                 </li>
               </ul>
               <div className="offer__price">
@@ -99,50 +96,27 @@ export default function OffersScreen() {
               <div className="offer__inside">
                 <h2 className="offer__inside-title">What&apos;s inside</h2>
                 <ul className="offer__inside-list">
-                  <li className="offer__inside-item">
-                    Wi-Fi
-                  </li>
-                  <li className="offer__inside-item">
-                    Washing machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Towels
-                  </li>
-                  <li className="offer__inside-item">
-                    Heating
-                  </li>
-                  <li className="offer__inside-item">
-                    Coffee machine
-                  </li>
-                  <li className="offer__inside-item">
-                    Baby seat
-                  </li>
-                  <li className="offer__inside-item">
-                    Kitchen
-                  </li>
-                  <li className="offer__inside-item">
-                    Dishwasher
-                  </li>
-                  <li className="offer__inside-item">
-                    Cabel TV
-                  </li>
-                  <li className="offer__inside-item">
-                    Fridge
-                  </li>
+                  {
+                    currentOffer.goods.map((goods: string) => (
+                      <li key={goods} className="offer__inside-item">
+                        {goods}
+                      </li>
+                    ))
+                  }
                 </ul>
               </div>
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
                   <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="offer__avatar user__avatar" src="../../markup/img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar"/>
+                    <img className="offer__avatar user__avatar" src={currentOffer.host.avatarUrl} width="74" height="74" alt="Host avatar"/>
                   </div>
                   <span className="offer__user-name">
-                    Angelina
+                    {currentOffer.host.name}
                   </span>
-                  <span className="offer__user-status">
-                    Pro
-                  </span>
+                  {currentOffer.host.isPro
+                    ? <span className="offer__user-status"> Pro </span>
+                    : ''}
                 </div>
                 <div className="offer__description">
                   <p className="offer__text">
@@ -167,11 +141,11 @@ export default function OffersScreen() {
               </section>
             </div>
           </div>
-          <Map filteredOffers={[...filteredOffers, currentOffer]} selectedPlace={currentOffer.id} isOfferMap/>
+          <Map filteredOffers={[...nearby.slice(0, 3), currentOffer]} selectedPlace={currentOffer.id} isOfferMap/>
         </section>
 
         <div className="container">
-          <OffersListNearby filteredOffers={filteredOffers}/>
+          <OffersListNearby filteredOffers={nearby}/>
         </div>
       </main>
     </div>

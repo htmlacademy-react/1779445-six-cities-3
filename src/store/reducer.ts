@@ -6,14 +6,17 @@ import {
   setSort,
   requireAuthorization,
   setError,
-  setOffersDataLoadingStatus
+  setOffersDataLoadingStatus, loadOfferID, loadOfferIDComments, loadOfferIDNearby, postComment
 } from './action';
 import {OfferType} from '../components/place-card/place-card-offer-types';
 import {CommentsType} from '../components/comment/comment-type';
 
 interface AppState {
   city: CityName;
+  offer: OfferType | null;
+  nearby: OfferType[];
   offers: OfferType[];
+  comment: CommentsType | null;
   comments: CommentsType[];
   sort: string;
   authorizationStatus: string;
@@ -23,7 +26,10 @@ interface AppState {
 
 const initialState: AppState = {
   city: DEFAULT_CITY,
+  offer: null,
+  nearby: [],
   offers: [],
+  comment: null,
   comments: [],
   sort: SortType.Popular,
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -50,6 +56,18 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
+    })
+    .addCase(loadOfferID, (state, action) => {
+      state.offer = action.payload;
+    })
+    .addCase(loadOfferIDComments, (state, action) => {
+      state.comments = action.payload;
+    })
+    .addCase(loadOfferIDNearby, (state, action) => {
+      state.nearby = action.payload;
+    })
+    .addCase(postComment, (state, action) => {
+      state.comment = action.payload;
     });
 });
 

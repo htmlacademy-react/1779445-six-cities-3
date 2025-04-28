@@ -1,9 +1,16 @@
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import { validateForm, generateRatingStars } from './utils.tsx';
+import { useAppDispatch } from '../../hooks';
+import { useParams } from 'react-router-dom';
+import { postComment } from '../../store/api-actions.ts';
 
 export default function NewCommentForm() {
   const [userComment, setUserComment] = useState('');
   const [userRating, setUserRating] = useState(0);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const dispatch = useAppDispatch();
+  const { id } = useParams();
 
   const handleRatingChange = (value: number) => {
     setUserRating(value);
@@ -13,10 +20,34 @@ export default function NewCommentForm() {
     setUserComment(target.value);
   };
 
-  const isSubmitDisabled = !validateForm(userComment, userRating);
+  const handleSubmit = async (evt: FormEvent) => {
+    evt.preventDefault();
+
+    if (!id || isSubmitting) {
+      return;
+    }
+
+    try {
+      setIsSubmitting(true);
+      await dispatch(postComment({
+        id: id,
+        commentData: {
+          comment: userComment,
+          rating: userRating
+        }
+      })).unwrap();
+
+      setUserComment('');
+      setUserRating(0);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
+
+  const isSubmitDisabled = !validateForm(userComment, userRating) || isSubmitting;
 
   return (
-    <form className="reviews__form form" action="#" method="post">
+    <form className="reviews__form form" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -33,6 +64,7 @@ export default function NewCommentForm() {
         value={userComment}
         onChange={handleTextChange}
         minLength={50}
+        disabled={isSubmitting}
       />
 
       <div className="reviews__button-wrapper">
@@ -46,7 +78,7 @@ export default function NewCommentForm() {
           type="submit"
           disabled={isSubmitDisabled}
         >
-          Submit
+          {isSubmitting ? 'Submitting...' : 'Submit'}
         </button>
       </div>
     </form>
