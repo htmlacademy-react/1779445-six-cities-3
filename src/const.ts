@@ -46,8 +46,6 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-export const TIMEOUT_SHOW_ERROR = 2000;
-
 export const DEFAULT_CITY = CityName.Paris;
 
 export const URL_MARKER_DEFAULT = 'public/img/pin.svg';

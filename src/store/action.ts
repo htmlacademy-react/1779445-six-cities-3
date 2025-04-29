@@ -19,6 +19,4 @@ export const postComment = createAction<CommentsType>('data/postComment');
 
 export const requireAuthorization = createAction<AuthorizationStatus>('auth/requireAuthorization');
 
-export const setError = createAction<string | null>('error/setError');
-
 export const setOffersDataLoadingStatus = createAction<boolean>('offers/setOffersDataLoadingStatus');

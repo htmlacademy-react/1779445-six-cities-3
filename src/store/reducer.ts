@@ -5,7 +5,6 @@ import {
   setCity,
   setSort,
   requireAuthorization,
-  setError,
   setOffersDataLoadingStatus, loadOfferID, loadOfferIDComments, loadOfferIDNearby, postComment
 } from './action';
 import {OfferType} from '../components/place-card/place-card-offer-types';
@@ -50,9 +49,6 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(requireAuthorization, (state, action: PayloadAction<AuthorizationStatus>) => {
       state.authorizationStatus = action.payload;
-    })
-    .addCase(setError,(state, action) => {
-      state.error = action.payload;
     })
     .addCase(setOffersDataLoadingStatus, (state, action) => {
       state.isOffersDataLoading = action.payload;
