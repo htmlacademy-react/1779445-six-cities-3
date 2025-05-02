@@ -7,6 +7,7 @@ import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getCurrentAuthStatus} from '../../store/slices/user-slice/user-selectors.ts';
 
 export default function Layout(){
+  const location = useLocation();
   const {pathname} = useLocation();
   const {rootClassName, linkClassName, shouldRenderLoggedUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
   const isAuthorized = useAppSelector(getCurrentAuthStatus);
@@ -44,7 +45,7 @@ export default function Layout(){
                     </li>
                     {isAuthorized === AuthorizationStatus.Auth as string ? (
                       <li className='header__nav-item'>
-                        <Link className='header__nav-link' to='/login' onClick={logOut}>
+                        <Link className='header__nav-link' to={location.pathname} onClick={logOut}>
                           <span className='header__signout' >Sign out</span>
                         </Link>
                       </li>
