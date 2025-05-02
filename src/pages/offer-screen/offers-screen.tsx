@@ -84,10 +84,10 @@ export default function OffersScreen() {
                   {currentOffer.type.replace(/^\w/, (firstLetter) => firstLetter.toUpperCase())}
                 </li>
                 <li className='offer__feature offer__feature--bedrooms'>
-                  {currentOffer.bedrooms} Bedrooms
+                  {currentOffer.bedrooms} {currentOffer.bedrooms === 1 ? 'bedroom' : 'bedrooms'}
                 </li>
                 <li className='offer__feature offer__feature--adults'>
-                  Max {currentOffer.maxAdults} adults
+                  Max {currentOffer.maxAdults} {currentOffer.maxAdults === 1 ? 'adult' : 'adults'}
                 </li>
               </ul>
               <div className='offer__price'>
