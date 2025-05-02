@@ -1,19 +1,20 @@
 import { Helmet } from 'react-helmet-async';
 import {Link, useNavigate} from 'react-router-dom';
 import {AppRoute} from '../../const.ts';
-import {loginAction} from '../../store/api-actions.ts';
-import {useAppDispatch} from '../../hooks';
+import {loginAction} from '../../store/slices/user-slice/user-api-actions.ts';
+import {useAppDispatch, useAppSelector} from '../../hooks';
 import {useState} from 'react';
-import {store} from '../../store';
+import {getCurrentCity} from '../../store/slices/offers-slice/offers-selectors.ts';
 
 export default function LoginScreen() {
+  const city = useAppSelector(getCurrentCity);
   const navigate = useNavigate(); // Используем хук для навигации
   const dispatch = useAppDispatch();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = (evt: React.FormEvent) => {
+    evt.preventDefault();
     dispatch(loginAction({
       login: email,
       password: password
@@ -57,7 +58,7 @@ export default function LoginScreen() {
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <Link className="locations__item-link" to="/">
-                <span>{store.getState().city}</span>
+                <span>{city}</span>
               </Link>
             </div>
           </section>

@@ -2,7 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { validateForm, generateRatingStars } from './utils.tsx';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
-import { postComment } from '../../store/api-actions.ts';
+import {postComment} from '../../store/slices/data-slice/data-api-actions.ts';
 
 export default function NewCommentForm() {
   const [userComment, setUserComment] = useState('');
@@ -47,35 +47,35 @@ export default function NewCommentForm() {
   const isSubmitDisabled = !validateForm(userComment, userRating) || isSubmitting;
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
-      <label className="reviews__label form__label" htmlFor="review">
+    <form className='reviews__form form' onSubmit={handleSubmit}>
+      <label className='reviews__label form__label' htmlFor='review'>
         Your review
       </label>
 
-      <div className="reviews__rating-form form__rating">
+      <div className='reviews__rating-form form__rating'>
         {generateRatingStars(userRating, handleRatingChange)}
       </div>
 
       <textarea
-        className="reviews__textarea form__textarea"
-        id="review"
-        name="review"
-        placeholder="Tell how was your stay, what you like and what can be improved"
+        className='reviews__textarea form__textarea'
+        id='review'
+        name='review'
+        placeholder='Tell how was your stay, what you like and what can be improved'
         value={userComment}
         onChange={handleTextChange}
         minLength={50}
         disabled={isSubmitting}
       />
 
-      <div className="reviews__button-wrapper">
-        <p className="reviews__help">
+      <div className='reviews__button-wrapper'>
+        <p className='reviews__help'>
           To submit review please make sure to set{' '}
-          <span className="reviews__star">rating</span> and describe your stay
-          with at least <b className="reviews__text-amount">50 characters</b>.
+          <span className='reviews__star'>rating</span> and describe your stay
+          with at least <b className='reviews__text-amount'>50 characters</b>.
         </p>
         <button
-          className="reviews__submit form__submit button"
-          type="submit"
+          className='reviews__submit form__submit button'
+          type='submit'
           disabled={isSubmitDisabled}
         >
           {isSubmitting ? 'Submitting...' : 'Submit'}

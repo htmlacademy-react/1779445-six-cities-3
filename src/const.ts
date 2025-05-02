@@ -46,6 +46,12 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
+export enum NameSpace {
+  Data = 'data',
+  Offers = 'offers',
+  User = 'user',
+}
+
 export const DEFAULT_CITY = CityName.Paris;
 
 export const URL_MARKER_DEFAULT = 'public/img/pin.svg';

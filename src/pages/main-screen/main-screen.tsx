@@ -4,20 +4,22 @@ import LocationsList from '../../components/locations-list';
 import SortingOptions from '../../components/sorting-options';
 import getSortedOffers from '../../utils/utils-sort.ts';
 import { useState } from 'react';
-import {setCity, setSort} from '../../store/action.ts';
+import {setCity, setSort} from '../../store/slices/offers-slice/offers-slice.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { Helmet } from 'react-helmet-async';
 import { CityName } from '../../const.ts';
 import {SortType} from '../../const.ts';
 import EmptyListOffersPage from '../../components/empty-list-offers/empty-list-offers.tsx';
 import cn from 'classnames';
+import {getOffers} from '../../store/slices/data-slice/data-selectors.ts';
+import {getCurrentCity, getCurrentSort} from '../../store/slices/offers-slice/offers-selectors.ts';
 
 export default function MainScreen(): JSX.Element{
   const dispatch = useAppDispatch();
 
-  const city = useAppSelector((state) => state.city);
-  const offers = useAppSelector((state) => state.offers);
-  const sortType = useAppSelector((state) => state.sort);
+  const city = useAppSelector(getCurrentCity);
+  const offers = useAppSelector(getOffers);
+  const sortType = useAppSelector(getCurrentSort);
 
   const [selectedPlace, setSelectedPlace] = useState<string | null>(null);
 

@@ -3,7 +3,8 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import {checkAuthAction, fetchOffersAction} from './store/api-actions';
+import {fetchOffersAction} from './store/slices/data-slice/data-api-actions.ts';
+import {checkAuthAction} from './store/slices/user-slice/user-api-actions.ts';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -17,6 +18,7 @@ const initializeStore = () => {
   return store;
 };
 
+console.log('index');
 root.render(
   <React.StrictMode>
     <Provider store={initializeStore()}>
