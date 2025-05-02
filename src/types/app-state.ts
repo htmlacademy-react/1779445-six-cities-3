@@ -11,7 +11,7 @@ type AppState = {
   comments: CommentsType[];
   sort: string;
   authorizationStatus: string;
-  error: string | null;
+  fetchOffersError: boolean;
   isOffersDataLoading: boolean;
 }
 

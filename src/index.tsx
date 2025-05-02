@@ -18,7 +18,6 @@ const initializeStore = () => {
   return store;
 };
 
-console.log('index');
 root.render(
   <React.StrictMode>
     <Provider store={initializeStore()}>

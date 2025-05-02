@@ -9,7 +9,6 @@ import {
 } from './data-api-actions.ts';
 import AppState from '../../../types/app-state.ts';
 
-
 type DataState = Omit<AppState, 'city' | 'sort' | 'error' | 'authorizationStatus'>;
 
 const initialState: DataState = {
@@ -19,6 +18,7 @@ const initialState: DataState = {
   comments: [],
   nearby: [],
   comment: null,
+  fetchOffersError: false,
 };
 
 const dataSlice = createSlice({
@@ -30,6 +30,7 @@ const dataSlice = createSlice({
       // Обработка fetchOffersAction
       .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersDataLoading = true;
+        state.fetchOffersError = false;
       })
       .addCase(fetchOffersAction.fulfilled, (state, action) => {
         state.offers = action.payload;
@@ -37,6 +38,7 @@ const dataSlice = createSlice({
       })
       .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersDataLoading = false;
+        state.fetchOffersError = true;
       })
 
       // Обработка fetchOfferIDAction
