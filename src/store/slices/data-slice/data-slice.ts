@@ -50,6 +50,9 @@ const dataSlice = createSlice({
       .addCase(fetchOfferIDCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
+      // .addCase(fetchOfferIDCommentsAction.rejected, (state, action) => {
+      //   state.comments = action.error.message;
+      // })
 
       // Обработка fetchOfferIDNearbyAction
       .addCase(fetchOfferIDNearbyAction.fulfilled, (state, action) => {
