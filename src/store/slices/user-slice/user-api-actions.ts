@@ -2,35 +2,39 @@ import {createAsyncThunk} from '@reduxjs/toolkit';
 import {APIRoute, AuthorizationStatus} from '../../../const.ts';
 import {AxiosInstance} from 'axios';
 import {AuthData} from '../../../types/auth-data.ts';
-import {UserData} from '../../../types/user-data.ts';
 import {dropToken, getToken, saveToken} from '../../../services/token.ts';
+import {UserData} from '../../../types/user-data.ts';
 
-export const checkAuthAction = createAsyncThunk<AuthorizationStatus, undefined, {
-  extra: AxiosInstance;
+export const checkAuthAction = createAsyncThunk<UserData, undefined, {
+    extra: AxiosInstance;
 }>(
   'user/checkAuth',
   async(_arg, {extra: api}) => {
     try {
-      if (!getToken()) {
-        return AuthorizationStatus.NoAuth;
+      const token = getToken();
+      if (!token) {
+        return { authorizationStatus: AuthorizationStatus.NoAuth } as UserData;
       }
-      await api.get(APIRoute.Login);
-      return AuthorizationStatus.Auth;
+      const { data } = await api.get<UserData>(APIRoute.Login); // Запрашиваем данные пользователя
+      return {
+        ...data,
+        authorizationStatus: AuthorizationStatus.Auth
+      };
     } catch(error) {
       dropToken();
-      return AuthorizationStatus.NoAuth;
+      return { authorizationStatus: AuthorizationStatus.NoAuth } as UserData;
     }
   },
 );
 
-export const loginAction = createAsyncThunk<AuthorizationStatus, AuthData, {
+export const loginAction = createAsyncThunk<UserData, AuthData, {
   extra: AxiosInstance;
 }>(
   'user/login',
   async ({login: email, password},{extra: api}) => {
-    const {data: {token}} = await api.post<UserData>(APIRoute.Login, {email, password});
-    saveToken(token);
-    return AuthorizationStatus.Auth;
+    const {data} = await api.post<UserData>(APIRoute.Login, {email, password});
+    saveToken(data.token);
+    return data;
   },
 );
 

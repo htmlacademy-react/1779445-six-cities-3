@@ -13,6 +13,9 @@ type AppState = {
   authorizationStatus: string;
   fetchOffersError: boolean;
   isOffersDataLoading: boolean;
+  isFavorite: boolean;
+  favoriteOffers: OfferType[];
+  userEmail: string | null;
 }
 
 export default AppState;

@@ -38,7 +38,7 @@ export enum CityName {
 
 export enum APIRoute {
   Offers = '/offers',
-  Favorites = '/favorites',
+  Favorites = '/favorite',
   Offer = 'offer',
   Nearby = 'nearby',
   Comments = '/comments',

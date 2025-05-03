@@ -7,18 +7,24 @@ import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import { AuthorizationStatus } from '../../const.ts';
-import {fetchOfferIDAction, fetchOfferIDCommentsAction, fetchOfferIDNearbyAction} from '../../store/slices/data-slice/data-api-actions.ts';
-import {useEffect} from 'react';
+import {
+  fetchFavoriteAction,
+  fetchOfferIDAction,
+  fetchOfferIDCommentsAction,
+  fetchOfferIDNearbyAction
+} from '../../store/slices/data-slice/data-api-actions.ts';
+import {MouseEvent, useEffect} from 'react';
 import LoadingScreen from '../loading-screen';
 import {getComments, getNearby, getOffer} from '../../store/slices/data-slice/data-selectors.ts';
 import {getCurrentAuthStatus} from '../../store/slices/user-slice/user-selectors.ts';
+import {updateOffer, updateOffers} from '../../store/slices/data-slice/data-slice.ts';
+import {toast} from 'react-toastify';
 
 export default function OffersScreen() {
   const { id } = useParams();
   const dispatch = useAppDispatch();
   const comments = useAppSelector(getComments);
   const nearby = useAppSelector(getNearby);
-
   const isAuthorized = useAppSelector(getCurrentAuthStatus);
 
   useEffect(() => {
@@ -34,6 +40,23 @@ export default function OffersScreen() {
   if (!currentOffer) {
     return <LoadingScreen />;
   }
+
+  const favoriteClickHandler = async (evt: MouseEvent<HTMLButtonElement>) => {
+    evt.preventDefault();
+    const newStatus = !currentOffer.isFavorite;
+    dispatch(updateOffer({...currentOffer, isFavorite: newStatus}));
+    dispatch(updateOffers({...currentOffer, isFavorite: newStatus}));
+    try {
+      await dispatch(fetchFavoriteAction({
+        id: currentOffer.id,
+        isFavorite: currentOffer.isFavorite
+      })).unwrap();
+    } catch {
+      dispatch(updateOffer({...currentOffer, isFavorite: !newStatus}));
+      dispatch(updateOffers({...currentOffer, isFavorite: !newStatus}));
+      toast.error('Failed to update favorite');
+    }
+  };
 
   return (
     <div className='page'>
@@ -65,12 +88,14 @@ export default function OffersScreen() {
                 <h1 className='offer__name'>
                   {currentOffer.title}
                 </h1>
-                <button className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : '' } button`} type='button'>
-                  <svg className='offer__bookmark-icon' width='31' height='33'>
-                    <use xlinkHref='#icon-bookmark'></use>
-                  </svg>
-                  <span className='visually-hidden'>To bookmarks</span>
-                </button>
+                {isAuthorized === 'AUTH' ? (
+                  <button className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : '' } button`} type='button' onClick={favoriteClickHandler}>
+                    <svg className='offer__bookmark-icon' width='31' height='33'>
+                      <use xlinkHref='#icon-bookmark'></use>
+                    </svg>
+                    <span className='visually-hidden'>To bookmarks</span>
+                  </button>
+                ) : null}
               </div>
               <div className='offer__rating rating'>
                 <div className='offer__stars rating__stars'>

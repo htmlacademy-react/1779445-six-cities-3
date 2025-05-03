@@ -4,15 +4,17 @@ import {getLayoutState} from './utils.ts';
 import {Fragment} from 'react';
 import {logoutAction} from '../../store/slices/user-slice/user-api-actions.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getCurrentAuthStatus} from '../../store/slices/user-slice/user-selectors.ts';
+import {getCurrentAuthStatus, getUserEmail} from '../../store/slices/user-slice/user-selectors.ts';
+import {getFavoriteOffers} from '../../store/slices/data-slice/data-selectors.ts';
 
 export default function Layout(){
   const location = useLocation();
   const {pathname} = useLocation();
+  const offers = useAppSelector(getFavoriteOffers);
   const {rootClassName, linkClassName, shouldRenderLoggedUser, shouldRenderFooter} = getLayoutState(pathname as AppRoute);
   const isAuthorized = useAppSelector(getCurrentAuthStatus);
   const dispatch = useAppDispatch();
-
+  const email = useAppSelector(getUserEmail);
   const logOut = () => {
     dispatch(logoutAction());
   };
@@ -37,8 +39,8 @@ export default function Layout(){
                         </div>
                         { isAuthorized === AuthorizationStatus.Auth as string ? (
                           <Fragment>
-                            <span className='header__user-name user__name'>Oliver.conner@gmail.com</span>
-                            <span className='header__favorite-count'>3</span>
+                            <span className='header__user-name user__name'>{email}</span>
+                            <span className='header__favorite-count'>{offers.length}</span>
                           </Fragment>
                         ) : <span className='header__signout'>Sign in</span>}
                       </Link>
