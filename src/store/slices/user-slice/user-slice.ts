@@ -6,7 +6,7 @@ import {checkAuthAction, loginAction, logoutAction} from './user-api-actions.ts'
 type UserState = Pick<AppState, 'authorizationStatus'>
 
 const initialState: UserState = {
-  authorizationStatus: AuthorizationStatus.NoAuth,
+  authorizationStatus: AuthorizationStatus.Unknown,
 };
 
 export const requireAuthorization = createAction<AuthorizationStatus>(

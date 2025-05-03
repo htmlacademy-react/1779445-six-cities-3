@@ -3,7 +3,7 @@ import {APIRoute, AuthorizationStatus} from '../../../const.ts';
 import {AxiosInstance} from 'axios';
 import {AuthData} from '../../../types/auth-data.ts';
 import {UserData} from '../../../types/user-data.ts';
-import {dropToken, saveToken} from '../../../services/token.ts';
+import {dropToken, getToken, saveToken} from '../../../services/token.ts';
 
 export const checkAuthAction = createAsyncThunk<AuthorizationStatus, undefined, {
   extra: AxiosInstance;
@@ -11,9 +11,13 @@ export const checkAuthAction = createAsyncThunk<AuthorizationStatus, undefined, 
   'user/checkAuth',
   async(_arg, {extra: api}) => {
     try {
+      if (!getToken()) {
+        return AuthorizationStatus.NoAuth;
+      }
       await api.get(APIRoute.Login);
       return AuthorizationStatus.Auth;
-    } catch {
+    } catch(error) {
+      dropToken();
       return AuthorizationStatus.NoAuth;
     }
   },
