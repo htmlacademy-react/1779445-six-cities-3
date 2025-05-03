@@ -2,9 +2,10 @@ import { Helmet } from 'react-helmet-async';
 import PlaceCard from '../../components/place-card';
 import {groupOffersByCity, getFavoriteOffer} from './utils.ts';
 import {useAppSelector} from '../../hooks';
+import {getOffers} from '../../store/slices/data-slice/data-selectors.ts';
 
 export default function FavoritesScreen() {
-  const offers = useAppSelector((state) => state.offers);
+  const offers = useAppSelector(getOffers);
   const isFavoritePageOffer = true;
   const groupedOffers = groupOffersByCity(getFavoriteOffer(offers));
   const cities = Object.keys(groupedOffers);

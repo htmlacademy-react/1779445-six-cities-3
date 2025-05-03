@@ -1,0 +1,26 @@
+.error-screen {
+  text-align: center;
+  padding: 200px 20px;
+}
+
+.error-screen__title {
+  font-size: 50px;
+  margin-bottom: 30px;
+  color: #4481c3;
+}
+
+.replay--error {
+  width: 300px;
+  margin: 20px auto;
+  border: 2px solid #4481c3;
+  border-radius: 5px;
+  color: #4481c3;
+  font-size: 30px;
+  background-color: transparent;
+}
+
+.replay--error:hover {
+  color: #ffffff;
+  background-color: #4481c3;
+ cursor: pointer;
+}

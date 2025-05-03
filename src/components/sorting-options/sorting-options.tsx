@@ -1,21 +1,20 @@
 import {SortType} from '../../const.ts';
 import { useState } from 'react';
-import { useAppSelector} from '../../hooks';
+import {useAppDispatch, useAppSelector} from '../../hooks';
+import {getCurrentSort} from '../../store/slices/offers-slice/offers-selectors.ts';
+import {setSort} from '../../store/slices/offers-slice/offers-slice.ts';
 
-type SortingOptionsProps = {
-  onSortChange: (sortType: SortType) => void;
-};
-
-export default function SortingOptions({onSortChange}: SortingOptionsProps) {
+export default function SortingOptions() {
   const [isActive, setIsActive] = useState(false);
-  const selectedSortType = useAppSelector((state) => state.sort);
+  const dispatch = useAppDispatch();
+  const selectedSortType = useAppSelector(getCurrentSort);
 
   const toggleActive = () => {
     setIsActive((prevState) => !prevState);
   };
 
   const handleSortTypeChange = (sortType: SortType) => {
-    onSortChange(sortType);
+    dispatch(setSort(sortType));
     setIsActive(false);
   };
 

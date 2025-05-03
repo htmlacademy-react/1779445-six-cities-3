@@ -46,7 +46,11 @@ export enum APIRoute {
   Logout = '/logout',
 }
 
-export const TIMEOUT_SHOW_ERROR = 2000;
+export enum NameSpace {
+  Data = 'data',
+  Offers = 'offers',
+  User = 'user',
+}
 
 export const DEFAULT_CITY = CityName.Paris;
 

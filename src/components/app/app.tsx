@@ -11,14 +11,24 @@ import Layout from '../layout';
 import {useAppSelector} from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen';
 import ScrollToTop from '../scroll-to-top';
+import {getCurrentAuthStatus} from '../../store/slices/user-slice/user-selectors.ts';
+import {getLoadingStatus, getOffersError} from '../../store/slices/data-slice/data-selectors.ts';
+import ErrorScreen from '../../pages/error-screen';
 
 function App(): JSX.Element {
-  const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
-  const isOffersDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+  const authorizationStatus = useAppSelector(getCurrentAuthStatus);
+  const isOffersDataLoading = useAppSelector(getLoadingStatus);
+  const hasError = useAppSelector(getOffersError);
 
   if(authorizationStatus === String(AuthorizationStatus.Unknown) || isOffersDataLoading){
     return (
       <LoadingScreen />
+    );
+  }
+
+  if(hasError) {
+    return (
+      <ErrorScreen />
     );
   }
 
@@ -54,7 +64,7 @@ function App(): JSX.Element {
               }
             />
             <Route
-              path = "*"
+              path = '*'
               element = {<NonFoundScreen />}
             />
           </Route>
