@@ -3,7 +3,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import { store } from './store';
 import { Provider } from 'react-redux';
-import {fetchOffersAction} from './store/slices/data-slice/data-api-actions.ts';
+import {fetchFavoriteOffersAction, fetchOffersAction} from './store/slices/data-slice/data-api-actions.ts';
 import {checkAuthAction} from './store/slices/user-slice/user-api-actions.ts';
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
@@ -15,6 +15,7 @@ const root = ReactDOM.createRoot(
 const initializeStore = () => {
   store.dispatch(fetchOffersAction());
   store.dispatch(checkAuthAction());
+  store.dispatch(fetchFavoriteOffersAction());
   return store;
 };
 

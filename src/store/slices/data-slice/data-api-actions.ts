@@ -3,6 +3,7 @@ import {OfferType} from '../../../components/place-card/place-card-offer-types.t
 import {AxiosInstance} from 'axios';
 import {APIRoute, NameSpace} from '../../../const.ts';
 import {CommentsType} from '../../../components/comment/comment-type.ts';
+import {getToken} from "../../../services/token.ts";
 
 export const fetchOffersAction = createAsyncThunk<OfferType[], undefined, {
   extra: AxiosInstance;
@@ -62,3 +63,34 @@ export const postComment = createAsyncThunk<CommentsType, {
     return response.data;
   },
 );
+export const fetchFavoriteOffersAction = createAsyncThunk<OfferType[], undefined, {
+  extra: AxiosInstance;
+}>(
+  `${NameSpace.Data}/fetchFavorites`,
+  async (_arg, {extra: api}) => {
+    if (!getToken()) {
+      return [];
+    }
+    const {data} = await api.get<OfferType[]>(APIRoute.Favorites);
+    return data;
+  }
+);
+
+export const fetchFavoriteAction = createAsyncThunk<boolean, {
+  id: string;
+  isFavorite: boolean;
+}, {
+  extra: AxiosInstance;
+}>(
+  `${NameSpace.Data}/fetchFavorite`,
+  async ({id, isFavorite}, {extra: api, dispatch}) => {
+    const {data} = await api.post<boolean>(
+      `${APIRoute.Favorites}/${id}/${Number(!isFavorite)}`
+    );
+    // Запросим обновленный список избранных
+    await dispatch(fetchFavoriteOffersAction());
+    return data;
+  },
+);
+
+

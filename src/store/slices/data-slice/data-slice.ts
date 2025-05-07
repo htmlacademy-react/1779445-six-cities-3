@@ -1,15 +1,16 @@
-import {createSlice} from '@reduxjs/toolkit';
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {NameSpace} from '../../../const.ts';
 import {
   fetchOffersAction,
   fetchOfferIDAction,
   fetchOfferIDCommentsAction,
   fetchOfferIDNearbyAction,
-  postComment
+  postComment, fetchFavoriteAction, fetchFavoriteOffersAction
 } from './data-api-actions.ts';
 import AppState from '../../../types/app-state.ts';
+import {OfferType} from '../../../components/place-card/place-card-offer-types.ts';
 
-type DataState = Omit<AppState, 'city' | 'sort' | 'error' | 'authorizationStatus'>;
+type DataState = Omit<AppState, 'city' | 'sort' | 'error' | 'authorizationStatus' | 'userEmail'>;
 
 const initialState: DataState = {
   offer: null,
@@ -19,12 +20,23 @@ const initialState: DataState = {
   nearby: [],
   comment: null,
   fetchOffersError: false,
+  isFavorite: false,
+  favoriteOffers: [],
 };
 
 const dataSlice = createSlice({
   name: NameSpace.Data,
   initialState,
-  reducers: {},
+  reducers: {
+    updateOffers: (state, action: PayloadAction<OfferType>) => {
+      state.offers = state.offers.map((offer) =>
+        offer.id === action.payload.id ? action.payload : offer
+      );
+    },
+    updateOffer: (state, action: PayloadAction<OfferType>) => {
+      state.offer = action.payload;
+    },
+  },
   extraReducers: (builder) => {
     builder
       // Обработка fetchOffersAction
@@ -62,8 +74,18 @@ const dataSlice = createSlice({
       // Обработка postComment
       .addCase(postComment.fulfilled, (state, action) => {
         state.comment = action.payload;
+      })
+
+      // Обработка favorite
+      .addCase(fetchFavoriteAction.fulfilled, (state, action) => {
+        state.isFavorite = action.payload;
+      })
+      .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
+        state.favoriteOffers = action.payload;
       });
   },
 });
+
+export const {updateOffers, updateOffer} = dataSlice.actions;
 
 export default dataSlice.reducer;

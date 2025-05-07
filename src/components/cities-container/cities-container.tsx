@@ -17,6 +17,7 @@ export default function CitiesContainer() {
 
   const filteredOffers = offers.filter((offer) => offer.city.name === String(city));
   const sortedOffers = getSortedOffers(filteredOffers, sortType);
+
   const handlePlaceItemHover = (listItemName: string | null) => {
     setSelectedPlace(listItemName);
   };
