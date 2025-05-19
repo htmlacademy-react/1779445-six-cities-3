@@ -4,10 +4,11 @@ import {groupOffersByCity, getFavoriteOffer} from './utils.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
 import {getFavoriteOffers} from '../../store/slices/data-slice/data-selectors.ts';
 import {fetchFavoriteOffersAction} from '../../store/slices/data-slice/data-api-actions.ts';
-import {useEffect} from 'react';
+import React, {useEffect} from 'react';
 import FavoritesEmpty from '../../components/favorites-empty';
 import {Link} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
+import {AppRoute, CityName} from '../../const.ts';
+import {setCity} from "../../store/slices/offers-slice/offers-slice.ts";
 
 export default function FavoritesScreen() {
   const dispatch = useAppDispatch();
@@ -19,6 +20,13 @@ export default function FavoritesScreen() {
   useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
+
+  const checkedSity = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    const city = (evt.currentTarget.querySelector('span') as HTMLSpanElement)?.textContent;
+    if (city) {
+      dispatch(setCity(city as CityName));
+    }
+  };
 
   return (
     <div className='page'>
@@ -38,7 +46,7 @@ export default function FavoritesScreen() {
                   <li key={city} className='favorites__locations-items'>
                     <div className='favorites__locations locations locations--current'>
                       <div className='locations__item'>
-                        <Link className='locations__item-link' to={AppRoute.Root}>
+                        <Link className='locations__item-link' to={AppRoute.Root} onClick={(evt) => checkedSity(evt)}>
                           <span>{city}</span>
                         </Link>
                       </div>
