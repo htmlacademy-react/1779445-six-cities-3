@@ -14,6 +14,7 @@ import ScrollToTop from '../scroll-to-top';
 import {getCurrentAuthStatus} from '../../store/slices/user-slice/user-selectors.ts';
 import {getLoadingStatus, getOffersError} from '../../store/slices/data-slice/data-selectors.ts';
 import ErrorScreen from '../../pages/error-screen';
+import PublicRoute from "../public-route";
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getCurrentAuthStatus);
@@ -52,7 +53,9 @@ function App(): JSX.Element {
             <Route
               path = {AppRoute.Login}
               element = {
-                <LoginScreen/>
+                <PublicRoute>
+                  <LoginScreen/>
+                </PublicRoute>
               }
             />
             <Route

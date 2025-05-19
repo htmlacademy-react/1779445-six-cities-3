@@ -8,6 +8,9 @@ import {getCurrentCity} from '../../store/slices/offers-slice/offers-selectors.t
 import CitiesContainer from '../../components/cities-container/cities-container.tsx';
 
 export default function MainScreen(): JSX.Element{
+
+
+
   const city = useAppSelector(getCurrentCity);
   const offers = useAppSelector(getOffers);
 

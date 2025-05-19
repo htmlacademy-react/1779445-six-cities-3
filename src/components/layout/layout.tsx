@@ -61,9 +61,9 @@ export default function Layout(){
       <Outlet />
       {shouldRenderFooter ? (
         <footer className='footer container'>
-          <a className='footer__logo-link' href='main.html'>
+          <Link className='footer__logo-link' to={AppRoute.Root}>
             <img className='footer__logo' src='../../markup/img/logo.svg' alt='6 cities logo' width='64' height='33'/>
-          </a>
+          </Link>
         </footer>
       ) : null}
     </div>

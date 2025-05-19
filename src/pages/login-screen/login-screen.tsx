@@ -1,10 +1,11 @@
 import { Helmet } from 'react-helmet-async';
 import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute} from '../../const.ts';
+import {AppRoute, CityName} from '../../const.ts';
 import {loginAction} from '../../store/slices/user-slice/user-api-actions.ts';
 import {useAppDispatch, useAppSelector} from '../../hooks';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import {getCurrentCity} from '../../store/slices/offers-slice/offers-selectors.ts';
+import {setCity} from '../../store/slices/offers-slice/offers-slice.ts';
 
 export default function LoginScreen() {
   const city = useAppSelector(getCurrentCity);
@@ -20,6 +21,13 @@ export default function LoginScreen() {
       password: password
     }));
     navigate(AppRoute.Root);
+  };
+
+  const checkedSity = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    const cityLink = (evt.currentTarget.querySelector('span') as HTMLSpanElement)?.textContent;
+    if (cityLink) {
+      dispatch(setCity(cityLink as CityName));
+    }
   };
 
   return (
@@ -58,7 +66,7 @@ export default function LoginScreen() {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <Link className="locations__item-link" to="/">
+              <Link className="locations__item-link" to={AppRoute.Root} onClick={(evt) => checkedSity(evt)}>
                 <span>{city}</span>
               </Link>
             </div>
