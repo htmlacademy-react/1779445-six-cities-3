@@ -5,12 +5,14 @@ import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selecto
 
 type PublicRouteProps = {
   children: JSX.Element;
-}
+};
 
 export default function PublicRoute({ children }: PublicRouteProps) {
   const authorizationStatus = useAppSelector(getCurrentAuthStatus);
 
-  return authorizationStatus === AuthorizationStatus.Auth as string
-    ? <Navigate to={AppRoute.Root} />
-    : children;
-};
+  return authorizationStatus === (AuthorizationStatus.Auth as string) ? (
+    <Navigate to={AppRoute.Root} />
+  ) : (
+    children
+  );
+}

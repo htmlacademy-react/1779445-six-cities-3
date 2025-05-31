@@ -1,5 +1,5 @@
 import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import {AppRoute, AuthorizationStatus} from '../../const.ts';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { HelmetProvider } from 'react-helmet-async';
 import MainScreen from '../../pages/main-screen';
 import LoginScreen from '../../pages/login-screen';
@@ -8,29 +8,25 @@ import OffersScreen from '../../pages/offer-screen';
 import NonFoundScreen from '../../pages/non-found-screen';
 import PrivateRoute from '../private-route';
 import Layout from '../layout';
-import {useAppSelector} from '../../hooks';
+import { useAppSelector } from '../../hooks';
 import LoadingScreen from '../../pages/loading-screen';
 import ScrollToTop from '../scroll-to-top';
-import {getCurrentAuthStatus} from '../../store/slices/user-slice/user-selectors.ts';
-import {getLoadingStatus, getOffersError} from '../../store/slices/data-slice/data-selectors.ts';
+import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
+import { getLoadingStatus, getOffersError } from '../../store/slices/data-slice/data-selectors.ts';
 import ErrorScreen from '../../pages/error-screen';
-import PublicRoute from "../public-route";
+import PublicRoute from '../public-route';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getCurrentAuthStatus);
   const isOffersDataLoading = useAppSelector(getLoadingStatus);
   const hasError = useAppSelector(getOffersError);
 
-  if(authorizationStatus === String(AuthorizationStatus.Unknown) || isOffersDataLoading){
-    return (
-      <LoadingScreen />
-    );
+  if (authorizationStatus === String(AuthorizationStatus.Unknown) || isOffersDataLoading) {
+    return <LoadingScreen />;
   }
 
-  if(hasError) {
-    return (
-      <ErrorScreen />
-    );
+  if (hasError) {
+    return <ErrorScreen />;
   }
 
   return (
@@ -38,38 +34,26 @@ function App(): JSX.Element {
       <BrowserRouter>
         <ScrollToTop />
         <Routes>
-          <Route
-            path = {AppRoute.Root}
-            element = {<Layout />}
-          >
+          <Route path={AppRoute.Root} element={<Layout />}>
+            <Route index element={<MainScreen />} />
+            <Route path={`${AppRoute.Offer}/:id`} element={<OffersScreen />} />
             <Route
-              index
-              element = {<MainScreen/>}
-            />
-            <Route
-              path = {`${AppRoute.Offer}/:id`}
-              element = {<OffersScreen/>}
-            />
-            <Route
-              path = {AppRoute.Login}
-              element = {
+              path={AppRoute.Login}
+              element={
                 <PublicRoute>
-                  <LoginScreen/>
+                  <LoginScreen />
                 </PublicRoute>
               }
             />
             <Route
-              path = {AppRoute.Favorites}
-              element = {
+              path={AppRoute.Favorites}
+              element={
                 <PrivateRoute>
-                  <FavoritesScreen/>
+                  <FavoritesScreen />
                 </PrivateRoute>
               }
             />
-            <Route
-              path = '*'
-              element = {<NonFoundScreen />}
-            />
+            <Route path='*' element={<NonFoundScreen />} />
           </Route>
         </Routes>
       </BrowserRouter>

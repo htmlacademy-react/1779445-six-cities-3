@@ -2,7 +2,10 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { validateForm, generateRatingStars } from './utils.tsx';
 import { useAppDispatch } from '../../hooks';
 import { useParams } from 'react-router-dom';
-import { fetchOfferIDCommentsAction, postComment } from '../../store/slices/data-slice/data-api-actions.ts';
+import {
+  fetchOfferIDCommentsAction,
+  postComment
+} from '../../store/slices/data-slice/data-api-actions.ts';
 import './new-comment-form.css';
 
 export default function NewCommentForm() {
@@ -80,16 +83,15 @@ export default function NewCommentForm() {
         disabled={isSubmitting}
       />
       {errorMessage && (
-        <p className="reviews__error-message" style={{ color: 'red', marginTop: '8px' }}>
+        <p className='reviews__error-message' style={{ color: 'red', marginTop: '8px' }}>
           {errorMessage}
         </p>
       )}
 
       <div className='reviews__button-wrapper'>
         <p className='reviews__help'>
-          To submit review please make sure to set{' '}
-          <span className='reviews__star'>rating</span> and describe your stay
-          with at least <b className='reviews__text-amount'>50 characters</b>.
+          To submit review please make sure to set <span className='reviews__star'>rating</span> and
+          describe your stay with at least <b className='reviews__text-amount'>50 characters</b>.
         </p>
         <button
           className='reviews__submit form__submit button'

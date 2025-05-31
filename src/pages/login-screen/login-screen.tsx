@@ -1,11 +1,11 @@
 import { Helmet } from 'react-helmet-async';
-import {Link, useNavigate} from 'react-router-dom';
-import {AppRoute, CityName} from '../../const.ts';
-import {loginAction} from '../../store/slices/user-slice/user-api-actions.ts';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import React, {useState} from 'react';
-import {getCurrentCity} from '../../store/slices/offers-slice/offers-selectors.ts';
-import {setCity} from '../../store/slices/offers-slice/offers-slice.ts';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, CityName } from '../../const.ts';
+import { loginAction } from '../../store/slices/user-slice/user-api-actions.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import React, { useState } from 'react';
+import { getCurrentCity } from '../../store/slices/offers-slice/offers-selectors.ts';
+import { setCity } from '../../store/slices/offers-slice/offers-slice.ts';
 
 export default function LoginScreen() {
   const city = useAppSelector(getCurrentCity);
@@ -16,10 +16,12 @@ export default function LoginScreen() {
 
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
-    dispatch(loginAction({
-      login: email,
-      password: password
-    }));
+    dispatch(
+      loginAction({
+        login: email,
+        password: password
+      })
+    );
     navigate(AppRoute.Root);
   };
 
@@ -31,42 +33,53 @@ export default function LoginScreen() {
   };
 
   return (
-    <div className="page page--gray page--login">
+    <div className='page page--gray page--login'>
       <Helmet>
         <title>Authorization</title>
       </Helmet>
 
-      <main className="page__main page__main--login">
-        <div className="page__login-container container">
-          <section className="login">
-            <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post" onSubmit={handleSubmit}>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required onChange={(evt) => setEmail(evt.target.value)}/>
-              </div>
-              <div className="login__input-wrapper form__input-wrapper">
-                <label className="visually-hidden">Password</label>
+      <main className='page__main page__main--login'>
+        <div className='page__login-container container'>
+          <section className='login'>
+            <h1 className='login__title'>Sign in</h1>
+            <form className='login__form form' action='#' method='post' onSubmit={handleSubmit}>
+              <div className='login__input-wrapper form__input-wrapper'>
+                <label className='visually-hidden'>E-mail</label>
                 <input
-                  className="login__input form__input"
-                  type="password"
-                  name="password"
-                  placeholder="Password"
+                  className='login__input form__input'
+                  type='email'
+                  name='email'
+                  placeholder='Email'
                   required
-                  pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$"
-                  title="Пароль должен содержать хотя бы одну латинскую букву и одну цифру"
-                  onChange={(evt) => setPassword(evt.target.value)}
-                  autoComplete="username"
+                  onChange={evt => setEmail(evt.target.value)}
                 />
               </div>
-              <button className="login__submit form__submit button" type="submit">
+              <div className='login__input-wrapper form__input-wrapper'>
+                <label className='visually-hidden'>Password</label>
+                <input
+                  className='login__input form__input'
+                  type='password'
+                  name='password'
+                  placeholder='Password'
+                  required
+                  pattern='^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$'
+                  title='Пароль должен содержать хотя бы одну латинскую букву и одну цифру'
+                  onChange={evt => setPassword(evt.target.value)}
+                  autoComplete='username'
+                />
+              </div>
+              <button className='login__submit form__submit button' type='submit'>
                 Sign in
               </button>
             </form>
           </section>
-          <section className="locations locations--login locations--current">
-            <div className="locations__item">
-              <Link className="locations__item-link" to={AppRoute.Root} onClick={(evt) => checkedSity(evt)}>
+          <section className='locations locations--login locations--current'>
+            <div className='locations__item'>
+              <Link
+                className='locations__item-link'
+                to={AppRoute.Root}
+                onClick={evt => checkedSity(evt)}
+              >
                 <span>{city}</span>
               </Link>
             </div>

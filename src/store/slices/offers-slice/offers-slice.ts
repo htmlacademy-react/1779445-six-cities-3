@@ -1,13 +1,13 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {CityName, NameSpace, SortType} from '../../../const.ts';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { CityName, NameSpace, SortType } from '../../../const.ts';
 import AppState from '../../../types/app-state.ts';
 
-type OffersState = Pick<AppState, 'city' | 'sort' | 'isOffersDataLoading'>
+type OffersState = Pick<AppState, 'city' | 'sort' | 'isOffersDataLoading'>;
 
 const initialState: OffersState = {
   city: CityName.Paris,
   sort: SortType.Popular,
-  isOffersDataLoading: false,
+  isOffersDataLoading: false
 };
 
 const offersSlice = createSlice({
@@ -22,10 +22,9 @@ const offersSlice = createSlice({
     },
     setOffersDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.isOffersDataLoading = action.payload;
-    },
-  },
+    }
+  }
 });
 
 export const { setCity, setSort } = offersSlice.actions;
 export default offersSlice.reducer;
-

@@ -1,9 +1,9 @@
-import {URL_MARKER_CURRENT, URL_MARKER_DEFAULT} from '../../const.ts';
-import {Icon, Marker, layerGroup} from 'leaflet';
-import {useEffect, useRef} from 'react';
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const.ts';
+import { Icon, Marker, layerGroup } from 'leaflet';
+import { useEffect, useRef } from 'react';
 import useMap from '../../hooks/useMap.tsx';
 import 'leaflet/dist/leaflet.css';
-import {useNavigate} from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 type City = {
   location: {
@@ -28,15 +28,15 @@ type MapProps = {
   isOfferMap?: boolean;
 };
 
-const createIcon = (iconUrl: string) => new Icon({
-  iconUrl,
-  iconSize: [27, 39],
-  iconAnchor: [27, 39]
-});
+const createIcon = (iconUrl: string) =>
+  new Icon({
+    iconUrl,
+    iconSize: [27, 39],
+    iconAnchor: [27, 39]
+  });
 
 const defaultCustomIcon = createIcon(URL_MARKER_DEFAULT);
 const currentCustomIcon = createIcon(URL_MARKER_CURRENT);
-
 
 function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Element {
   const mapRef = useRef(null);
@@ -56,21 +56,21 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
       const markerLayer = layerGroup().addTo(map);
       markerLayer.clearLayers();
 
-      filteredOffers.forEach((offer) => {
+      filteredOffers.forEach(offer => {
         const marker = new Marker({
           lat: offer.location.latitude,
-          lng: offer.location.longitude,
+          lng: offer.location.longitude
         });
         marker
           .setIcon(getIcon(offer.id))
           .addTo(markerLayer)
-          .on('mouseover', function(this: Marker) {
-            if(!isOfferMap){
+          .on('mouseover', function (this: Marker) {
+            if (!isOfferMap) {
               this.setIcon(currentCustomIcon);
             }
           })
-          .on('mouseout', function(this: Marker) {
-            if(!isOfferMap) {
+          .on('mouseout', function (this: Marker) {
+            if (!isOfferMap) {
               this.setIcon(defaultCustomIcon);
             }
           })
@@ -88,12 +88,8 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
   }
 
   return (
-    <section
-      className={`${isOfferMap ? 'offer__map map' : 'cities__map map'}`}
-      ref={mapRef}
-    />
+    <section className={`${isOfferMap ? 'offer__map map' : 'cities__map map'}`} ref={mapRef} />
   );
 }
 
 export default Map;
-

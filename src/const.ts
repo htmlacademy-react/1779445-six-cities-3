@@ -2,13 +2,13 @@ export enum AppRoute {
   Root = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer',
+  Offer = '/offer'
 }
 
 export enum AuthorizationStatus {
   Auth = 'AUTH',
   NoAuth = 'NO_AUTH',
-  Unknown = 'UNKNOWN',
+  Unknown = 'UNKNOWN'
 }
 
 export enum StarsRating {
@@ -23,7 +23,7 @@ export enum SortType {
   Popular = 'Popular',
   LowPrice = 'Price: low to high',
   HighPrice = 'Price: high to low',
-  TopRated = 'Top rated first',
+  TopRated = 'Top rated first'
 }
 
 export enum CityName {
@@ -32,9 +32,8 @@ export enum CityName {
   Brussels = 'Brussels',
   Amsterdam = 'Amsterdam',
   Hamburg = 'Hamburg',
-  Dusseldorf = 'Dusseldorf',
+  Dusseldorf = 'Dusseldorf'
 }
-
 
 export enum APIRoute {
   Offers = '/offers',
@@ -43,13 +42,13 @@ export enum APIRoute {
   Nearby = 'nearby',
   Comments = '/comments',
   Login = '/login',
-  Logout = '/logout',
+  Logout = '/logout'
 }
 
 export enum NameSpace {
   Data = 'data',
   Offers = 'offers',
-  User = 'user',
+  User = 'user'
 }
 
 export const DEFAULT_CITY = CityName.Paris;
