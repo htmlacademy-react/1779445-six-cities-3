@@ -1,5 +1,5 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { AxiosInstance } from 'axios';
+import { AxiosError, AxiosInstance } from 'axios';
 import { CommentsType } from '../../../components/comment/comment-type.ts';
 import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
 import { APIRoute, NameSpace } from '../../../const.ts';
@@ -22,9 +22,19 @@ export const fetchOfferIDAction = createAsyncThunk<
   {
     extra: AxiosInstance;
   }
->(`${NameSpace.Data}/fetchOfferID`, async (id, { extra: api }) => {
-  const { data } = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
-  return data;
+>(`${NameSpace.Data}/fetchOfferID`, async (id, { extra: api, rejectWithValue }) => {
+  try {
+    const { data } = await api.get<OfferType>(`${APIRoute.Offers}/${id}`);
+    return data;
+  } catch (err) {
+    const error = err as AxiosError;
+
+    if (error.response?.status) {
+      return rejectWithValue(error.response.status);
+    }
+
+    return rejectWithValue('Unknown error');
+  }
 });
 
 export const fetchOfferIDCommentsAction = createAsyncThunk<

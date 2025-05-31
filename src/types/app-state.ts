@@ -16,6 +16,7 @@ type AppState = {
   isFavorite: boolean;
   favoriteOffers: OfferType[];
   userEmail: string | null;
+  isOfferLoading: boolean;
 };
 
 export default AppState;

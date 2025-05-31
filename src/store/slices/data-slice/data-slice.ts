@@ -24,6 +24,7 @@ const initialState: DataState = {
   fetchOffersError: false,
   isFavorite: false,
   favoriteOffers: [],
+  isOfferLoading: false,
 };
 
 const dataSlice = createSlice({
@@ -58,15 +59,19 @@ const dataSlice = createSlice({
       // Обработка fetchOfferIDAction
       .addCase(fetchOfferIDAction.fulfilled, (state, action) => {
         state.offer = action.payload;
+        state.isOfferLoading = false;
+      })
+      .addCase(fetchOfferIDAction.pending, (state) => {
+        state.isOfferLoading = true;
+      })
+      .addCase(fetchOfferIDAction.rejected, (state) => {
+        state.isOfferLoading = false;
       })
 
       // Обработка fetchOfferIDCommentsAction
       .addCase(fetchOfferIDCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
-      // .addCase(fetchOfferIDCommentsAction.rejected, (state, action) => {
-      //   state.comments = action.error.message;
-      // })
 
       // Обработка fetchOfferIDNearbyAction
       .addCase(fetchOfferIDNearbyAction.fulfilled, (state, action) => {

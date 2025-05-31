@@ -1,7 +1,6 @@
 import cn from 'classnames';
 import { MouseEvent } from 'react';
 import { Link } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteAction } from '../../store/slices/data-slice/data-api-actions.ts';
 import { updateOffers } from '../../store/slices/data-slice/data-slice.ts';
@@ -42,7 +41,6 @@ export default function PlaceCard({
       ).unwrap();
     } catch {
       dispatch(updateOffers({ ...offer, isFavorite: !newStatus }));
-      toast.error('Failed to update favorite');
     }
   };
 

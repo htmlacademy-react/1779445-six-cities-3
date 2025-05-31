@@ -1,7 +1,6 @@
-import { MouseEvent, useEffect } from 'react';
+import { MouseEvent, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 import CommentsList from '../../components/comments-list';
 import Map from '../../components/map';
 import NewCommentForm from '../../components/new-comment-form';
@@ -15,11 +14,16 @@ import {
   fetchOfferIDCommentsAction,
   fetchOfferIDNearbyAction,
 } from '../../store/slices/data-slice/data-api-actions.ts';
+import {
+  getComments,
+  getNearby,
+  getOffer,
+  getOfferLoading,
+} from '../../store/slices/data-slice/data-selectors.ts';
+import { updateOffer, updateOffers } from '../../store/slices/data-slice/data-slice.ts';
 import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
 import LoadingScreen from '../loading-screen';
-
-import { getComments, getNearby, getOffer } from '../../store/slices/data-slice/data-selectors.ts';
-import { updateOffer, updateOffers } from '../../store/slices/data-slice/data-slice.ts';
+import NonFoundScreen from '../non-found-screen';
 
 export default function OffersScreen() {
   const { id } = useParams();
@@ -27,21 +31,32 @@ export default function OffersScreen() {
   const comments = useAppSelector(getComments);
   const nearby = useAppSelector(getNearby);
   const isAuthorized = useAppSelector(getCurrentAuthStatus);
+  const currentOffer = useAppSelector(getOffer);
+  const isOfferLoading = useAppSelector(getOfferLoading);
+  const [offerError, setOfferError] = useState<number | null>(null);
 
   useEffect(() => {
     if (id) {
-      dispatch(fetchOfferIDAction(id));
-      dispatch(fetchOfferIDCommentsAction(id));
-      dispatch(fetchOfferIDNearbyAction(id));
+      const fetchData = async () => {
+        try {
+          await dispatch(fetchOfferIDAction(id)).unwrap();
+          await dispatch(fetchOfferIDCommentsAction(id)).unwrap();
+          await dispatch(fetchOfferIDNearbyAction(id)).unwrap();
+        } catch (err) {
+          setOfferError(err as number);
+        }
+      };
+      fetchData();
     }
   }, [dispatch, id]);
 
-  const currentOffer = useAppSelector(getOffer);
-
-  if (!currentOffer) {
+  if (isOfferLoading) {
     return <LoadingScreen />;
   }
 
+  if (!currentOffer) {
+    return <NonFoundScreen offerError={offerError} />;
+  }
   const favoriteClickHandler = async (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
     const newStatus = !currentOffer.isFavorite;
@@ -57,7 +72,6 @@ export default function OffersScreen() {
     } catch {
       dispatch(updateOffer({ ...currentOffer, isFavorite: !newStatus }));
       dispatch(updateOffers({ ...currentOffer, isFavorite: !newStatus }));
-      toast.error('Failed to update favorite');
     }
   };
 
