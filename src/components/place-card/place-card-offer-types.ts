@@ -2,7 +2,7 @@ export enum PropertyType {
   Hotel = 'hotel',
   Apartment = 'apartment',
   House = 'house',
-  Room = 'room'
+  Room = 'room',
 }
 
 type Location = {

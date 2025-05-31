@@ -7,7 +7,7 @@ type OffersState = Pick<AppState, 'city' | 'sort' | 'isOffersDataLoading'>;
 const initialState: OffersState = {
   city: CityName.Paris,
   sort: SortType.Popular,
-  isOffersDataLoading: false
+  isOffersDataLoading: false,
 };
 
 const offersSlice = createSlice({
@@ -22,8 +22,8 @@ const offersSlice = createSlice({
     },
     setOffersDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
       state.isOffersDataLoading = action.payload;
-    }
-  }
+    },
+  },
 });
 
 export const { setCity, setSort } = offersSlice.actions;

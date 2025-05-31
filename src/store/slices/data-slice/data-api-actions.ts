@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
 import { AxiosInstance } from 'axios';
-import { APIRoute, NameSpace } from '../../../const.ts';
 import { CommentsType } from '../../../components/comment/comment-type.ts';
+import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
+import { APIRoute, NameSpace } from '../../../const.ts';
 import { getToken } from '../../../services/token.ts';
 
 export const fetchOffersAction = createAsyncThunk<

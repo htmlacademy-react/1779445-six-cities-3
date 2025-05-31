@@ -15,21 +15,21 @@ export const generateRatingStars = (currentRating: number, onChange: (value: num
     return (
       <Fragment key={ratingValue}>
         <input
-          className='form__rating-input visually-hidden'
-          name='rating'
+          className="form__rating-input visually-hidden"
+          name="rating"
           value={ratingValue}
           id={`${ratingValue}-stars`}
-          type='radio'
+          type="radio"
           checked={currentRating === ratingValue}
           onChange={() => onChange(ratingValue)}
         />
         <label
           htmlFor={`${ratingValue}-stars`}
-          className='reviews__rating-label form__rating-label'
+          className="reviews__rating-label form__rating-label"
           title={RATING_TITLES[i]}
         >
-          <svg className='form__star-image' width='37' height='33'>
-            <use xlinkHref='#icon-star'></use>
+          <svg className="form__star-image" width="37" height="33">
+            <use xlinkHref="#icon-star"></use>
           </svg>
         </label>
       </Fragment>

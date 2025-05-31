@@ -1,20 +1,23 @@
-import { Route, BrowserRouter, Routes } from 'react-router-dom';
-import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { HelmetProvider } from 'react-helmet-async';
-import MainScreen from '../../pages/main-screen';
-import LoginScreen from '../../pages/login-screen';
-import FavoritesScreen from '../../pages/favorites-screen';
-import OffersScreen from '../../pages/offer-screen';
-import NonFoundScreen from '../../pages/non-found-screen';
-import PrivateRoute from '../private-route';
-import Layout from '../layout';
-import { useAppSelector } from '../../hooks';
-import LoadingScreen from '../../pages/loading-screen';
-import ScrollToTop from '../scroll-to-top';
-import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
-import { getLoadingStatus, getOffersError } from '../../store/slices/data-slice/data-selectors.ts';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
+
 import ErrorScreen from '../../pages/error-screen';
+import FavoritesScreen from '../../pages/favorites-screen';
+import LoadingScreen from '../../pages/loading-screen';
+import LoginScreen from '../../pages/login-screen';
+import MainScreen from '../../pages/main-screen';
+import NonFoundScreen from '../../pages/non-found-screen';
+import OffersScreen from '../../pages/offer-screen';
+
+import Layout from '../layout';
+import PrivateRoute from '../private-route';
 import PublicRoute from '../public-route';
+import ScrollToTop from '../scroll-to-top';
+
+import { useAppSelector } from '../../hooks';
+import { getLoadingStatus, getOffersError } from '../../store/slices/data-slice/data-selectors.ts';
+import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
 
 function App(): JSX.Element {
   const authorizationStatus = useAppSelector(getCurrentAuthStatus);
@@ -53,7 +56,7 @@ function App(): JSX.Element {
                 </PrivateRoute>
               }
             />
-            <Route path='*' element={<NonFoundScreen />} />
+            <Route path="*" element={<NonFoundScreen />} />
           </Route>
         </Routes>
       </BrowserRouter>

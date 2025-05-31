@@ -1,9 +1,9 @@
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const.ts';
 import { Icon, Marker, layerGroup } from 'leaflet';
-import { useEffect, useRef } from 'react';
-import useMap from '../../hooks/useMap.tsx';
 import 'leaflet/dist/leaflet.css';
+import { useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const.ts';
+import useMap from '../../hooks/useMap.tsx';
 
 type City = {
   location: {
@@ -32,7 +32,7 @@ const createIcon = (iconUrl: string) =>
   new Icon({
     iconUrl,
     iconSize: [27, 39],
-    iconAnchor: [27, 39]
+    iconAnchor: [27, 39],
   });
 
 const defaultCustomIcon = createIcon(URL_MARKER_DEFAULT);
@@ -56,10 +56,10 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
       const markerLayer = layerGroup().addTo(map);
       markerLayer.clearLayers();
 
-      filteredOffers.forEach(offer => {
+      filteredOffers.forEach((offer) => {
         const marker = new Marker({
           lat: offer.location.latitude,
-          lng: offer.location.longitude
+          lng: offer.location.longitude,
         });
         marker
           .setIcon(getIcon(offer.id))

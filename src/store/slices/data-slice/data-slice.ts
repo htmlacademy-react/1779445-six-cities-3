@@ -1,16 +1,16 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
 import { NameSpace } from '../../../const.ts';
+import AppState from '../../../types/app-state.ts';
 import {
-  fetchOffersAction,
+  fetchFavoriteAction,
+  fetchFavoriteOffersAction,
   fetchOfferIDAction,
   fetchOfferIDCommentsAction,
   fetchOfferIDNearbyAction,
+  fetchOffersAction,
   postComment,
-  fetchFavoriteAction,
-  fetchFavoriteOffersAction
 } from './data-api-actions.ts';
-import AppState from '../../../types/app-state.ts';
-import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
 
 type DataState = Omit<AppState, 'city' | 'sort' | 'error' | 'authorizationStatus' | 'userEmail'>;
 
@@ -23,7 +23,7 @@ const initialState: DataState = {
   comment: null,
   fetchOffersError: false,
   isFavorite: false,
-  favoriteOffers: []
+  favoriteOffers: [],
 };
 
 const dataSlice = createSlice({
@@ -31,18 +31,18 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     updateOffers: (state, action: PayloadAction<OfferType>) => {
-      state.offers = state.offers.map(offer =>
-        offer.id === action.payload.id ? action.payload : offer
+      state.offers = state.offers.map((offer) =>
+        offer.id === action.payload.id ? action.payload : offer,
       );
     },
     updateOffer: (state, action: PayloadAction<OfferType>) => {
       state.offer = action.payload;
-    }
+    },
   },
-  extraReducers: builder => {
+  extraReducers: (builder) => {
     builder
       // Обработка fetchOffersAction
-      .addCase(fetchOffersAction.pending, state => {
+      .addCase(fetchOffersAction.pending, (state) => {
         state.isOffersDataLoading = true;
         state.fetchOffersError = false;
       })
@@ -50,7 +50,7 @@ const dataSlice = createSlice({
         state.offers = action.payload;
         state.isOffersDataLoading = false;
       })
-      .addCase(fetchOffersAction.rejected, state => {
+      .addCase(fetchOffersAction.rejected, (state) => {
         state.isOffersDataLoading = false;
         state.fetchOffersError = true;
       })
@@ -85,7 +85,7 @@ const dataSlice = createSlice({
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
       });
-  }
+  },
 });
 
 export const { updateOffers, updateOffer } = dataSlice.actions;

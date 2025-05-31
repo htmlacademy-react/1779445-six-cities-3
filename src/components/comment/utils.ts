@@ -12,7 +12,7 @@ function formatDateToMonthYear(isoDate: string): string {
     'September',
     'October',
     'November',
-    'December'
+    'December',
   ];
 
   const month = months[date.getUTCMonth()];

@@ -1,8 +1,8 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { APIRoute, AuthorizationStatus } from '../../../const.ts';
 import { AxiosInstance } from 'axios';
-import { AuthData } from '../../../types/auth-data.ts';
+import { APIRoute, AuthorizationStatus } from '../../../const.ts';
 import { dropToken, getToken, saveToken } from '../../../services/token.ts';
+import { AuthData } from '../../../types/auth-data.ts';
 import { UserData } from '../../../types/user-data.ts';
 
 export const checkAuthAction = createAsyncThunk<
@@ -20,7 +20,7 @@ export const checkAuthAction = createAsyncThunk<
     const { data } = await api.get<UserData>(APIRoute.Login); // Запрашиваем данные пользователя
     return {
       ...data,
-      authorizationStatus: AuthorizationStatus.Auth
+      authorizationStatus: AuthorizationStatus.Auth,
     };
   } catch (error) {
     dropToken();

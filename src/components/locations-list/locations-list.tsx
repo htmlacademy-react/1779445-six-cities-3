@@ -1,9 +1,9 @@
-import { CityName } from '../../const';
-import { memo, MouseEvent } from 'react';
 import cn from 'classnames';
-import { setCity } from '../../store/slices/offers-slice/offers-slice.ts';
+import { memo, MouseEvent } from 'react';
+import { CityName } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCurrentCity } from '../../store/slices/offers-slice/offers-selectors.ts';
+import { setCity } from '../../store/slices/offers-slice/offers-slice.ts';
 
 function LocationsList(): JSX.Element {
   const dispatch = useAppDispatch();
@@ -14,15 +14,15 @@ function LocationsList(): JSX.Element {
   };
 
   return (
-    <section className='locations container'>
-      <ul className='locations__list tabs__list'>
+    <section className="locations container">
+      <ul className="locations__list tabs__list">
         {Object.entries(CityName).map(([key, value]: [string, CityName]) => (
-          <li className='locations__item' key={key} onClick={handleCityChange}>
+          <li className="locations__item" key={key} onClick={handleCityChange}>
             <a
               className={cn('locations__item-link tabs__item', {
-                'tabs__item--active': city === value
+                'tabs__item--active': city === value,
               })}
-              href='#'
+              href="#"
             >
               <span>{value}</span>
             </a>

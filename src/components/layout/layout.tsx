@@ -1,14 +1,14 @@
+import { Fragment } from 'react';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
-import { getLayoutState } from './utils.ts';
-import { Fragment } from 'react';
-import { logoutAction } from '../../store/slices/user-slice/user-api-actions.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getFavoriteOffers } from '../../store/slices/data-slice/data-selectors.ts';
+import { logoutAction } from '../../store/slices/user-slice/user-api-actions.ts';
 import {
   getCurrentAuthStatus,
-  getUserEmail
+  getUserEmail,
 } from '../../store/slices/user-slice/user-selectors.ts';
-import { getFavoriteOffers } from '../../store/slices/data-slice/data-selectors.ts';
+import { getLayoutState } from './utils.ts';
 
 export default function Layout() {
   const location = useLocation();
@@ -25,40 +25,40 @@ export default function Layout() {
 
   return (
     <div className={`page ${rootClassName}`}>
-      <header className='header'>
-        <div className='container'>
-          <div className='header__wrapper'>
-            <div className='header__left'>
-              <Link className={`header__logo-link ${linkClassName}`} to='/'>
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <Link className={`header__logo-link ${linkClassName}`} to="/">
                 <img
-                  className='header__logo'
-                  src='../../markup/img/logo.svg'
-                  alt='6 cities logo'
-                  width='81'
-                  height='41'
+                  className="header__logo"
+                  src="../../markup/img/logo.svg"
+                  alt="6 cities logo"
+                  width="81"
+                  height="41"
                 />
               </Link>
             </div>
             {shouldRenderLoggedUser ? (
-              <nav className='header__nav'>
-                <ul className='header__nav-list'>
-                  <li className='header__nav-item user'>
-                    <Link className='header__nav-link header__nav-link--profile' to='/favorites'>
-                      <div className='header__avatar-wrapper user__avatar-wrapper'></div>
+              <nav className="header__nav">
+                <ul className="header__nav-list">
+                  <li className="header__nav-item user">
+                    <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                      <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       {isAuthorized === (AuthorizationStatus.Auth as string) ? (
                         <Fragment>
-                          <span className='header__user-name user__name'>{email}</span>
-                          <span className='header__favorite-count'>{offers.length}</span>
+                          <span className="header__user-name user__name">{email}</span>
+                          <span className="header__favorite-count">{offers.length}</span>
                         </Fragment>
                       ) : (
-                        <span className='header__signout'>Sign in</span>
+                        <span className="header__signout">Sign in</span>
                       )}
                     </Link>
                   </li>
                   {isAuthorized === (AuthorizationStatus.Auth as string) ? (
-                    <li className='header__nav-item'>
-                      <Link className='header__nav-link' to={location.pathname} onClick={logOut}>
-                        <span className='header__signout'>Sign out</span>
+                    <li className="header__nav-item">
+                      <Link className="header__nav-link" to={location.pathname} onClick={logOut}>
+                        <span className="header__signout">Sign out</span>
                       </Link>
                     </li>
                   ) : null}
@@ -70,14 +70,14 @@ export default function Layout() {
       </header>
       <Outlet />
       {shouldRenderFooter ? (
-        <footer className='footer container'>
-          <Link className='footer__logo-link' to={AppRoute.Root}>
+        <footer className="footer container">
+          <Link className="footer__logo-link" to={AppRoute.Root}>
             <img
-              className='footer__logo'
-              src='../../markup/img/logo.svg'
-              alt='6 cities logo'
-              width='64'
-              height='33'
+              className="footer__logo"
+              src="../../markup/img/logo.svg"
+              alt="6 cities logo"
+              width="64"
+              height="33"
             />
           </Link>
         </footer>

@@ -1,6 +1,5 @@
-import { useEffect, useState, useRef, RefObject } from 'react';
-import { Map, LatLngTuple } from 'leaflet';
-import leaflet from 'leaflet';
+import leaflet, { LatLngTuple, Map } from 'leaflet';
+import { RefObject, useEffect, useRef, useState } from 'react';
 
 interface City {
   location: {
@@ -21,13 +20,13 @@ function useMap(mapRef: RefObject<HTMLElement>, centerCity: City) {
 
       const instance = new Map(mapRef.current, {
         center: center,
-        zoom: centerCity.location.zoom
+        zoom: centerCity.location.zoom,
       });
 
       leaflet
         .tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
           attribution:
-            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>'
+            '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors &copy; <a href="https://carto.com/attributions">CARTO</a>',
         })
         .addTo(instance);
 

@@ -1,5 +1,5 @@
-import { State } from '../../../types/state.ts';
 import { NameSpace } from '../../../const.ts';
+import { State } from '../../../types/state.ts';
 
 export const getOffers = (state: State) => state[NameSpace.Data].offers;
 export const getOffer = (state: State) => state[NameSpace.Data].offer;

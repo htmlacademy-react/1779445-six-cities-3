@@ -1,5 +1,5 @@
-import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { Navigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { useAppSelector } from '../../hooks';
 import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
 

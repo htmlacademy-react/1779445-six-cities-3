@@ -6,9 +6,9 @@ function ErrorScreen(): JSX.Element {
   const dispatch = useAppDispatch();
 
   return (
-    <div className='page page--gray'>
-      <section className='error__screen' style={{ textAlign: 'center', paddingTop: '200px' }}>
-        <h1 style={{ fontSize: 50 }} className='error-screen__title '>
+    <div className="page page--gray">
+      <section className="error__screen" style={{ textAlign: 'center', paddingTop: '200px' }}>
+        <h1 style={{ fontSize: 50 }} className="error-screen__title ">
           {' '}
           Oooops..... <br />
           Network error detected
@@ -17,8 +17,8 @@ function ErrorScreen(): JSX.Element {
           onClick={() => {
             dispatch(fetchOffersAction());
           }}
-          className='replay replay--error'
-          type='button'
+          className="replay replay--error"
+          type="button"
         >
           Try again
         </button>

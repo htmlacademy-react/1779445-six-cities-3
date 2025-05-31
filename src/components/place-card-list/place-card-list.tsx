@@ -1,5 +1,5 @@
-import { MockOffersTypes } from '../place-card/place-card-offer-types.ts';
 import PlaceCard from '../place-card';
+import { MockOffersTypes } from '../place-card/place-card-offer-types.ts';
 
 type PlaceCardListProps = {
   offers: MockOffersTypes;
@@ -9,7 +9,7 @@ type PlaceCardListProps = {
 export default function PlaceCardList({ offers, onPlaceItemHover }: PlaceCardListProps) {
   return (
     <>
-      {offers.map(offer => (
+      {offers.map((offer) => (
         <PlaceCard key={offer.id} offer={offer} onPlaceItemHover={onPlaceItemHover} />
       ))}
     </>

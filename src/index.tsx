@@ -1,15 +1,15 @@
-import App from './components/app';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import { store } from './store';
 import { Provider } from 'react-redux';
-import {
-  fetchFavoriteOffersAction,
-  fetchOffersAction
-} from './store/slices/data-slice/data-api-actions.ts';
-import { checkAuthAction } from './store/slices/user-slice/user-api-actions.ts';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import App from './components/app';
+import { store } from './store';
+import {
+  fetchFavoriteOffersAction,
+  fetchOffersAction,
+} from './store/slices/data-slice/data-api-actions.ts';
+import { checkAuthAction } from './store/slices/user-slice/user-api-actions.ts';
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
@@ -26,5 +26,5 @@ root.render(
       <ToastContainer />
       <App />
     </Provider>
-  </React.StrictMode>
+  </React.StrictMode>,
 );

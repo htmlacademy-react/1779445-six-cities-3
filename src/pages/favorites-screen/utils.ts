@@ -12,6 +12,6 @@ function groupOffersByCity(offers: MockOffersTypes) {
   }, {});
 }
 
-const getFavoriteOffer = (offers: MockOffersTypes) => offers.filter(offer => offer.isFavorite);
+const getFavoriteOffer = (offers: MockOffersTypes) => offers.filter((offer) => offer.isFavorite);
 
-export { groupOffersByCity, getFavoriteOffer };
+export { getFavoriteOffer, groupOffersByCity };

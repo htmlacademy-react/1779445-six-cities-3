@@ -7,8 +7,8 @@ type OffersScreenProps = {
 
 export default function CommentsList({ comments }: OffersScreenProps) {
   return (
-    <ul className='reviews__list'>
-      {comments.map(comment => (
+    <ul className="reviews__list">
+      {comments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
     </ul>

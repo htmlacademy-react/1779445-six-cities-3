@@ -6,7 +6,7 @@ function getSortedOffers(offersElement: OfferType[], sortType: string): OfferTyp
   switch (sortType) {
     case SortType.TopRated:
       return sortedOffers.sort(
-        (higherRating, lowerRating) => lowerRating.rating - higherRating.rating
+        (higherRating, lowerRating) => lowerRating.rating - higherRating.rating,
       );
     case SortType.LowPrice:
       return sortedOffers.sort((higherPrice, lowerPrice) => higherPrice.price - lowerPrice.price);
