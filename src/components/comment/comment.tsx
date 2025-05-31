@@ -29,7 +29,7 @@ export default function Comment({ comment }: CommentProps) {
           </div>
         </div>
         <p className="reviews__text">{comment.comment}</p>
-        <time className="reviews__time" dateTime={comment.date.slice(0, 10)}>
+        <time className="reviews__time" dateTime={comment.date}>
           {formatDateToMonthYear(comment.date)}
         </time>
       </div>
