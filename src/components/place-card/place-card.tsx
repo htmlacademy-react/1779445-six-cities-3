@@ -36,7 +36,7 @@ export default function PlaceCard({
       await dispatch(
         fetchFavoriteAction({
           id: offer.id,
-          isFavorite: offer.isFavorite,
+          isFavorite: newStatus,
         }),
       ).unwrap();
     } catch {
@@ -46,12 +46,11 @@ export default function PlaceCard({
 
   return (
     <article
-      className={cn(
-        'place-card',
-        { favorites__card: isFavoritePageOffer },
-        { 'near-places__card': isOffersPage },
-        { cities__card: !isFavoritePageOffer && !isOffersPage },
-      )}
+      className={`place-card
+        ${isFavoritePageOffer ? 'favorites__card' : ''}
+        ${isOffersPage ? 'near-places__card' : ''}
+        ${!isFavoritePageOffer && !isOffersPage ? 'cities__card' : ''}
+      `}
       onMouseEnter={createHoverHandler(true)}
       id={offer.id}
       onMouseLeave={createHoverHandler(false)}
@@ -90,7 +89,7 @@ export default function PlaceCard({
             <button
               className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
               type="button"
-              onClick={() => favoriteClickHandler}
+              onClick={(evt) => favoriteClickHandler(evt)}
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>

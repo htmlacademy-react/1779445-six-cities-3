@@ -66,7 +66,7 @@ export default function OffersScreen() {
       await dispatch(
         fetchFavoriteAction({
           id: currentOffer.id,
-          isFavorite: currentOffer.isFavorite,
+          isFavorite: newStatus,
         }),
       ).unwrap();
     } catch {
@@ -105,7 +105,7 @@ export default function OffersScreen() {
                   <button
                     className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''} button`}
                     type="button"
-                    onClick={() => favoriteClickHandler}
+                    onClick={(evt) => favoriteClickHandler(evt)}
                   >
                     <svg className="offer__bookmark-icon" width="31" height="33">
                       <use xlinkHref="#icon-bookmark"></use>

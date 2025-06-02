@@ -17,9 +17,6 @@ export default function LoginScreen() {
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
 
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
-
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
     dispatch(
@@ -38,6 +35,8 @@ export default function LoginScreen() {
   };
 
   useEffect(() => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
     const timeout = setTimeout(() => {
       if (!email) {
         setIsEmailError(false);
@@ -51,6 +50,8 @@ export default function LoginScreen() {
   }, [email]);
 
   useEffect(() => {
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+
     const timeout = setTimeout(() => {
       if (!password) {
         setIsPasswordError(false);

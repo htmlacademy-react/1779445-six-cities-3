@@ -32,8 +32,13 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     updateOffers: (state, action: PayloadAction<OfferType>) => {
+      const updatedOffer = action.payload;
       state.offers = state.offers.map((offer) =>
-        offer.id === action.payload.id ? action.payload : offer,
+        offer.id === updatedOffer.id ? updatedOffer : offer,
+      );
+
+      state.nearby = state.nearby.map((offer) =>
+        offer.id === updatedOffer.id ? updatedOffer : offer,
       );
     },
     updateOffer: (state, action: PayloadAction<OfferType>) => {

@@ -99,8 +99,7 @@ export const fetchFavoriteAction = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(`${NameSpace.Data}/fetchFavorite`, async ({ id, isFavorite }, { extra: api, dispatch }) => {
-  const { data } = await api.post<boolean>(`${APIRoute.Favorites}/${id}/${Number(!isFavorite)}`);
-  // Запросим обновленный список избранных
+  const { data } = await api.post<boolean>(`${APIRoute.Favorites}/${id}/${Number(isFavorite)}`);
   await dispatch(fetchFavoriteOffersAction());
   return data;
 });
