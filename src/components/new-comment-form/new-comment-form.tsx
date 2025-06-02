@@ -61,7 +61,7 @@ export default function NewCommentForm() {
   const isSubmitDisabled = !validateForm(userComment, userRating) || isSubmitting;
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
+    <form className="reviews__form form" onSubmit={() => handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
@@ -71,9 +71,7 @@ export default function NewCommentForm() {
       </div>
 
       <textarea
-        className={`reviews__textarea form__textarea ${
-          errorMessage ? 'reviews__textarea--error' : ''
-        }`}
+        className={`reviews__textarea form__textarea ${errorMessage ? 'input--error' : ''}`}
         id="review"
         name="review"
         placeholder="Tell how was your stay, what you like and what can be improved"
@@ -84,7 +82,7 @@ export default function NewCommentForm() {
         disabled={isSubmitting}
       />
       {errorMessage && (
-        <p className="reviews__error-message" style={{ color: 'red', marginTop: '8px' }}>
+        <p className="input__error-message" style={{ color: 'red', marginTop: '8px' }}>
           {errorMessage}
         </p>
       )}

@@ -90,7 +90,7 @@ export default function PlaceCard({
             <button
               className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
               type="button"
-              onClick={favoriteClickHandler}
+              onClick={() => favoriteClickHandler}
             >
               <svg className="place-card__bookmark-icon" width="18" height="19">
                 <use xlinkHref="#icon-bookmark"></use>

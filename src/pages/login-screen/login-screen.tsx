@@ -77,7 +77,7 @@ export default function LoginScreen() {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
                 <input
-                  className={`login__input form__input ${isEmailError ? 'reviews__textarea--error' : ''}`}
+                  className={`login__input form__input ${isEmailError ? 'input--error' : ''}`}
                   type="email"
                   name="email"
                   placeholder="Email"
@@ -85,7 +85,7 @@ export default function LoginScreen() {
                   onChange={(evt) => setEmail(evt.target.value)}
                 />
                 {isEmailError ? (
-                  <p className="reviews__error-message">
+                  <p className="input__error-message">
                     Неверный формат email. Пример: user@example.com
                   </p>
                 ) : (
@@ -95,7 +95,7 @@ export default function LoginScreen() {
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
                 <input
-                  className={`login__input form__input ${isPasswordError ? 'reviews__textarea--error' : ''}`}
+                  className={`login__input form__input ${isPasswordError ? 'input--error' : ''}`}
                   type="password"
                   name="password"
                   placeholder="Password"
@@ -107,7 +107,7 @@ export default function LoginScreen() {
                   autoComplete="username"
                 />
                 {isPasswordError ? (
-                  <p className="reviews__error-message">
+                  <p className="input__error-message">
                     Пароль должен содержать минимум 6 символов, включая хотя бы одну латинскую букву
                     и одну цифру.
                   </p>

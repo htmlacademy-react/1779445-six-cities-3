@@ -1,14 +1,14 @@
-.reviews__textarea--error {
+.input--error {
   border: 2px solid #ff0000;
   box-shadow: 0 0 5px rgba(255, 0, 0, 0.3);
 }
 
-.reviews__textarea--error:focus-visible {
+.input--error:focus-visible {
   outline: none;
   box-shadow: 0 0 15px rgba(255, 0, 0, 0.3);
 }
 
-.reviews__error-message {
+.input__error-message {
   color: #ff0000;
   font-size: 14px;
   margin-top: 8px;

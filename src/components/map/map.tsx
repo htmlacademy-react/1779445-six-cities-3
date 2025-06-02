@@ -1,6 +1,6 @@
 import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useEffect, useRef } from 'react';
+import { FC, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const.ts';
 import useMap from '../../hooks/useMap.tsx';
@@ -38,20 +38,20 @@ const createIcon = (iconUrl: string) =>
 const defaultCustomIcon = createIcon(URL_MARKER_DEFAULT);
 const currentCustomIcon = createIcon(URL_MARKER_CURRENT);
 
-function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Element {
+const Map: FC<MapProps> = ({ filteredOffers, selectedPlace, isOfferMap }) => {
   const mapRef = useRef(null);
   const centerCity = filteredOffers[0]?.city;
   const map = useMap(mapRef, centerCity);
   const navigate = useNavigate();
 
-  const getIcon = (id: string) => {
-    if (isOfferMap) {
-      return id !== selectedPlace ? defaultCustomIcon : currentCustomIcon;
-    }
-    return id === selectedPlace ? currentCustomIcon : defaultCustomIcon;
-  };
-
   useEffect(() => {
+    const getIcon = (id: string) => {
+      if (isOfferMap) {
+        return id !== selectedPlace ? defaultCustomIcon : currentCustomIcon;
+      }
+      return id === selectedPlace ? currentCustomIcon : defaultCustomIcon;
+    };
+
     if (map && centerCity) {
       const markerLayer = layerGroup().addTo(map);
       markerLayer.clearLayers();
@@ -81,7 +81,7 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, filteredOffers, selectedPlace, centerCity]);
+  }, [map, filteredOffers, selectedPlace, centerCity, isOfferMap, navigate]);
 
   if (filteredOffers.length === 0 || !centerCity) {
     return <section />;
@@ -90,6 +90,6 @@ function Map({ filteredOffers, selectedPlace, isOfferMap }: MapProps): JSX.Eleme
   return (
     <section className={`${isOfferMap ? 'offer__map map' : 'cities__map map'}`} ref={mapRef} />
   );
-}
+};
 
 export default Map;
