@@ -1,4 +1,4 @@
-/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
+
 html {
   line-height: 1.15;
   -webkit-text-size-adjust: 100%;
@@ -262,7 +262,7 @@ img {
   font: inherit;
   text-align: center;
   word-break: break-word;
-  word-wrap: wrap;
+  word-wrap: break-word;
   overflow-wrap: break-word;
   -webkit-transition:
     color 0.3s,
@@ -1685,10 +1685,12 @@ img {
 .login__input-wrapper {
   margin-right: 2px;
 }
+
 .login__input {
   width: 100%;
   margin-bottom: 24px;
 }
+
 .login__submit {
   width: 100%;
 }
@@ -1796,4 +1798,7 @@ img {
 .header__logo-link:not(.header__logo-link--active):hover {
   opacity: 0.5;
 }
-/*# sourceMappingURL=main.css.map */
+
+.email-error {
+  border: 2px solid red;
+}

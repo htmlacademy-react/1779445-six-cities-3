@@ -43,7 +43,14 @@ export default function Layout() {
               <nav className="header__nav">
                 <ul className="header__nav-list">
                   <li className="header__nav-item user">
-                    <Link className="header__nav-link header__nav-link--profile" to="/favorites">
+                    <Link
+                      className="header__nav-link header__nav-link--profile"
+                      to={
+                        isAuthorized === (AuthorizationStatus.Auth as string)
+                          ? AppRoute.Favorites
+                          : AppRoute.Login
+                      }
+                    >
                       <div className="header__avatar-wrapper user__avatar-wrapper"></div>
                       {isAuthorized === (AuthorizationStatus.Auth as string) ? (
                         <Fragment>

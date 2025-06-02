@@ -9,7 +9,6 @@ type PublicRouteProps = {
 
 export default function PublicRoute({ children }: PublicRouteProps) {
   const authorizationStatus = useAppSelector(getCurrentAuthStatus);
-
   return authorizationStatus === (AuthorizationStatus.Auth as string) ? (
     <Navigate to={AppRoute.Root} />
   ) : (

@@ -80,6 +80,7 @@ export default function NewCommentForm() {
         value={userComment}
         onChange={handleTextChange}
         minLength={50}
+        maxLength={300}
         disabled={isSubmitting}
       />
       {errorMessage && (
