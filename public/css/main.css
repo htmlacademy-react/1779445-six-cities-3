@@ -870,6 +870,13 @@ img {
   stroke: #4481c3;
   fill: #4481c3;
 }
+
+.place-card__bookmark-button-disabled,
+.place-card__bookmark-button-disabled:hover {
+  pointer-events: none;
+  cursor: default;
+}
+
 .place-card__bookmark-icon {
   fill: none;
   stroke: #979797;

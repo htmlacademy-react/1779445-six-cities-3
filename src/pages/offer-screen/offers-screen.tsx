@@ -30,6 +30,7 @@ export default function OffersScreen() {
   const dispatch = useAppDispatch();
   const comments = useAppSelector(getComments);
   const nearby = useAppSelector(getNearby);
+  const authStatus = useAppSelector(getCurrentAuthStatus);
   const isAuthorized = useAppSelector(getCurrentAuthStatus);
   const currentOffer = useAppSelector(getOffer);
   const isOfferLoading = useAppSelector(getOfferLoading);
@@ -101,18 +102,16 @@ export default function OffersScreen() {
               ) : null}
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{currentOffer.title}</h1>
-                {isAuthorized === 'AUTH' ? (
-                  <button
-                    className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''} button`}
-                    type="button"
-                    onClick={(evt) => favoriteClickHandler(evt)}
-                  >
-                    <svg className="offer__bookmark-icon" width="31" height="33">
-                      <use xlinkHref="#icon-bookmark"></use>
-                    </svg>
-                    <span className="visually-hidden">To bookmarks</span>
-                  </button>
-                ) : null}
+                <button
+                  className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''} button ${authStatus === 'NO_AUTH' ? 'place-card__bookmark-button-disabled' : ''}`}
+                  type="button"
+                  onClick={(evt) => favoriteClickHandler(evt)}
+                >
+                  <svg className="offer__bookmark-icon" width="31" height="33">
+                    <use xlinkHref="#icon-bookmark"></use>
+                  </svg>
+                  <span className="visually-hidden">To bookmarks</span>
+                </button>
               </div>
               <div className="offer__rating rating">
                 <div className="offer__stars rating__stars">

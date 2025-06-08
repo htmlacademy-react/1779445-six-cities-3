@@ -52,7 +52,7 @@ export default function NewCommentForm() {
       setUserComment('');
       setUserRating(0);
     } catch (error) {
-      setErrorMessage('Failed to post comment. Please try again.'); // Устанавливаем сообщение об ошибке
+      setErrorMessage('Failed to post comment. Please try again.');
     } finally {
       setIsSubmitting(false);
     }
@@ -61,7 +61,7 @@ export default function NewCommentForm() {
   const isSubmitDisabled = !validateForm(userComment, userRating) || isSubmitting;
 
   return (
-    <form className="reviews__form form" onSubmit={() => handleSubmit}>
+    <form className="reviews__form form" onSubmit={handleSubmit}>
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>

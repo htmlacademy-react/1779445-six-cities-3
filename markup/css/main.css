@@ -862,6 +862,7 @@ img {
   height: 19px;
   margin-top: 2px;
 }
+
 .place-card__bookmark-button:focus .place-card__bookmark-icon,
 .place-card__bookmark-button:hover .place-card__bookmark-icon {
   stroke: #4481c3;
@@ -1801,4 +1802,8 @@ img {
 
 .email-error {
   border: 2px solid red;
+}
+
+.place-card__bookmark-button-disabled {
+  cursor: default;
 }

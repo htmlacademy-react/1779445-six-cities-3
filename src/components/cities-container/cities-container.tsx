@@ -2,7 +2,7 @@ import Map from '../map';
 import PlaceCardList from '../place-card-list';
 import SortingOptions from '../sorting-options';
 
-import { useState } from 'react';
+import { memo, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/slices/data-slice/data-selectors.ts';
 import {
@@ -11,7 +11,7 @@ import {
 } from '../../store/slices/offers-slice/offers-selectors.ts';
 import getSortedOffers from '../../utils/utils-sort.ts';
 
-export default function CitiesContainer() {
+function CitiesContainer() {
   const city = useAppSelector(getCurrentCity);
   const offers = useAppSelector(getOffers);
   const sortType = useAppSelector(getCurrentSort);
@@ -42,3 +42,7 @@ export default function CitiesContainer() {
     </>
   );
 }
+
+const MemoizedCitiesContainer = memo(CitiesContainer);
+MemoizedCitiesContainer.displayName = 'MemoizedCitiesContainer';
+export default MemoizedCitiesContainer;

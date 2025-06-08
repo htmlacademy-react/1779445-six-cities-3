@@ -2,8 +2,8 @@ import { Icon, Marker, layerGroup } from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 import { FC, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { URL_MARKER_CURRENT, URL_MARKER_DEFAULT } from '../../const.ts';
-import useMap from '../../hooks/useMap.tsx';
+import { MarkerUrl } from '../../const.ts';
+import useMap from '../../hooks/use-map.tsx';
 
 type City = {
   location: {
@@ -35,8 +35,8 @@ const createIcon = (iconUrl: string) =>
     iconAnchor: [27, 39],
   });
 
-const defaultCustomIcon = createIcon(URL_MARKER_DEFAULT);
-const currentCustomIcon = createIcon(URL_MARKER_CURRENT);
+const defaultCustomIcon = createIcon(MarkerUrl.URL_MARKER_DEFAULT);
+const currentCustomIcon = createIcon(MarkerUrl.URL_MARKER_CURRENT);
 
 const Map: FC<MapProps> = ({ filteredOffers, selectedPlace, isOfferMap }) => {
   const mapRef = useRef(null);

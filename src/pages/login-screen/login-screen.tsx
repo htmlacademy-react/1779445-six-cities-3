@@ -117,7 +117,7 @@ export default function LoginScreen() {
                 )}
               </div>
               <button
-                className={`login__submit form__submit button  ${isEmailError ? 'button-login__disabled' : ''}`}
+                className={`login__submit form__submit button  ${isEmailError || isPasswordError ? 'button-login__disabled' : ''}`}
                 type="submit"
               >
                 Sign in

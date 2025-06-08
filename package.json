@@ -5,7 +5,7 @@
   "scripts": {
     "start": "vite",
     "build": "tsc && vite build",
-    "lint": "eslint .",
+    "lint": "eslint src --ext ts,tsx",
     "format": "prettier --write .",
     "preview": "vite preview",
     "test": "vitest --passWithNoTests"
