@@ -1,6 +1,6 @@
-import {OfferType} from '../components/place-card/place-card-offer-types.ts';
-import {CommentsType} from '../components/comment/comment-type.ts';
-import {CityName} from '../const.ts';
+import { CommentsType } from '../components/comment/comment-type.ts';
+import { OfferType } from '../components/place-card/place-card-offer-types.ts';
+import { CityName } from '../const.ts';
 
 type AppState = {
   city: CityName;
@@ -16,6 +16,7 @@ type AppState = {
   isFavorite: boolean;
   favoriteOffers: OfferType[];
   userEmail: string | null;
-}
+  isOfferLoading: boolean;
+};
 
 export default AppState;

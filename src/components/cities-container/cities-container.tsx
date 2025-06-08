@@ -1,14 +1,17 @@
-import SortingOptions from '../sorting-options';
-import PlaceCardList from '../place-card-list';
 import Map from '../map';
+import PlaceCardList from '../place-card-list';
+import SortingOptions from '../sorting-options';
 
+import { memo, useState } from 'react';
+import { useAppSelector } from '../../hooks';
+import { getOffers } from '../../store/slices/data-slice/data-selectors.ts';
+import {
+  getCurrentCity,
+  getCurrentSort,
+} from '../../store/slices/offers-slice/offers-selectors.ts';
 import getSortedOffers from '../../utils/utils-sort.ts';
-import {useAppSelector} from '../../hooks';
-import {getCurrentCity, getCurrentSort} from '../../store/slices/offers-slice/offers-selectors.ts';
-import {getOffers} from '../../store/slices/data-slice/data-selectors.ts';
-import {useState} from 'react';
 
-export default function CitiesContainer() {
+function CitiesContainer() {
   const city = useAppSelector(getCurrentCity);
   const offers = useAppSelector(getOffers);
   const sortType = useAppSelector(getCurrentSort);
@@ -23,23 +26,23 @@ export default function CitiesContainer() {
   };
   return (
     <>
-      <section className='cities__places places'>
-        <h2 className='visually-hidden'>Places</h2>
-        <b className='places__found'>{filteredOffers.length} places to stay in {city}</b>
+      <section className="cities__places places">
+        <h2 className="visually-hidden">Places</h2>
+        <b className="places__found">
+          {filteredOffers.length} places to stay in {city}
+        </b>
         <SortingOptions />
-        <div className='cities__places-list places__list tabs__content'>
-          <PlaceCardList
-            offers={sortedOffers}
-            onPlaceItemHover={handlePlaceItemHover}
-          />
+        <div className="cities__places-list places__list tabs__content">
+          <PlaceCardList offers={sortedOffers} onPlaceItemHover={handlePlaceItemHover} />
         </div>
       </section>
-      <div className='cities__right-section'>
-        <Map
-          filteredOffers={filteredOffers}
-          selectedPlace={selectedPlace}
-        />
+      <div className="cities__right-section">
+        <Map filteredOffers={filteredOffers} selectedPlace={selectedPlace} />
       </div>
     </>
   );
 }
+
+const MemoizedCitiesContainer = memo(CitiesContainer);
+MemoizedCitiesContainer.displayName = 'MemoizedCitiesContainer';
+export default MemoizedCitiesContainer;

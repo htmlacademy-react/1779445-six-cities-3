@@ -1,18 +1,23 @@
-import {MockOffersTypes} from '../place-card/place-card-offer-types.ts';
+import { memo } from 'react';
 import PlaceCard from '../place-card';
+import { MockOffersTypes } from '../place-card/place-card-offer-types.ts';
 
 type PlaceCardListProps = {
   offers: MockOffersTypes;
   onPlaceItemHover: (listItemName: string | null) => void;
 };
 
-export default function PlaceCardList({ offers, onPlaceItemHover}: PlaceCardListProps) {
+function PlaceCardList({ offers, onPlaceItemHover }: PlaceCardListProps) {
   return (
     <>
       {offers.map((offer) => (
-        <PlaceCard key={offer.id} offer={offer} onPlaceItemHover={onPlaceItemHover}/>
+        <PlaceCard key={offer.id} offer={offer} onPlaceItemHover={onPlaceItemHover} />
       ))}
     </>
   );
 }
 
+const MemoizedPlaceCardList = memo(PlaceCardList);
+MemoizedPlaceCardList.displayName = 'MemoizedPlaceCardList';
+
+export default MemoizedPlaceCardList;

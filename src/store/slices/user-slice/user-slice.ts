@@ -1,9 +1,9 @@
-import {AuthorizationStatus, NameSpace} from '../../../const.ts';
-import {createAction, createSlice} from '@reduxjs/toolkit';
+import { createAction, createSlice } from '@reduxjs/toolkit';
+import { AuthorizationStatus, NameSpace } from '../../../const.ts';
 import AppState from '../../../types/app-state.ts';
-import {checkAuthAction, loginAction, logoutAction} from './user-api-actions.ts';
+import { checkAuthAction, loginAction, logoutAction } from './user-api-actions.ts';
 
-type UserState = Pick<AppState, 'authorizationStatus' | 'userEmail'>
+type UserState = Pick<AppState, 'authorizationStatus' | 'userEmail'>;
 
 const initialState: UserState = {
   authorizationStatus: AuthorizationStatus.Unknown,
@@ -11,14 +11,14 @@ const initialState: UserState = {
 };
 
 export const requireAuthorization = createAction<AuthorizationStatus>(
-  `${NameSpace.User}/requireAuthorization`
+  `${NameSpace.User}/requireAuthorization`,
 );
 
 const userSlice = createSlice({
   name: NameSpace.User,
   initialState,
   reducers: {},
-  extraReducers: (builder)=> {
+  extraReducers: (builder) => {
     builder
       .addCase(checkAuthAction.fulfilled, (state, action) => {
         state.authorizationStatus = action.payload.authorizationStatus;

@@ -1,9 +1,9 @@
-import {StarsRating} from '../../const.ts';
+import { StarsRating } from '../../const.ts';
 
 const getStarsRating = (rating: number) => {
   const ratingValue = rating.toFixed();
 
-  switch (ratingValue){
+  switch (ratingValue) {
     case '1':
       return StarsRating.OneStars;
     case '2':

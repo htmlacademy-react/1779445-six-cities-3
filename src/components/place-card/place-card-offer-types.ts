@@ -2,19 +2,19 @@ export enum PropertyType {
   Hotel = 'hotel',
   Apartment = 'apartment',
   House = 'house',
-  Room = 'room'
+  Room = 'room',
 }
 
 type Location = {
   latitude: number;
   longitude: number;
   zoom: number;
-}
+};
 
 type City = {
   name: string;
   location: Location;
-}
+};
 
 type Host = {
   name: string;

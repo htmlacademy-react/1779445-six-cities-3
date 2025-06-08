@@ -3,15 +3,15 @@ import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { useAppSelector } from '../../hooks';
 import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
 
-type PrivateRouteProps = {
+type PublicRouteProps = {
   children: JSX.Element;
 };
 
-export default function PrivateRoute({ children }: PrivateRouteProps) {
+export default function PublicRoute({ children }: PublicRouteProps) {
   const authorizationStatus = useAppSelector(getCurrentAuthStatus);
   return authorizationStatus === (AuthorizationStatus.Auth as string) ? (
-    children
+    <Navigate to={AppRoute.Root} />
   ) : (
-    <Navigate to={AppRoute.Login} />
+    children
   );
 }

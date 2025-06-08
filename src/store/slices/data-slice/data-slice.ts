@@ -1,14 +1,16 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {NameSpace} from '../../../const.ts';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
+import { NameSpace } from '../../../const.ts';
+import AppState from '../../../types/app-state.ts';
 import {
-  fetchOffersAction,
+  fetchFavoriteAction,
+  fetchFavoriteOffersAction,
   fetchOfferIDAction,
   fetchOfferIDCommentsAction,
   fetchOfferIDNearbyAction,
-  postComment, fetchFavoriteAction, fetchFavoriteOffersAction
+  fetchOffersAction,
+  postComment,
 } from './data-api-actions.ts';
-import AppState from '../../../types/app-state.ts';
-import {OfferType} from '../../../components/place-card/place-card-offer-types.ts';
 
 type DataState = Omit<AppState, 'city' | 'sort' | 'error' | 'authorizationStatus' | 'userEmail'>;
 
@@ -22,6 +24,7 @@ const initialState: DataState = {
   fetchOffersError: false,
   isFavorite: false,
   favoriteOffers: [],
+  isOfferLoading: false,
 };
 
 const dataSlice = createSlice({
@@ -29,8 +32,13 @@ const dataSlice = createSlice({
   initialState,
   reducers: {
     updateOffers: (state, action: PayloadAction<OfferType>) => {
+      const updatedOffer = action.payload;
       state.offers = state.offers.map((offer) =>
-        offer.id === action.payload.id ? action.payload : offer
+        offer.id === updatedOffer.id ? updatedOffer : offer,
+      );
+
+      state.nearby = state.nearby.map((offer) =>
+        offer.id === updatedOffer.id ? updatedOffer : offer,
       );
     },
     updateOffer: (state, action: PayloadAction<OfferType>) => {
@@ -56,15 +64,19 @@ const dataSlice = createSlice({
       // Обработка fetchOfferIDAction
       .addCase(fetchOfferIDAction.fulfilled, (state, action) => {
         state.offer = action.payload;
+        state.isOfferLoading = false;
+      })
+      .addCase(fetchOfferIDAction.pending, (state) => {
+        state.isOfferLoading = true;
+      })
+      .addCase(fetchOfferIDAction.rejected, (state) => {
+        state.isOfferLoading = false;
       })
 
       // Обработка fetchOfferIDCommentsAction
       .addCase(fetchOfferIDCommentsAction.fulfilled, (state, action) => {
         state.comments = action.payload;
       })
-      // .addCase(fetchOfferIDCommentsAction.rejected, (state, action) => {
-      //   state.comments = action.error.message;
-      // })
 
       // Обработка fetchOfferIDNearbyAction
       .addCase(fetchOfferIDNearbyAction.fulfilled, (state, action) => {
@@ -86,6 +98,6 @@ const dataSlice = createSlice({
   },
 });
 
-export const {updateOffers, updateOffer} = dataSlice.actions;
+export const { updateOffers, updateOffer } = dataSlice.actions;
 
 export default dataSlice.reducer;

@@ -1,11 +1,14 @@
+import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
-import PlaceCard from '../../components/place-card';
-import {groupOffersByCity, getFavoriteOffer} from './utils.ts';
-import {useAppDispatch, useAppSelector} from '../../hooks';
-import {getFavoriteOffers} from '../../store/slices/data-slice/data-selectors.ts';
-import {fetchFavoriteOffersAction} from '../../store/slices/data-slice/data-api-actions.ts';
-import {useEffect} from 'react';
+import { Link } from 'react-router-dom';
 import FavoritesEmpty from '../../components/favorites-empty';
+import PlaceCard from '../../components/place-card';
+import { AppRoute, CityName } from '../../const.ts';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteOffersAction } from '../../store/slices/data-slice/data-api-actions.ts';
+import { getFavoriteOffers } from '../../store/slices/data-slice/data-selectors.ts';
+import { setCity } from '../../store/slices/offers-slice/offers-slice.ts';
+import { getFavoriteOffer, groupOffersByCity } from './utils.ts';
 
 export default function FavoritesScreen() {
   const dispatch = useAppDispatch();
@@ -17,6 +20,13 @@ export default function FavoritesScreen() {
   useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
+
+  const checkedSity = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+    const city = (evt.currentTarget.querySelector('span') as HTMLSpanElement)?.textContent;
+    if (city) {
+      dispatch(setCity(city as CityName));
+    }
+  };
 
   return (
     <div className="page">
@@ -36,9 +46,13 @@ export default function FavoritesScreen() {
                   <li key={city} className="favorites__locations-items">
                     <div className="favorites__locations locations locations--current">
                       <div className="locations__item">
-                        <a className="locations__item-link" href="#">
+                        <Link
+                          className="locations__item-link"
+                          to={AppRoute.Root}
+                          onClick={(evt) => checkedSity(evt)}
+                        >
                           <span>{city}</span>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="favorites__places">

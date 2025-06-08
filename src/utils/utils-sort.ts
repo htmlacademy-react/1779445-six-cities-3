@@ -1,12 +1,13 @@
-import {OfferType} from '../components/place-card/place-card-offer-types.ts';
-import {SortType} from '../const.ts';
-
+import { OfferType } from '../components/place-card/place-card-offer-types.ts';
+import { SortType } from '../const.ts';
 
 function getSortedOffers(offersElement: OfferType[], sortType: string): OfferType[] {
   const sortedOffers = [...offersElement];
-  switch(sortType) {
+  switch (sortType) {
     case SortType.TopRated:
-      return sortedOffers.sort((higherRating, lowerRating) => lowerRating.rating - higherRating.rating);
+      return sortedOffers.sort(
+        (higherRating, lowerRating) => lowerRating.rating - higherRating.rating,
+      );
     case SortType.LowPrice:
       return sortedOffers.sort((higherPrice, lowerPrice) => higherPrice.price - lowerPrice.price);
     case SortType.HighPrice:
