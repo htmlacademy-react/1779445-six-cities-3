@@ -8,7 +8,7 @@ describe('offersSlice reducer', () => {
     isOffersDataLoading: false,
   };
 
-  it('Should return the initial state', () => {
+  it('Should return the initial state of offerSlice reducer', () => {
     expect(reducer(undefined, { type: undefined })).toEqual(initialState);
   });
 

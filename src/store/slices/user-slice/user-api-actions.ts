@@ -10,21 +10,22 @@ export const checkAuthAction = createAsyncThunk<
   undefined,
   {
     extra: AxiosInstance;
+    rejectValue: UserData;
   }
->('user/checkAuth', async (_arg, { extra: api }) => {
+>('user/checkAuth', async (_arg, { extra: api, rejectWithValue }) => {
   try {
     const token = getToken();
     if (!token) {
-      return { authorizationStatus: AuthorizationStatus.NoAuth } as UserData;
+      return rejectWithValue({ authorizationStatus: AuthorizationStatus.NoAuth } as UserData);
     }
-    const { data } = await api.get<UserData>(APIRoute.Login); // Запрашиваем данные пользователя
+    const { data } = await api.get<UserData>(APIRoute.Login);
     return {
       ...data,
       authorizationStatus: AuthorizationStatus.Auth,
     };
   } catch (error) {
     dropToken();
-    return { authorizationStatus: AuthorizationStatus.NoAuth } as UserData;
+    return rejectWithValue({ authorizationStatus: AuthorizationStatus.NoAuth } as UserData);
   }
 });
 
