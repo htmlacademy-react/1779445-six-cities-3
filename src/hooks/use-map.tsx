@@ -10,7 +10,6 @@ interface City {
 }
 
 function useMap(mapRef: RefObject<HTMLElement>, centerCity: City) {
-  // 1. Делаем centerCity обязательным
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 
