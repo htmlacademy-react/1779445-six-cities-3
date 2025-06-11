@@ -32,8 +32,8 @@ const userSlice = createSlice({
         state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.userEmail = null;
       })
-      .addCase(logoutAction.fulfilled, (state, action) => {
-        state.authorizationStatus = action.payload;
+      .addCase(logoutAction.fulfilled, (state) => {
+        state.authorizationStatus = AuthorizationStatus.NoAuth;
         state.userEmail = null;
       });
   },

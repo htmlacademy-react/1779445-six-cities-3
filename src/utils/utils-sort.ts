@@ -1,4 +1,4 @@
-import { OfferType } from '../components/place-card/place-card-offer-types.ts';
+import { OfferType } from '../components/place-card/place-card-offer-types.tsx';
 import { SortType } from '../const.ts';
 
 function getSortedOffers(offersElement: OfferType[], sortType: string): OfferType[] {

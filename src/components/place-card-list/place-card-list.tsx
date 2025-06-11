@@ -1,6 +1,6 @@
 import { memo } from 'react';
 import PlaceCard from '../place-card';
-import { MockOffersTypes } from '../place-card/place-card-offer-types.ts';
+import { MockOffersTypes } from '../place-card/place-card-offer-types.tsx';
 
 type PlaceCardListProps = {
   offers: MockOffersTypes;

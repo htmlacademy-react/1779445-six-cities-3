@@ -4,6 +4,7 @@ import { Action } from 'redux';
 import thunk from 'redux-thunk';
 import { APIRoute } from '../../../const.ts';
 import { createAPI } from '../../../services/api.ts';
+import * as tokenUtils from '../../../services/token.ts';
 import { State } from '../../../types/state.ts';
 import { AppThunkDispatch, extractActionsTypes } from '../../../utils/mocks.ts';
 import { checkAuthAction, loginAction, logoutAction } from './user-api-actions.ts';
@@ -15,12 +16,21 @@ describe('User async actions', () => {
   const mockStoreCreator = configureMockStore<State, Action<string>, AppThunkDispatch>(middleware);
   let store: ReturnType<typeof mockStoreCreator>;
 
+  vi.mock('../../services/token', () => ({
+    getToken: () => 'fake-token',
+    dropToken: vi.fn(),
+  }));
+
   beforeEach(() => {
     store = mockStoreCreator({ data: { offers: [] } });
   });
 
   it('should dispatch "checkAuthAction.pending" and "checkAuthAction.fulfilled" with thunk "checkAction" ', async () => {
-    mockAxiosAdapter.onGet(APIRoute.Login).reply(200);
+    vi.spyOn(tokenUtils, 'getToken').mockReturnValue('mock-token');
+    mockAxiosAdapter
+      .onGet(APIRoute.Login)
+      .reply(200, { email: 'test@test.com', token: 'mock-token' });
+
     await store.dispatch(checkAuthAction());
 
     const actions = extractActionsTypes(store.getActions());

@@ -1,7 +1,7 @@
 import { ThunkDispatch } from '@reduxjs/toolkit';
 import { Action } from 'redux';
 import { CommentsType } from '../components/comment/comment-type.ts';
-import { OfferType, PropertyType } from '../components/place-card/place-card-offer-types.ts';
+import { OfferType, PropertyType } from '../components/place-card/place-card-offer-types.tsx';
 import { createAPI } from '../services/api.ts';
 import { State } from '../types/state.ts';
 
