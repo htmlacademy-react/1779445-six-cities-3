@@ -1,7 +1,7 @@
 import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import CitiesContainer from '../../components/cities-container/cities-container.tsx';
-import EmptyListOffersPage from '../../components/empty-list-offers/empty-list-offers.tsx';
+import EmptyListOffers from '../../components/empty-list-offers/empty-list-offers.tsx';
 import LocationsList from '../../components/locations-list';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/slices/data-slice/data-selectors.ts';
@@ -28,7 +28,7 @@ export default function MainScreen(): JSX.Element {
         </div>
         <div className="cities">
           {filteredOffers.length === 0 ? (
-            <EmptyListOffersPage />
+            <EmptyListOffers />
           ) : (
             <div className="cities__places-container container">
               <CitiesContainer />
