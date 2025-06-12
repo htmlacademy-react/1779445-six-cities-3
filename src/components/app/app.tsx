@@ -1,5 +1,5 @@
 import { HelmetProvider } from 'react-helmet-async';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 
 import ErrorScreen from '../../pages/error-screen';
@@ -34,32 +34,30 @@ function App(): JSX.Element {
 
   return (
     <HelmetProvider>
-      <BrowserRouter>
-        <ScrollToTop />
-        <Routes>
-          <Route path={AppRoute.Root} element={<Layout />}>
-            <Route index element={<MainScreen />} />
-            <Route path={`${AppRoute.Offer}/:id`} element={<OffersScreen />} />
-            <Route
-              path={AppRoute.Login}
-              element={
-                <PublicRoute>
-                  <LoginScreen />
-                </PublicRoute>
-              }
-            />
-            <Route
-              path={AppRoute.Favorites}
-              element={
-                <PrivateRoute>
-                  <FavoritesScreen />
-                </PrivateRoute>
-              }
-            />
-            <Route path="*" element={<NonFoundScreen />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
+      <ScrollToTop />
+      <Routes>
+        <Route path={AppRoute.Root} element={<Layout />}>
+          <Route index element={<MainScreen />} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<OffersScreen />} />
+          <Route
+            path={AppRoute.Login}
+            element={
+              <PublicRoute>
+                <LoginScreen />
+              </PublicRoute>
+            }
+          />
+          <Route
+            path={AppRoute.Favorites}
+            element={
+              <PrivateRoute>
+                <FavoritesScreen />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NonFoundScreen />} />
+        </Route>
+      </Routes>
     </HelmetProvider>
   );
 }

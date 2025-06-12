@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { AxiosError, AxiosInstance } from 'axios';
 import { CommentsType } from '../../../components/comment/comment-type.ts';
-import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
+import { OfferType } from '../../../components/place-card/place-card-offer-types.tsx';
 import { APIRoute, NameSpace } from '../../../const.ts';
 import { getToken } from '../../../services/token.ts';
 
@@ -59,6 +59,20 @@ export const fetchOfferIDNearbyAction = createAsyncThunk<
   return data;
 });
 
+export const fetchFavoriteOffersAction = createAsyncThunk<
+  OfferType[],
+  undefined,
+  {
+    extra: AxiosInstance;
+  }
+>(`${NameSpace.Data}/fetchFavorites`, async (_arg, { extra: api }) => {
+  if (!getToken()) {
+    return [];
+  }
+  const { data } = await api.get<OfferType[]>(APIRoute.Favorites);
+  return data;
+});
+
 export const postComment = createAsyncThunk<
   CommentsType,
   {
@@ -74,19 +88,6 @@ export const postComment = createAsyncThunk<
 >(`${NameSpace.Data}/postComment`, async ({ id, commentData }, { extra: api }) => {
   const response = await api.post<CommentsType>(`${APIRoute.Comments}/${id}`, commentData);
   return response.data;
-});
-export const fetchFavoriteOffersAction = createAsyncThunk<
-  OfferType[],
-  undefined,
-  {
-    extra: AxiosInstance;
-  }
->(`${NameSpace.Data}/fetchFavorites`, async (_arg, { extra: api }) => {
-  if (!getToken()) {
-    return [];
-  }
-  const { data } = await api.get<OfferType[]>(APIRoute.Favorites);
-  return data;
 });
 
 export const fetchFavoriteAction = createAsyncThunk<

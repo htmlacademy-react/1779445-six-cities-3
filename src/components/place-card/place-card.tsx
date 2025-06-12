@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteAction } from '../../store/slices/data-slice/data-api-actions.ts';
 import { updateOffers } from '../../store/slices/data-slice/data-slice.ts';
 import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
-import { OfferType } from './place-card-offer-types.ts';
+import { OfferType } from './place-card-offer-types.tsx';
 import getStarsRating from './utils.ts';
 
 type PlaceCardProps = {

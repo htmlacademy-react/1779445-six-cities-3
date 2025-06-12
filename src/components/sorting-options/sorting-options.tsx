@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCurrentSort } from '../../store/slices/offers-slice/offers-selectors.ts';
 import { setSort } from '../../store/slices/offers-slice/offers-slice.ts';
 
-export default function SortingOptions() {
+const SortingOptions = () => {
   const [isActive, setIsActive] = useState(false);
   const dispatch = useAppDispatch();
   const selectedSortType = useAppSelector(getCurrentSort);
@@ -21,9 +21,14 @@ export default function SortingOptions() {
   return (
     <form className="places__sorting" action="#" method="get">
       <span className="places__sorting-caption" onClick={toggleActive}>
-        Sort by{' '}
+        Sort by&nbsp;
       </span>
-      <span className="places__sorting-type" tabIndex={0} onClick={toggleActive}>
+      <span
+        className="places__sorting-type"
+        tabIndex={0}
+        onClick={toggleActive}
+        data-testid="sorting-type-toggle"
+      >
         {selectedSortType}
         <svg className="places__sorting-arrow" width="7" height="4">
           <use xlinkHref="#icon-arrow-select"></use>
@@ -38,6 +43,7 @@ export default function SortingOptions() {
             className={`places__option ${selectedSortType === String(sortType) ? 'places__option--active' : ''}`}
             tabIndex={0}
             onClick={() => handleSortTypeChange(sortType)}
+            data-testid={`sorting-option-${sortType.replace(/\s+/g, '-').toLowerCase()}`}
           >
             {sortType}
           </li>
@@ -45,4 +51,6 @@ export default function SortingOptions() {
       </ul>
     </form>
   );
-}
+};
+
+export default SortingOptions;

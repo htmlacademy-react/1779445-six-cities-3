@@ -1,5 +1,5 @@
 import PlaceCard from '../place-card';
-import { MockOffersTypes, OfferType } from '../place-card/place-card-offer-types.ts';
+import { MockOffersTypes, OfferType } from '../place-card/place-card-offer-types.tsx';
 
 type OfferNearbyProps = {
   filteredOffers: MockOffersTypes;
@@ -7,7 +7,7 @@ type OfferNearbyProps = {
 
 export default function OffersListNearby({ filteredOffers }: OfferNearbyProps) {
   if (filteredOffers.length === 0) {
-    return <section></section>;
+    return;
   }
 
   return (

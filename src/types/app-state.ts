@@ -1,5 +1,5 @@
 import { CommentsType } from '../components/comment/comment-type.ts';
-import { OfferType } from '../components/place-card/place-card-offer-types.ts';
+import { OfferType } from '../components/place-card/place-card-offer-types.tsx';
 import { CityName } from '../const.ts';
 
 type AppState = {

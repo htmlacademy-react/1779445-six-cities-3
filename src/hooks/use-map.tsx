@@ -1,16 +1,15 @@
 import leaflet, { LatLngTuple, Map } from 'leaflet';
 import { RefObject, useEffect, useRef, useState } from 'react';
 
-interface City {
+export type City = {
   location: {
     latitude: number;
     longitude: number;
     zoom: number;
   };
-}
+};
 
 function useMap(mapRef: RefObject<HTMLElement>, centerCity: City) {
-  // 1. Делаем centerCity обязательным
   const [map, setMap] = useState<Map | null>(null);
   const isRenderedRef = useRef(false);
 

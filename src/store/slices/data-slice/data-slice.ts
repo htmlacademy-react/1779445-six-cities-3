@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OfferType } from '../../../components/place-card/place-card-offer-types.ts';
+import { OfferType } from '../../../components/place-card/place-card-offer-types.tsx';
 import { NameSpace } from '../../../const.ts';
 import AppState from '../../../types/app-state.ts';
 import {
@@ -12,7 +12,10 @@ import {
   postComment,
 } from './data-api-actions.ts';
 
-type DataState = Omit<AppState, 'city' | 'sort' | 'error' | 'authorizationStatus' | 'userEmail'>;
+export type DataState = Omit<
+  AppState,
+  'city' | 'sort' | 'error' | 'authorizationStatus' | 'userEmail'
+>;
 
 const initialState: DataState = {
   offer: null,
@@ -92,6 +95,7 @@ const dataSlice = createSlice({
       .addCase(fetchFavoriteAction.fulfilled, (state, action) => {
         state.isFavorite = action.payload;
       })
+
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
       });

@@ -20,9 +20,6 @@ const offersSlice = createSlice({
     setSort: (state, action: PayloadAction<SortType>) => {
       state.sort = action.payload;
     },
-    setOffersDataLoadingStatus: (state, action: PayloadAction<boolean>) => {
-      state.isOffersDataLoading = action.payload;
-    },
   },
 });
 

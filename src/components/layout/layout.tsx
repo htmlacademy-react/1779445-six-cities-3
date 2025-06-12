@@ -36,6 +36,7 @@ export default function Layout() {
                   alt="6 cities logo"
                   width="81"
                   height="41"
+                  data-testid="image-logo"
                 />
               </Link>
             </div>
