@@ -13,9 +13,11 @@ vi.mock('../../store/slices/offers-slice/offers-selectors', () => ({
 }));
 
 vi.mock('../../store/slices/offers-slice/offers-slice.ts', async () => {
-  const actual = await vi.importActual<
-    typeof import('../../store/slices/offers-slice/offers-slice.ts')
-  >('../../store/slices/offers-slice/offers-slice.ts');
+  const [actual] = await Promise.all([
+    vi.importActual<typeof import('../../store/slices/offers-slice/offers-slice.ts')>(
+      '../../store/slices/offers-slice/offers-slice.ts',
+    ),
+  ]);
 
   return {
     ...actual,
