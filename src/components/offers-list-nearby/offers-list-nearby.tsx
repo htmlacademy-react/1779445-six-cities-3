@@ -7,7 +7,7 @@ type OfferNearbyProps = {
 
 export default function OffersListNearby({ filteredOffers }: OfferNearbyProps) {
   if (filteredOffers.length === 0) {
-    return <section></section>;
+    return;
   }
 
   return (
