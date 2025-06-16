@@ -61,13 +61,13 @@ export default function NewCommentForm() {
   const isSubmitDisabled = !validateForm(userComment, userRating) || isSubmitting;
 
   return (
-    <form className="reviews__form form" onSubmit={handleSubmit}>
+    <form className="reviews__form form" onSubmit={handleSubmit} method="post">
       <label className="reviews__label form__label" htmlFor="review">
         Your review
       </label>
 
       <div className="reviews__rating-form form__rating">
-        {generateRatingStars(userRating, handleRatingChange)}
+        {generateRatingStars(userRating, handleRatingChange, isSubmitting)}
       </div>
 
       <textarea
@@ -78,7 +78,6 @@ export default function NewCommentForm() {
         value={userComment}
         onChange={handleTextChange}
         minLength={50}
-        maxLength={300}
         disabled={isSubmitting}
       />
       {errorMessage && (

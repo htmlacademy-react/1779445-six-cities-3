@@ -19,6 +19,7 @@ export default function LoginScreen() {
 
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
+
     dispatch(
       loginAction({
         login: email,
@@ -50,7 +51,7 @@ export default function LoginScreen() {
   }, [email]);
 
   useEffect(() => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/;
 
     const timeout = setTimeout(() => {
       if (!password) {
@@ -65,7 +66,7 @@ export default function LoginScreen() {
   }, [password]);
 
   return (
-    <div className="page page--gray page--login">
+    <>
       <Helmet>
         <title>Authorization</title>
       </Helmet>
@@ -101,7 +102,7 @@ export default function LoginScreen() {
                   name="password"
                   placeholder="Password"
                   required
-                  minLength={8}
+                  minLength={2}
                   pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$"
                   title="Пароль должен содержать хотя бы одну латинскую букву и одну цифру"
                   onChange={(evt) => setPassword(evt.target.value)}
@@ -137,6 +138,6 @@ export default function LoginScreen() {
           </section>
         </div>
       </main>
-    </div>
+    </>
   );
 }

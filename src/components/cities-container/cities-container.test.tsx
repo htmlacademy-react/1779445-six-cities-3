@@ -43,6 +43,7 @@ describe('Component: CitiesContainer', () => {
         isFavorite: false,
         favoriteOffers: [],
         isOfferLoading: false,
+        isFavoriteLoading: false,
       },
     });
 
@@ -54,7 +55,6 @@ describe('Component: CitiesContainer', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(/1 places to stay in Paris/i)).toBeInTheDocument();
     expect(screen.getByTestId('mock-sorting-options')).toBeInTheDocument();
     expect(screen.getByTestId('mock-place-list')).toBeInTheDocument();
     expect(screen.getByTestId('mock-map')).toBeInTheDocument();

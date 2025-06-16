@@ -1,6 +1,7 @@
 import cn from 'classnames';
 import { memo, MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteAction } from '../../store/slices/data-slice/data-api-actions.ts';
 import { updateOffers } from '../../store/slices/data-slice/data-slice.ts';
@@ -18,6 +19,7 @@ type PlaceCardProps = {
 function PlaceCard({ offer, isFavoritePageOffer, isOffersPage, onPlaceItemHover }: PlaceCardProps) {
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(getCurrentAuthStatus);
+  const navigate = useNavigate();
   const createHoverHandler = (isEnter: boolean) => (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     onPlaceItemHover?.(isEnter ? offer.id : null);
@@ -25,6 +27,11 @@ function PlaceCard({ offer, isFavoritePageOffer, isOffersPage, onPlaceItemHover 
 
   const favoriteClickHandler = async (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
+
+    if (authStatus === (AuthorizationStatus.NoAuth as string)) {
+      navigate(AppRoute.Login);
+    }
+
     const newStatus = !offer.isFavorite;
     dispatch(updateOffers({ ...offer, isFavorite: newStatus }));
     try {
@@ -81,7 +88,7 @@ function PlaceCard({ offer, isFavoritePageOffer, isOffersPage, onPlaceItemHover 
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button
-            className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button ${authStatus === 'NO_AUTH' ? 'place-card__bookmark-button-disabled' : ''}`}
+            className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
             onClick={(evt) => favoriteClickHandler(evt)}
           >

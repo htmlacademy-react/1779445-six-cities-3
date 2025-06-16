@@ -15,7 +15,7 @@ export default function NonFoundScreen({ offerError }: NonFoundScreenProps): JSX
         <h1 style={{ fontSize: 50, marginBottom: '50px' }}>
           4 {String.fromCodePoint(0x1f622)} 4. <br />
         </h1>
-        <p style={{ fontSize: 20 }}>Something went wrong.</p>
+        <p style={{ fontSize: 20 }}>Something went wrong. 404</p>
         <p style={{ fontSize: 20 }}>Status code: {offerError ?? 'Unknown error'}</p>
         <Link to="/" style={{ fontSize: 30, color: '#4481c3' }}>
           Go to main page

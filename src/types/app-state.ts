@@ -17,6 +17,7 @@ type AppState = {
   favoriteOffers: OfferType[];
   userEmail: string | null;
   isOfferLoading: boolean;
+  isFavoriteLoading: boolean;
 };
 
 export default AppState;

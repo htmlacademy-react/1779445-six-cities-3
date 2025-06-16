@@ -1,12 +1,12 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import CommentsList from '../../components/comments-list';
 import Map from '../../components/map';
 import NewCommentForm from '../../components/new-comment-form';
 import OffersListNearby from '../../components/offers-list-nearby';
 import getStarsRating from '../../components/place-card/utils.ts';
-import { AuthorizationStatus } from '../../const.ts';
+import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import {
   fetchFavoriteAction,
@@ -30,6 +30,7 @@ export default function OffersScreen() {
   const dispatch = useAppDispatch();
   const comments = useAppSelector(getComments);
   const nearby = useAppSelector(getNearby);
+  const navigate = useNavigate();
   const authStatus = useAppSelector(getCurrentAuthStatus);
   const isAuthorized = useAppSelector(getCurrentAuthStatus);
   const currentOffer = useAppSelector(getOffer);
@@ -60,6 +61,10 @@ export default function OffersScreen() {
   }
   const favoriteClickHandler = async (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
+
+    if (authStatus === (AuthorizationStatus.NoAuth as string)) {
+      navigate(AppRoute.Login);
+    }
     const newStatus = !currentOffer.isFavorite;
     dispatch(updateOffer({ ...currentOffer, isFavorite: newStatus }));
     dispatch(updateOffers({ ...currentOffer, isFavorite: newStatus }));
@@ -75,7 +80,6 @@ export default function OffersScreen() {
       dispatch(updateOffers({ ...currentOffer, isFavorite: !newStatus }));
     }
   };
-
   return (
     <div className="page">
       <Helmet>
@@ -86,7 +90,7 @@ export default function OffersScreen() {
         <section className="offer">
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {currentOffer.images.map((image: string) => (
+              {currentOffer.images.slice(0, 6).map((image: string) => (
                 <div key={image} className="offer__image-wrapper">
                   <img className="offer__image" src={image} alt="Photo studio" />
                 </div>
@@ -103,7 +107,7 @@ export default function OffersScreen() {
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{currentOffer.title}</h1>
                 <button
-                  className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''} button ${authStatus === 'NO_AUTH' ? 'place-card__bookmark-button-disabled' : ''}`}
+                  className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''} button`}
                   type="button"
                   onClick={(evt) => favoriteClickHandler(evt)}
                 >
@@ -148,7 +152,9 @@ export default function OffersScreen() {
               <div className="offer__host">
                 <h2 className="offer__host-title">Meet the host</h2>
                 <div className="offer__host-user user">
-                  <div className="offer__avatar-wrapper offer__avatar-wrapper--pro user__avatar-wrapper">
+                  <div
+                    className={`offer__avatar-wrapper user__avatar-wrapper ${currentOffer.host.isPro ? 'offer__avatar-wrapper--pro' : ''}`}
+                  >
                     <img
                       className="offer__avatar user__avatar"
                       src={currentOffer.host.avatarUrl}
@@ -161,15 +167,7 @@ export default function OffersScreen() {
                   {currentOffer.host.isPro ? <span className="offer__user-status"> Pro </span> : ''}
                 </div>
                 <div className="offer__description">
-                  <p className="offer__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness
-                    of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="offer__text">
-                    An independent House, strategically located between Rembrand Square and National
-                    Opera, but where the bustle of the city comes to rest in this alley flowery and
-                    colorful.
-                  </p>
+                  <p className="offer__text">{currentOffer.description}</p>
                 </div>
               </div>
               <section className="offer__reviews reviews">
