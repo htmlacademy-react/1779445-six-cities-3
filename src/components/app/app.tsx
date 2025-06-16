@@ -15,14 +15,23 @@ import PrivateRoute from '../private-route';
 import PublicRoute from '../public-route';
 import ScrollToTop from '../scroll-to-top';
 
-import { useAppSelector } from '../../hooks';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { fetchFavoriteOffersAction } from '../../store/slices/data-slice/data-api-actions.ts';
 import { getLoadingStatus, getOffersError } from '../../store/slices/data-slice/data-selectors.ts';
 import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
 
 function App(): JSX.Element {
+  const dispatch = useAppDispatch();
   const authorizationStatus = useAppSelector(getCurrentAuthStatus);
   const isOffersDataLoading = useAppSelector(getLoadingStatus);
   const hasError = useAppSelector(getOffersError);
+
+  useEffect(() => {
+    if (authorizationStatus === String(AuthorizationStatus.Auth)) {
+      dispatch(fetchFavoriteOffersAction());
+    }
+  }, [authorizationStatus, dispatch]);
 
   if (authorizationStatus === String(AuthorizationStatus.Unknown) || isOffersDataLoading) {
     return <LoadingScreen />;

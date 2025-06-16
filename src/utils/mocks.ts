@@ -27,6 +27,7 @@ export const getMockDataSlice = (overrides?: Partial<DataState>): DataState => (
   isFavorite: false,
   favoriteOffers: [],
   isOfferLoading: false,
+  isFavoriteLoading: false,
   ...overrides,
 });
 

@@ -1803,7 +1803,3 @@ img {
 .email-error {
   border: 2px solid red;
 }
-
-.place-card__bookmark-button-disabled {
-  cursor: default;
-}

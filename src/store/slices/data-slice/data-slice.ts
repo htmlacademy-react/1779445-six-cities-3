@@ -28,6 +28,7 @@ const initialState: DataState = {
   isFavorite: false,
   favoriteOffers: [],
   isOfferLoading: false,
+  isFavoriteLoading: false,
 };
 
 const dataSlice = createSlice({
@@ -95,9 +96,15 @@ const dataSlice = createSlice({
       .addCase(fetchFavoriteAction.fulfilled, (state, action) => {
         state.isFavorite = action.payload;
       })
-
+      .addCase(fetchFavoriteOffersAction.pending, (state) => {
+        state.isFavoriteLoading = true;
+      })
       .addCase(fetchFavoriteOffersAction.fulfilled, (state, action) => {
         state.favoriteOffers = action.payload;
+        state.isFavoriteLoading = false;
+      })
+      .addCase(fetchFavoriteOffersAction.rejected, (state) => {
+        state.isFavoriteLoading = false;
       });
   },
 });

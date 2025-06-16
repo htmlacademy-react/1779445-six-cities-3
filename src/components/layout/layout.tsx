@@ -59,7 +59,7 @@ export default function Layout() {
                           <span className="header__favorite-count">{offers.length}</span>
                         </Fragment>
                       ) : (
-                        <span className="header__signout">Sign in</span>
+                        <span className="header__login">Sign in</span>
                       )}
                     </Link>
                   </li>
