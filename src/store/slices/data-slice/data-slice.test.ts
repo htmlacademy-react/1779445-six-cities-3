@@ -22,6 +22,7 @@ const createInitialState = (): DataState => ({
   isFavorite: false,
   favoriteOffers: [],
   isOfferLoading: false,
+  isFavoriteLoading: false,
 });
 
 describe('Data slice reducer', () => {
