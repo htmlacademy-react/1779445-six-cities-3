@@ -25,9 +25,7 @@ function CitiesContainer() {
     setSelectedPlace(listItemName);
   };
 
-  const pluralize = (count: number) => {
-    return count === 1 ? 'place' : 'places';
-  };
+  const pluralize = (count: number) => (count === 1 ? 'place' : 'places');
 
   return (
     <>
