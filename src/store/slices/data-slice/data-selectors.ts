@@ -9,3 +9,4 @@ export const getFavoriteOffers = (state: State) => state[NameSpace.Data].favorit
 export const getLoadingStatus = (state: State) => state[NameSpace.Data].isOffersDataLoading;
 export const getOffersError = (state: State) => state[NameSpace.Data].fetchOffersError;
 export const getOfferLoading = (state: State) => state[NameSpace.Data].isOfferLoading;
+export const getFavoriteLoading = (state: State) => state[NameSpace.Data].isFavoriteLoading;

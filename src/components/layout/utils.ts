@@ -10,7 +10,7 @@ const getLayoutState = (pathname: AppRoute) => {
     rootClassName = 'page--gray page--main';
     linkClassName = 'header__logo-link--active';
   } else if (pathname === AppRoute.Login) {
-    rootClassName = 'page--gray page--main';
+    rootClassName = 'page--gray page--login';
     shouldRenderLoggedUser = false;
   } else if (pathname === AppRoute.Favorites) {
     shouldRenderFooter = true;

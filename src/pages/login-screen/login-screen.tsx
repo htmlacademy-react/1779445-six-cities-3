@@ -7,9 +7,16 @@ import { getCurrentCity } from '../../store/slices/offers-slice/offers-selectors
 import { setCity } from '../../store/slices/offers-slice/offers-slice.ts';
 import { loginAction } from '../../store/slices/user-slice/user-api-actions.ts';
 
+function getRandomCity(): CityName {
+  const cities = Object.values(CityName);
+  const randomIndex = Math.floor(Math.random() * cities.length);
+  return cities[randomIndex];
+}
+
 export default function LoginScreen() {
-  const city = useAppSelector(getCurrentCity);
   const dispatch = useAppDispatch();
+
+  const city = useAppSelector(getCurrentCity);
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -17,8 +24,14 @@ export default function LoginScreen() {
   const [isEmailError, setIsEmailError] = useState(false);
   const [isPasswordError, setIsPasswordError] = useState(false);
 
+  useEffect(() => {
+    const randomCity = getRandomCity();
+    dispatch(setCity(randomCity));
+  }, [dispatch]);
+
   const handleSubmit = (evt: React.FormEvent) => {
     evt.preventDefault();
+
     dispatch(
       loginAction({
         login: email,
@@ -50,7 +63,7 @@ export default function LoginScreen() {
   }, [email]);
 
   useEffect(() => {
-    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$/;
+    const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/;
 
     const timeout = setTimeout(() => {
       if (!password) {
@@ -65,7 +78,7 @@ export default function LoginScreen() {
   }, [password]);
 
   return (
-    <div className="page page--gray page--login">
+    <>
       <Helmet>
         <title>Authorization</title>
       </Helmet>
@@ -85,12 +98,10 @@ export default function LoginScreen() {
                   required
                   onChange={(evt) => setEmail(evt.target.value)}
                 />
-                {isEmailError ? (
+                {isEmailError && (
                   <p className="input__error-message">
                     Неверный формат email. Пример: user@example.com
                   </p>
-                ) : (
-                  ''
                 )}
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -101,19 +112,17 @@ export default function LoginScreen() {
                   name="password"
                   placeholder="Password"
                   required
-                  minLength={8}
+                  minLength={2}
                   pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$"
                   title="Пароль должен содержать хотя бы одну латинскую букву и одну цифру"
                   onChange={(evt) => setPassword(evt.target.value)}
                   autoComplete="username"
                 />
-                {isPasswordError ? (
+                {isPasswordError && (
                   <p className="input__error-message">
                     Пароль должен содержать минимум 6 символов, включая хотя бы одну латинскую букву
                     и одну цифру.
                   </p>
-                ) : (
-                  ''
                 )}
               </div>
               <button
@@ -137,6 +146,6 @@ export default function LoginScreen() {
           </section>
         </div>
       </main>
-    </div>
+    </>
   );
 }

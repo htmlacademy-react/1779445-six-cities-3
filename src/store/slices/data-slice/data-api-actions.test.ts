@@ -72,7 +72,7 @@ describe('Data api actions', () => {
     const actions = extractActionsTypes(store.getActions());
 
     expect(actions).toEqual([fetchOfferIDAction.pending.type, fetchOfferIDAction.rejected.type]);
-    expect(result.payload).toEqual('Unknown error');
+    expect(result.payload).toBe(400);
   });
 
   //fetchOfferIDCommentsAction

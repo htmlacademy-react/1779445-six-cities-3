@@ -6,8 +6,12 @@ import PlaceCard from '../../components/place-card';
 import { AppRoute, CityName } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/slices/data-slice/data-api-actions.ts';
-import { getFavoriteOffers } from '../../store/slices/data-slice/data-selectors.ts';
+import {
+  getFavoriteLoading,
+  getFavoriteOffers,
+} from '../../store/slices/data-slice/data-selectors.ts';
 import { setCity } from '../../store/slices/offers-slice/offers-slice.ts';
+import LoadingScreen from '../loading-screen/loading-screen.tsx';
 import { getFavoriteOffer, groupOffersByCity } from './utils.ts';
 
 export default function FavoritesScreen() {
@@ -16,12 +20,17 @@ export default function FavoritesScreen() {
   const isFavoritePageOffer = true;
   const groupedOffers = groupOffersByCity(getFavoriteOffer(offers));
   const cities = Object.keys(groupedOffers);
+  const isFavoritesLoading = useAppSelector(getFavoriteLoading);
 
   useEffect(() => {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
 
-  const checkedSity = (evt: React.MouseEvent<HTMLAnchorElement>) => {
+  if (isFavoritesLoading) {
+    return <LoadingScreen />;
+  }
+
+  const checkedCity = (evt: React.MouseEvent<HTMLAnchorElement>) => {
     const city = (evt.currentTarget.querySelector('span') as HTMLSpanElement)?.textContent;
     if (city) {
       dispatch(setCity(city as CityName));
@@ -49,7 +58,7 @@ export default function FavoritesScreen() {
                         <Link
                           className="locations__item-link"
                           to={AppRoute.Root}
-                          onClick={(evt) => checkedSity(evt)}
+                          onClick={(evt) => checkedCity(evt)}
                         >
                           <span>{city}</span>
                         </Link>
