@@ -1,5 +1,6 @@
 import cn from 'classnames';
 import { FC, memo } from 'react';
+import { Link } from 'react-router-dom';
 import { CityName } from '../../const';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getCurrentCity } from '../../store/slices/offers-slice/offers-selectors.ts';
@@ -14,14 +15,14 @@ const LocationsList: FC = () => {
       <ul className="locations__list tabs__list">
         {Object.values(CityName).map((value) => (
           <li className="locations__item" key={value} onClick={() => dispatch(setCity(value))}>
-            <a
+            <Link
               className={cn('locations__item-link tabs__item', {
                 'tabs__item--active': city === value,
               })}
-              href="#"
+              to="#"
             >
               <span>{value}</span>
-            </a>
+            </Link>
           </li>
         ))}
       </ul>
