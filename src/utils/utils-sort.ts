@@ -1,7 +1,8 @@
+import { CommentsType } from '../components/comment/comment-type.ts';
 import { OfferType } from '../components/place-card/place-card-offer-types.tsx';
 import { SortType } from '../const.ts';
 
-function getSortedOffers(offersElement: OfferType[], sortType: string): OfferType[] {
+export const getSortedOffers = (offersElement: OfferType[], sortType: string): OfferType[] => {
   const sortedOffers = [...offersElement];
   switch (sortType) {
     case SortType.TopRated:
@@ -15,5 +16,13 @@ function getSortedOffers(offersElement: OfferType[], sortType: string): OfferTyp
     default:
       return sortedOffers;
   }
-}
-export default getSortedOffers;
+};
+
+export const sortCommentsByDate = (comments: CommentsType[]): CommentsType[] => {
+  return [...comments]
+    .sort(
+      (thirstComment, secondComment) =>
+        new Date(secondComment.date).getTime() - new Date(thirstComment.date).getTime(),
+    )
+    .slice(0, 10);
+};

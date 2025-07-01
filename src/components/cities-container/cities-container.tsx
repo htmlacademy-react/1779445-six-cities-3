@@ -9,7 +9,7 @@ import {
   getCurrentCity,
   getCurrentSort,
 } from '../../store/slices/offers-slice/offers-selectors.ts';
-import getSortedOffers from '../../utils/utils-sort.ts';
+import { getSortedOffers } from '../../utils/utils-sort.ts';
 
 function CitiesContainer() {
   const city = useAppSelector(getCurrentCity);
