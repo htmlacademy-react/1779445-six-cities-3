@@ -1,20 +1,24 @@
-import Comment from '../comment';
+import React from 'react';
+import { sortCommentsByDate } from '../../utils/utils-sort.ts';
 import { CommentsType } from '../comment/comment-type.ts';
+import Comment from '../comment/comment.tsx';
 
 type OffersScreenProps = {
   comments: CommentsType[];
 };
 
-export default function CommentsList({ comments }: OffersScreenProps) {
-  const sortedComments = [...comments].sort(
-    (a, b) => new Date(b.date).getTime() - new Date(a.date).getTime(),
-  );
+function CommentsListComponent({ comments }: OffersScreenProps) {
+  const sortedComments = React.useMemo(() => sortCommentsByDate(comments), [comments]);
 
   return (
     <ul className="reviews__list">
-      {sortedComments.slice(0, 10).map((comment) => (
+      {sortedComments.map((comment) => (
         <Comment key={comment.id} comment={comment} />
       ))}
     </ul>
   );
 }
+
+const CommentsList = React.memo(CommentsListComponent);
+
+export default CommentsList;

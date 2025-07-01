@@ -20,12 +20,12 @@ function PlaceCard({ offer, isFavoritePageOffer, isOffersPage, onPlaceItemHover 
   const dispatch = useAppDispatch();
   const authStatus = useAppSelector(getCurrentAuthStatus);
   const navigate = useNavigate();
-  const createHoverHandler = (isEnter: boolean) => (evt: MouseEvent<HTMLLIElement>) => {
+  const handleCreateHover = (isEnter: boolean) => (evt: MouseEvent<HTMLLIElement>) => {
     evt.preventDefault();
     onPlaceItemHover?.(isEnter ? offer.id : null);
   };
 
-  const favoriteClickHandler = async (evt: MouseEvent<HTMLButtonElement>) => {
+  const handleFavoriteClick = async (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
     if (authStatus === (AuthorizationStatus.NoAuth as string)) {
@@ -53,9 +53,9 @@ function PlaceCard({ offer, isFavoritePageOffer, isOffersPage, onPlaceItemHover 
         ${isOffersPage ? 'near-places__card' : ''}
         ${!isFavoritePageOffer && !isOffersPage ? 'cities__card' : ''}
       `}
-      onMouseEnter={createHoverHandler(true)}
+      onMouseEnter={handleCreateHover(true)}
       id={offer.id}
-      onMouseLeave={createHoverHandler(false)}
+      onMouseLeave={handleCreateHover(false)}
     >
       {offer.isPremium ? (
         <div className="place-card__mark">
@@ -90,7 +90,7 @@ function PlaceCard({ offer, isFavoritePageOffer, isOffersPage, onPlaceItemHover 
           <button
             className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`}
             type="button"
-            onClick={(evt) => favoriteClickHandler(evt)}
+            onClick={(evt) => handleFavoriteClick(evt)}
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>

@@ -8,6 +8,8 @@ import {
 import './new-comment-form.css';
 import { generateRatingStars, validateForm } from './utils.tsx';
 
+const MIN_LENGTH = 50;
+
 export default function NewCommentForm() {
   const [userComment, setUserComment] = useState('');
   const [userRating, setUserRating] = useState(0);
@@ -77,7 +79,7 @@ export default function NewCommentForm() {
         placeholder="Tell how was your stay, what you like and what can be improved"
         value={userComment}
         onChange={handleTextChange}
-        minLength={50}
+        minLength={MIN_LENGTH}
         disabled={isSubmitting}
       />
       {errorMessage && (
@@ -89,7 +91,8 @@ export default function NewCommentForm() {
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
           To submit review please make sure to set <span className="reviews__star">rating</span> and
-          describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
+          describe your stay with at least{' '}
+          <b className="reviews__text-amount">{MIN_LENGTH} characters</b>.
         </p>
         <button
           className="reviews__submit form__submit button"

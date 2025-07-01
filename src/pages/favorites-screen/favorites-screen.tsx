@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
-import FavoritesEmpty from '../../components/favorites-empty';
-import PlaceCard from '../../components/place-card';
+import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
+import PlaceCard from '../../components/place-card/place-card.tsx';
 import { AppRoute, CityName } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchFavoriteOffersAction } from '../../store/slices/data-slice/data-api-actions.ts';

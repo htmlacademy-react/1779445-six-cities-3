@@ -2,7 +2,7 @@ import cn from 'classnames';
 import { Helmet } from 'react-helmet-async';
 import CitiesContainer from '../../components/cities-container/cities-container.tsx';
 import EmptyListOffers from '../../components/empty-list-offers/empty-list-offers.tsx';
-import LocationsList from '../../components/locations-list';
+import LocationsList from '../../components/locations-list/locations-list.tsx';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/slices/data-slice/data-selectors.ts';
 import { getCurrentCity } from '../../store/slices/offers-slice/offers-selectors.ts';

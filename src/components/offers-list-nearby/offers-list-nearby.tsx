@@ -1,5 +1,5 @@
-import PlaceCard from '../place-card';
 import { MockOffersTypes, OfferType } from '../place-card/place-card-offer-types.tsx';
+import PlaceCard from '../place-card/place-card.tsx';
 
 type OfferNearbyProps = {
   filteredOffers: MockOffersTypes;

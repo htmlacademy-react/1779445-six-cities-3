@@ -1,15 +1,15 @@
-import Map from '../map';
-import PlaceCardList from '../place-card-list';
-import SortingOptions from '../sorting-options';
+import Map from '../map/map.tsx';
+import PlaceCardList from '../place-card-list/place-card-list.tsx';
+import SortingOptions from '../sorting-options/sorting-options';
 
-import { memo, useState } from 'react';
+import { memo, useCallback, useState } from 'react';
 import { useAppSelector } from '../../hooks';
 import { getOffers } from '../../store/slices/data-slice/data-selectors.ts';
 import {
   getCurrentCity,
   getCurrentSort,
 } from '../../store/slices/offers-slice/offers-selectors.ts';
-import getSortedOffers from '../../utils/utils-sort.ts';
+import { getSortedOffers } from '../../utils/utils-sort.ts';
 
 function CitiesContainer() {
   const city = useAppSelector(getCurrentCity);
@@ -21,9 +21,9 @@ function CitiesContainer() {
   const filteredOffers = offers.filter((offer) => offer.city.name === String(city));
   const sortedOffers = getSortedOffers(filteredOffers, sortType);
 
-  const handlePlaceItemHover = (listItemName: string | null) => {
+  const handlePlaceItemHover = useCallback((listItemName: string | null) => {
     setSelectedPlace(listItemName);
-  };
+  }, []);
 
   const pluralize = (count: number) => (count === 1 ? 'place' : 'places');
 

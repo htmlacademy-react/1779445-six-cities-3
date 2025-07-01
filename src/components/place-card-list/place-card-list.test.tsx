@@ -24,13 +24,13 @@ describe('Component: PlaceCardList', () => {
   });
 
   it('should call onPlaceItemHover on hover', () => {
-    const hoverHandler = vi.fn();
+    const handleHover = vi.fn();
 
-    render(<MemoizedPlaceCardList offers={[mockOffer]} onPlaceItemHover={hoverHandler} />);
+    render(<MemoizedPlaceCardList offers={[mockOffer]} onPlaceItemHover={handleHover} />);
 
     const placeCard = screen.getByText(mockOffer.title);
     fireEvent.mouseEnter(placeCard);
 
-    expect(hoverHandler).toHaveBeenCalledWith(mockOffer.id);
+    expect(handleHover).toHaveBeenCalledWith(mockOffer.id);
   });
 });
