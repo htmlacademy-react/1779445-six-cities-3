@@ -2,18 +2,18 @@ import { HelmetProvider } from 'react-helmet-async';
 import { Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 
-import ErrorScreen from '../../pages/error-screen';
-import FavoritesScreen from '../../pages/favorites-screen';
-import LoadingScreen from '../../pages/loading-screen';
-import LoginScreen from '../../pages/login-screen';
-import MainScreen from '../../pages/main-screen';
-import NonFoundScreen from '../../pages/non-found-screen';
-import OffersScreen from '../../pages/offer-screen';
+import ErrorScreen from '../../pages/error-screen/error-screen.tsx';
+import FavoritesScreen from '../../pages/favorites-screen/favorites-screen.tsx';
+import LoadingScreen from '../../pages/loading-screen/loading-screen.tsx';
+import LoginScreen from '../../pages/login-screen/login-screen.tsx';
+import MainScreen from '../../pages/main-screen/main-screen.tsx';
+import NonFoundScreen from '../../pages/non-found-screen/non-found-screen.tsx';
+import OffersScreen from '../../pages/offer-screen/offers-screen.tsx';
 
-import Layout from '../layout';
-import PrivateRoute from '../private-route';
-import PublicRoute from '../public-route';
-import ScrollToTop from '../scroll-to-top';
+import Layout from '../layout/layout.tsx';
+import PrivateRoute from '../private-route/private-route.tsx';
+import PublicRoute from '../public-route/public-route.tsx';
+import ScrollToTop from '../scroll-to-top/scroll-to-top';
 
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';

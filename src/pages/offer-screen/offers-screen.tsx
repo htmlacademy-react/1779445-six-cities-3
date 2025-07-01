@@ -1,10 +1,10 @@
 import { MouseEvent, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { useNavigate, useParams } from 'react-router-dom';
-import CommentsList from '../../components/comments-list';
-import Map from '../../components/map';
-import NewCommentForm from '../../components/new-comment-form';
-import OffersListNearby from '../../components/offers-list-nearby';
+import CommentsList from '../../components/comments-list/comments-list.tsx';
+import Map from '../../components/map/map.tsx';
+import NewCommentForm from '../../components/new-comment-form/new-comment-form.tsx';
+import OffersListNearby from '../../components/offers-list-nearby/offers-list-nearby.tsx';
 import getStarsRating from '../../components/place-card/utils.ts';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import { useAppDispatch, useAppSelector } from '../../hooks';
@@ -22,8 +22,8 @@ import {
 } from '../../store/slices/data-slice/data-selectors.ts';
 import { updateOffer, updateOffers } from '../../store/slices/data-slice/data-slice.ts';
 import { getCurrentAuthStatus } from '../../store/slices/user-slice/user-selectors.ts';
-import LoadingScreen from '../loading-screen';
-import NonFoundScreen from '../non-found-screen';
+import LoadingScreen from '../loading-screen/loading-screen.tsx';
+import NonFoundScreen from '../non-found-screen/non-found-screen.tsx';
 
 export default function OffersScreen() {
   const { id } = useParams();

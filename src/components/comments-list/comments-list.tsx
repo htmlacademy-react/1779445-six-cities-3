@@ -1,7 +1,7 @@
 import React from 'react';
 import { sortCommentsByDate } from '../../utils/utils-sort.ts';
-import Comment from '../comment';
 import { CommentsType } from '../comment/comment-type.ts';
+import Comment from '../comment/comment.tsx';
 
 type OffersScreenProps = {
   comments: CommentsType[];

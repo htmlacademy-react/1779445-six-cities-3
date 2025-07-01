@@ -1,6 +1,6 @@
-import Map from '../map';
-import PlaceCardList from '../place-card-list';
-import SortingOptions from '../sorting-options';
+import Map from '../map/map.tsx';
+import PlaceCardList from '../place-card-list/place-card-list.tsx';
+import SortingOptions from '../sorting-options/sorting-options';
 
 import { memo, useState } from 'react';
 import { useAppSelector } from '../../hooks';

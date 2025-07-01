@@ -2,6 +2,8 @@ import { CommentsType } from '../components/comment/comment-type.ts';
 import { OfferType } from '../components/place-card/place-card-offer-types.tsx';
 import { SortType } from '../const.ts';
 
+const MAX_COMMENTS = 10;
+
 export const getSortedOffers = (offersElement: OfferType[], sortType: string): OfferType[] => {
   const sortedOffers = [...offersElement];
   switch (sortType) {
@@ -24,5 +26,5 @@ export const sortCommentsByDate = (comments: CommentsType[]): CommentsType[] => 
       (thirstComment, secondComment) =>
         new Date(secondComment.date).getTime() - new Date(thirstComment.date).getTime(),
     )
-    .slice(0, 10);
+    .slice(0, MAX_COMMENTS);
 };
