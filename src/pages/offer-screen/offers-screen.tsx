@@ -59,7 +59,7 @@ export default function OffersScreen() {
   if (!currentOffer) {
     return <NonFoundScreen offerError={offerError} />;
   }
-  const favoriteClickHandler = async (evt: MouseEvent<HTMLButtonElement>) => {
+  const handleFavoriteClick = async (evt: MouseEvent<HTMLButtonElement>) => {
     evt.preventDefault();
 
     if (authStatus === (AuthorizationStatus.NoAuth as string)) {
@@ -109,7 +109,7 @@ export default function OffersScreen() {
                 <button
                   className={`offer__bookmark-button ${currentOffer.isFavorite ? 'offer__bookmark-button--active' : ''} button`}
                   type="button"
-                  onClick={(evt) => favoriteClickHandler(evt)}
+                  onClick={(evt) => handleFavoriteClick(evt)}
                 >
                   <svg className="offer__bookmark-icon" width="31" height="33">
                     <use xlinkHref="#icon-bookmark"></use>
