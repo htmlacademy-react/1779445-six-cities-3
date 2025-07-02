@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { OfferType } from '../../../components/place-card/place-card-offer-types.tsx';
 import { NameSpace } from '../../../const.ts';
 import AppState from '../../../types/app-state.ts';
+import { OfferType } from '../../../types/place-card-offer-types.ts';
 import {
   fetchFavoriteAction,
   fetchFavoriteOffersAction,

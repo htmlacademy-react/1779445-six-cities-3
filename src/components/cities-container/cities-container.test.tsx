@@ -2,8 +2,8 @@ import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { BrowserRouter } from 'react-router-dom';
 import { CityName, NameSpace, SortType } from '../../const.ts';
+import { OfferType } from '../../types/place-card-offer-types.ts';
 import { makeMockStore, mockOffer } from '../../utils/mocks.ts';
-import { OfferType } from '../place-card/place-card-offer-types.tsx';
 import CitiesContainer from './cities-container.tsx';
 
 vi.mock('../map/map', () => ({

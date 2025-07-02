@@ -1,6 +1,6 @@
 import { CommentsType } from '../components/comment/comment-type.ts';
-import { OfferType } from '../components/place-card/place-card-offer-types.tsx';
 import { SortType } from '../const.ts';
+import { OfferType } from '../types/place-card-offer-types.ts';
 
 const MAX_COMMENTS = 10;
 
