@@ -20,11 +20,10 @@ export const getSortedOffers = (offersElement: OfferType[], sortType: string): O
   }
 };
 
-export const sortCommentsByDate = (comments: CommentsType[]): CommentsType[] => {
-  return [...comments]
+export const sortCommentsByDate = (comments: CommentsType[]): CommentsType[] =>
+  [...comments]
     .sort(
       (thirstComment, secondComment) =>
         new Date(secondComment.date).getTime() - new Date(thirstComment.date).getTime(),
     )
     .slice(0, MAX_COMMENTS);
-};

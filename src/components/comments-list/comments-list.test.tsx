@@ -3,7 +3,7 @@ import { mockComment } from '../../utils/mocks.ts';
 import { CommentsType } from '../comment/comment-type.ts';
 import CommentsList from './comments-list.tsx';
 
-vi.mock('../comment', () => ({
+vi.mock('../comment/comment.tsx', () => ({
   default: ({ comment }: { comment: CommentsType }) => (
     <li data-testid="mock-comment">{comment.comment}</li>
   ),

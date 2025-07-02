@@ -5,30 +5,35 @@ import { AppRoute, AuthorizationStatus, NameSpace } from '../../const.ts';
 import { getMockDataSlice, makeMockStore } from '../../utils/mocks.ts';
 import App from './app.tsx';
 
-// Mock all route components
-vi.mock('../../pages/loading-screen', () => ({
+vi.mock('../../pages/loading-screen/loading-screen.tsx', () => ({
   default: () => <div>Mock Loading Screen</div>,
 }));
-vi.mock('../../pages/error-screen', () => ({
+
+vi.mock('../../pages/error-screen/error-screen.tsx', () => ({
   default: () => <div>Mock Error Screen</div>,
 }));
-vi.mock('../../pages/favorites-screen', () => ({
+
+vi.mock('../../pages/favorites-screen/favorites-screen.tsx', () => ({
   default: () => <div>Mock Favorites Screen</div>,
 }));
-vi.mock('../../pages/login-screen', () => ({
+
+vi.mock('../../pages/login-screen/login-screen.tsx', () => ({
   default: () => <div>Mock Login Screen</div>,
 }));
-vi.mock('../../pages/main-screen', () => ({
+
+vi.mock('../../pages/main-screen/main-screen.tsx', () => ({
   default: () => <div>Mock Main Screen</div>,
 }));
-vi.mock('../../pages/non-found-screen', () => ({
+
+vi.mock('../../pages/non-found-screen/non-found-screen.tsx', () => ({
   default: () => <div>Mock Not Found Screen</div>,
 }));
-vi.mock('../../pages/offer-screen', () => ({
+
+vi.mock('../../pages/offer-screen/offers-screen.tsx', () => ({
   default: () => <div>Mock Offer Screen</div>,
 }));
 
-vi.mock('../layout', () => ({
+vi.mock('../layout/layout.tsx', () => ({
   default: () => (
     <div>
       <div>Mock Layout</div>
@@ -36,7 +41,8 @@ vi.mock('../layout', () => ({
     </div>
   ),
 }));
-vi.mock('../scroll-to-top', () => ({
+
+vi.mock('../scroll-to-top/scroll-to-top', () => ({
   default: () => null,
 }));
 
@@ -82,7 +88,7 @@ describe('Component: app', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(/Mock Loading Screen/i)).toBeInTheDocument();
+    expect(screen.getByText('Mock Loading Screen')).toBeInTheDocument();
   });
 
   it('should render main screen when everything is ok', () => {
