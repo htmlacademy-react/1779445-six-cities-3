@@ -39,7 +39,6 @@ export default function LoginScreen() {
     );
   };
 
-  // Исправлен тип события
   const handleCityClick = (evt: MouseEvent<HTMLAnchorElement>) => {
     const cityElement = evt.currentTarget.querySelector('span');
     if (cityElement?.textContent) {
@@ -122,7 +121,7 @@ export default function LoginScreen() {
               <button
                 className={`login__submit form__submit button ${isEmailError || isPasswordError ? 'button-login__disabled' : ''}`}
                 type="submit"
-                disabled={isEmailError || isPasswordError} // Добавлено отключение кнопки
+                disabled={isEmailError || isPasswordError}
               >
                 Sign in
               </button>
