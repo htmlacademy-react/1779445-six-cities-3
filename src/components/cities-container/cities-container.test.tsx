@@ -6,11 +6,11 @@ import { makeMockStore, mockOffer } from '../../utils/mocks.ts';
 import { OfferType } from '../place-card/place-card-offer-types.tsx';
 import CitiesContainer from './cities-container.tsx';
 
-vi.mock('../map', () => ({
+vi.mock('../map/map', () => ({
   default: () => <div data-testid="mock-map" />,
 }));
 
-vi.mock('../place-card-list', () => ({
+vi.mock('../place-card-list/place-card-list', () => ({
   default: ({ offers }: { offers: OfferType[] }) => (
     <ul data-testid="mock-place-list">
       {offers.map((offer) => (
@@ -20,7 +20,7 @@ vi.mock('../place-card-list', () => ({
   ),
 }));
 
-vi.mock('../sorting-options', () => ({
+vi.mock('../sorting-options/sorting-options', () => ({
   default: () => <div data-testid="mock-sorting-options" />,
 }));
 

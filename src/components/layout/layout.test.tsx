@@ -3,7 +3,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter } from 'react-router-dom';
 import { NameSpace } from '../../const.ts';
 import { makeMockStore } from '../../utils/mocks.ts';
-import Layout from './index.ts';
+import Layout from './layout';
 
 vi.mock('./utils.ts', () => ({
   getLayoutState: vi.fn(() => ({

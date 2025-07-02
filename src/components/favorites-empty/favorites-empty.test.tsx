@@ -1,5 +1,5 @@
 import { render, screen } from '@testing-library/react';
-import FavoritesEmpty from './index.ts';
+import FavoritesEmpty from './favorites-empty';
 
 describe('Components: Favorites Empty', () => {
   it('Should render empty list', () => {

@@ -4,7 +4,7 @@ import { Provider } from 'react-redux';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import { AppRoute, AuthorizationStatus } from '../../const.ts';
 import UserSlice from '../../store/slices/user-slice/user-slice.ts';
-import PublicRoute from './index.ts';
+import PublicRoute from './public-route.tsx';
 
 describe('Component: PublicRoute', () => {
   const mockStoreNoAuth = configureStore({
