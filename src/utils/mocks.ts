@@ -1,10 +1,10 @@
 import { configureStore, ThunkDispatch } from '@reduxjs/toolkit';
 import { Action } from 'redux';
 import { CommentsType } from '../components/comment/comment-type.ts';
-import { OfferType, PropertyType } from '../components/place-card/place-card-offer-types.tsx';
 import { createAPI } from '../services/api.ts';
 import { rootReducers } from '../store/root-reducers.ts';
 import { DataState } from '../store/slices/data-slice/data-slice.ts';
+import { OfferType, PropertyType } from '../types/place-card-offer-types.ts';
 import { State } from '../types/state.ts';
 
 export type AppThunkDispatch = ThunkDispatch<State, ReturnType<typeof createAPI>, Action>;

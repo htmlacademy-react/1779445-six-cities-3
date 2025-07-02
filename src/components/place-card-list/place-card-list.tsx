@@ -1,5 +1,5 @@
 import { memo } from 'react';
-import { MockOffersTypes } from '../place-card/place-card-offer-types.tsx';
+import { MockOffersTypes } from '../../types/place-card-offer-types.ts';
 import PlaceCard from '../place-card/place-card.tsx';
 
 type PlaceCardListProps = {

@@ -1,4 +1,4 @@
-import { MockOffersTypes } from '../../components/place-card/place-card-offer-types.tsx';
+import { MockOffersTypes } from '../../types/place-card-offer-types.ts';
 
 // Функция для сортировки офферов по городам
 function groupOffersByCity(offers: MockOffersTypes) {
@@ -12,6 +12,4 @@ function groupOffersByCity(offers: MockOffersTypes) {
   }, {});
 }
 
-const getFavoriteOffer = (offers: MockOffersTypes) => offers.filter((offer) => offer.isFavorite);
-
-export { getFavoriteOffer, groupOffersByCity };
+export { groupOffersByCity };
