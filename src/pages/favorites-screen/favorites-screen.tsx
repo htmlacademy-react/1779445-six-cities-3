@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import { MouseEvent, useEffect } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import FavoritesEmpty from '../../components/favorites-empty/favorites-empty.tsx';
@@ -12,13 +12,14 @@ import {
 } from '../../store/slices/data-slice/data-selectors.ts';
 import { setCity } from '../../store/slices/offers-slice/offers-slice.ts';
 import LoadingScreen from '../loading-screen/loading-screen.tsx';
-import { getFavoriteOffer, groupOffersByCity } from './utils.ts';
+import { groupOffersByCity } from './utils';
 
 export default function FavoritesScreen() {
   const dispatch = useAppDispatch();
   const offers = useAppSelector(getFavoriteOffers);
   const isFavoritePageOffer = true;
-  const groupedOffers = groupOffersByCity(getFavoriteOffer(offers));
+
+  const groupedOffers = groupOffersByCity(offers);
   const cities = Object.keys(groupedOffers);
   const isFavoritesLoading = useAppSelector(getFavoriteLoading);
 
@@ -26,16 +27,16 @@ export default function FavoritesScreen() {
     dispatch(fetchFavoriteOffersAction());
   }, [dispatch]);
 
+  const handleCityClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    const cityElement = evt.currentTarget.querySelector('span');
+    if (cityElement?.textContent) {
+      dispatch(setCity(cityElement.textContent as CityName));
+    }
+  };
+
   if (isFavoritesLoading) {
     return <LoadingScreen />;
   }
-
-  const checkedCity = (evt: React.MouseEvent<HTMLAnchorElement>) => {
-    const city = (evt.currentTarget.querySelector('span') as HTMLSpanElement)?.textContent;
-    if (city) {
-      dispatch(setCity(city as CityName));
-    }
-  };
 
   return (
     <div className="page">
@@ -58,7 +59,7 @@ export default function FavoritesScreen() {
                         <Link
                           className="locations__item-link"
                           to={AppRoute.Root}
-                          onClick={(evt) => checkedCity(evt)}
+                          onClick={handleCityClick}
                         >
                           <span>{city}</span>
                         </Link>

@@ -32,7 +32,7 @@ export default function Layout() {
               <Link className={`header__logo-link ${linkClassName}`} to="/">
                 <img
                   className="header__logo"
-                  src="../../markup/img/logo.svg"
+                  src="/img/logo.svg"
                   alt="6 cities logo"
                   width="81"
                   height="41"
@@ -82,7 +82,7 @@ export default function Layout() {
           <Link className="footer__logo-link" to={AppRoute.Root}>
             <img
               className="footer__logo"
-              src="../../markup/img/logo.svg"
+              src="/img/logo.svg"
               alt="6 cities logo"
               width="64"
               height="33"

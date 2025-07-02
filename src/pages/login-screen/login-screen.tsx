@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { FormEvent, MouseEvent, useEffect, useState } from 'react';
 import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 import { AppRoute, CityName } from '../../const.ts';
@@ -15,7 +15,6 @@ function getRandomCity(): CityName {
 
 export default function LoginScreen() {
   const dispatch = useAppDispatch();
-
   const city = useAppSelector(getCurrentCity);
 
   const [email, setEmail] = useState('');
@@ -29,7 +28,7 @@ export default function LoginScreen() {
     dispatch(setCity(randomCity));
   }, [dispatch]);
 
-  const handleSubmit = (evt: React.FormEvent) => {
+  const handleSubmit = (evt: FormEvent) => {
     evt.preventDefault();
 
     dispatch(
@@ -40,40 +39,35 @@ export default function LoginScreen() {
     );
   };
 
-  const checkedCity = (evt: React.MouseEvent<HTMLAnchorElement>) => {
-    const cityLink = (evt.currentTarget.querySelector('span') as HTMLSpanElement)?.textContent;
-    if (cityLink) {
-      dispatch(setCity(cityLink as CityName));
+  // Исправлен тип события
+  const handleCityClick = (evt: MouseEvent<HTMLAnchorElement>) => {
+    const cityElement = evt.currentTarget.querySelector('span');
+    if (cityElement?.textContent) {
+      dispatch(setCity(cityElement.textContent as CityName));
     }
   };
 
   useEffect(() => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     const timeout = setTimeout(() => {
       if (!email) {
         setIsEmailError(false);
         return;
       }
-
       setIsEmailError(!emailRegex.test(email));
     }, 300);
-
     return () => clearTimeout(timeout);
   }, [email]);
 
   useEffect(() => {
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{2,}$/;
-
     const timeout = setTimeout(() => {
       if (!password) {
         setIsPasswordError(false);
         return;
       }
-
       setIsPasswordError(!passwordRegex.test(password));
     }, 500);
-
     return () => clearTimeout(timeout);
   }, [password]);
 
@@ -126,8 +120,9 @@ export default function LoginScreen() {
                 )}
               </div>
               <button
-                className={`login__submit form__submit button  ${isEmailError || isPasswordError ? 'button-login__disabled' : ''}`}
+                className={`login__submit form__submit button ${isEmailError || isPasswordError ? 'button-login__disabled' : ''}`}
                 type="submit"
+                disabled={isEmailError || isPasswordError} // Добавлено отключение кнопки
               >
                 Sign in
               </button>
@@ -138,7 +133,7 @@ export default function LoginScreen() {
               <Link
                 className="locations__item-link"
                 to={AppRoute.Root}
-                onClick={(evt) => checkedCity(evt)}
+                onClick={handleCityClick} // Использована исправленная функция
               >
                 <span>{city}</span>
               </Link>
